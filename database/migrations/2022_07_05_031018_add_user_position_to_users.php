@@ -14,7 +14,7 @@ class AddUserPositionToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('user_position')->nullable();
+            $table->integer('position_id')->nullable();
         });
     }
 

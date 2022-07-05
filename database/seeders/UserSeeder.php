@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                     'name'      => 'Awesome Admin',
                     'email'     => 'awesome@email.com',
                     'password'  => bcrypt('admin12345678'),
-                    'user_role' => $admin->id
+                    'role_id' => $admin->id
                 ]);
             }
         }
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
                     'name'      => 'Awsome Employee',
                     'email'     => 'employee@email.com',
                     'password'  => bcrypt('employee12345678'),
-                    'user_role' => $employee->id
+                    'role_id' => $employee->id
                 ]);
             }
 
