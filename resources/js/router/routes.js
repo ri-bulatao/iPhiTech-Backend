@@ -6,8 +6,23 @@ export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
 
   // Admin Pages
-  { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue') },
   { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
+  { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue'), 
+  children: [
+    {
+      path: 'announcements',
+      name: 'admin.announcements',
+      component: page('admin/announcement/AdminAnnouncement.vue'),
+      children: [
+        {
+          path: '/',
+          name: 'admin.announcements.list',
+          component: page('admin/announcement/List.vue')
+        }
+      ]
+    }
+  ] },
+  
 
   // User Pages
   { path: '/user', name: 'user.dashboard', component: page('users/dashboard.vue') },

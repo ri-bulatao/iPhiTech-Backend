@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserPositionsTable extends Migration
+class CreateAnnouncementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateUserPositionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->text('contents')->nullable();
+            $table->string('status')->default('Pending');
+            $table->string('receiver')->default('employees');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateUserPositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_positions');
+        Schema::dropIfExists('announcements');
     }
 }

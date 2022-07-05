@@ -44,7 +44,7 @@ class LoginController extends Controller
          */
         $role = Role::where('name', 'employee')->first();
 
-        if( $user->user_role !== $role->id )
+        if( $user->role_id !== $role->id )
         {
             return false;
         }
