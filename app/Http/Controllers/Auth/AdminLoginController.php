@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class LoginController extends Controller
+class AdminLoginController extends Controller
 {
     use AuthenticatesUsers;
 
@@ -42,7 +42,7 @@ class LoginController extends Controller
          * For checking if the user role is employee
          * Refactor this one
          */
-        $role = Role::where('name', 'employee')->first();
+        $role = Role::where('name', 'admin')->first();
 
         if( $user->user_role !== $role->id )
         {

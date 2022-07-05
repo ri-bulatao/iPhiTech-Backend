@@ -5,6 +5,13 @@ function page (path) {
 export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
 
+  // Admin Pages
+  { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue') },
+  { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
+
+  // User Pages
+  { path: '/user', name: 'user.dashboard', component: page('users/dashboard.vue') },
+
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },

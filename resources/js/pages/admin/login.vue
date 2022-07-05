@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-lg-7 m-auto">
-      <card :title="$t('login')">
+      <card :title="$t('Admin Login')">
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="mb-3 row">
@@ -79,7 +79,7 @@ export default {
   methods: {
     async login () {
       // Submit the form.
-      const { data } = await this.form.post('/api/login')
+      const { data } = await this.form.post('/api/admin/login')
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', {
@@ -101,7 +101,7 @@ export default {
         Cookies.remove('intended_url')
         this.$router.push({ path: intendedUrl })
       } else {
-        this.$router.push({ name: 'user.dashboard' })
+        this.$router.push({ name: 'admin.dashboard' })
       }
     }
   }
