@@ -24,29 +24,39 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('logout', [LoginController::class, 'logout']);
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::get('user', [UserController::class, 'current']);
+    Route::get('user', [UserController::class, 'current'])->name('user.profile');
 
-    Route::patch('settings/profile', [ProfileController::class, 'update']);
-    Route::patch('settings/password', [PasswordController::class, 'update']);
+    // Settings
+    Route::name('settings.')
+    ->prefix('settings')
+    ->group(function () {
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('update.profile');
+        Route::patch('/password', [PasswordController::class, 'update'])->name('update.password');
+    });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
-    
-    // Admin Login
-    Route::post('/admin/login', [AdminLoginController::class, 'login']);
+
+    // Admin
+    Route::name('admin.')
+    ->prefix('admin')
+    ->group(function () {
+        // Admin Login
+        Route::post('/login', [AdminLoginController::class, 'login'])->name('login');
+    });
 
     // User Authentication
-    Route::post('login', [LoginController::class, 'login']);
-    Route::post('register', [RegisterController::class, 'register']);
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::post('register', [RegisterController::class, 'register'])->name('register');
 
-    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-    Route::post('password/reset', [ResetPasswordController::class, 'reset']);
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email-reset');
+    Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
     Route::post('email/verify/{user}', [VerificationController::class, 'verify'])->name('verification.verify');
-    Route::post('email/resend', [VerificationController::class, 'resend']);
+    Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
-    Route::post('oauth/{driver}', [OAuthController::class, 'redirect']);
+    Route::post('oauth/{driver}', [OAuthController::class, 'redirect'])->name('oauth.redirect');
     Route::get('oauth/{driver}/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
 });
