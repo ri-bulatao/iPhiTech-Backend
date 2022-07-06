@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnums as Roles;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use ReflectionClass;
+
 
 class RoleSeeder extends Seeder
 {
@@ -17,26 +20,16 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        /**
-         * Generate Admin Role.
-         */
-        $admin = Role::where('name', 'admin')->first();
 
-        if (! $admin) {
-            DB::table('roles')->insert([
-                'name'      => 'admin',
-            ]);
-        }
+        # Get All Roles
+        $roleConstants = collect((new ReflectionClass(Roles::class))->getConstants());
 
-        /**
-         * Generate Employee Role.
-         */
-        $employee = Role::where('name', 'employee')->first();
+        # Create Roles
+        $roles = $roleConstants->map(function ($role) {
+            return Role::factory()->make(['name' => $role]);
+        });
 
-        if (! $employee) {
-            DB::table('roles')->insert([
-                'name'      => 'employee',
-            ]);
-        }
+        # Insert Roles
+        Role::insert($roles->toArray());
     }
 }

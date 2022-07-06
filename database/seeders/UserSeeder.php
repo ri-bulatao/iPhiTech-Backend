@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Enums\RoleEnums as Roles;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -18,41 +19,26 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
         /**
          * Generate Admin user.
          */
-        $admin = Role::where('name', 'admin')->first();
+        $admin = User::factory()->create([
+            'name'       => 'Awesome Admin',
+            'email'      => 'awesome@email.com',
+            'password'   =>  bcrypt('admin12345678')
+        ]);
 
-        if ($admin) {
-            $admin_user = User::where('email', 'awesome@email.com')->first();
-
-            if (! $admin_user) {
-                DB::table('users')->insert([
-                    'name'      => 'Awesome Admin',
-                    'email'     => 'awesome@email.com',
-                    'password'  => bcrypt('admin12345678'),
-                    'role_id' => $admin->id,
-                ]);
-            }
-        }
+        $admin->assignRole(Roles::ADMINISTRATOR);
 
         /**
          * Generate sample employee account.
          */
-        $employee = Role::where('name', 'employee')->first();
+        $employee = User::factory()->create([
+            'name'       => 'Awesome Employee',
+            'email'      => 'employee@email.com',
+            'password'   =>  bcrypt('employee12345678'),
+        ]);
 
-        if ($employee) {
-            $employee_user = User::where('email', 'employee@email.com')->first();
-
-            if (! $employee_user) {
-                DB::table('users')->insert([
-                    'name'      => 'Awsome Employee',
-                    'email'     => 'employee@email.com',
-                    'password'  => bcrypt('employee12345678'),
-                    'role_id' => $employee->id,
-                ]);
-            }
-        }
+        $employee->assignRole(Roles::EMPLOYEE);
     }
 }
