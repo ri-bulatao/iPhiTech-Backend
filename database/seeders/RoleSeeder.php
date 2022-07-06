@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Role;
@@ -16,26 +18,24 @@ class RoleSeeder extends Seeder
     public function run()
     {
         /**
-         * Generate Admin Role
+         * Generate Admin Role.
          */
         $admin = Role::where('name', 'admin')->first();
 
-        if( ! $admin )
-        {
+        if (! $admin) {
             DB::table('roles')->insert([
-                'name'      => 'admin'
+                'name'      => 'admin',
             ]);
         }
 
         /**
-         * Generate Employee Role
+         * Generate Employee Role.
          */
         $employee = Role::where('name', 'employee')->first();
-        
-        if( ! $employee )
-        {
+
+        if (! $employee) {
             DB::table('roles')->insert([
-                'name'      => 'employee'
+                'name'      => 'employee',
             ]);
         }
     }

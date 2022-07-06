@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\UserPosition;
@@ -16,42 +18,38 @@ class UserPositionSeeder extends Seeder
     public function run()
     {
         /**
-         * Generate User Positions
+         * Generate User Positions.
          */
 
-        # Admin
+        // Admin
         $admin = UserPosition::where('name', 'Admin')->first();
-        if( ! $admin )
-        {
+        if (! $admin) {
             DB::table('user_positions')->insert([
-                'name'      => 'Admin'
+                'name'      => 'Admin',
             ]);
         }
 
-        # Manager
+        // Manager
         $manager = UserPosition::where('name', 'Manager')->first();
-        if( ! $manager )
-        {
+        if (! $manager) {
             DB::table('user_positions')->insert([
-                'name'      => 'Manager'
+                'name'      => 'Manager',
             ]);
         }
 
-        # Project Lead
+        // Project Lead
         $lead = UserPosition::where('name', 'Project Lead')->first();
-        if( ! $lead )
-        {
+        if (! $lead) {
             DB::table('user_positions')->insert([
-                'name'      => 'Project Lead'
+                'name'      => 'Project Lead',
             ]);
         }
 
-        # Employee
+        // Employee
         $employee = UserPosition::where('name', 'Employee')->first();
-        if( ! $employee )
-        {
+        if (! $employee) {
             DB::table('user_positions')->insert([
-                'name'      => 'Employee'
+                'name'      => 'Employee',
             ]);
         }
     }

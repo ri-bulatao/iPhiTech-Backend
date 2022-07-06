@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |
@@ -48,15 +50,15 @@ return [
     */
 
     'send_logs_as_events' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Censor request body fields
     |--------------------------------------------------------------------------
     |
-    | These fields will be censored from your request when sent to Flare. 
+    | These fields will be censored from your request when sent to Flare.
     |
     */
-    
+
     'censor_request_body_fields' => ['password'],
 ];
