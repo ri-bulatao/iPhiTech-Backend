@@ -3,6 +3,11 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Auth\AdminLoginController;
+/**
+ * Custom Controllers
+ */
+use App\Http\Controllers\AnnouncementController;
+
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OAuthController;
@@ -61,4 +66,15 @@ Route::group(['middleware' => 'guest:api'], function () {
 
     Route::post('oauth/{driver}', [OAuthController::class, 'redirect'])->name('oauth.redirect');
     Route::get('oauth/{driver}/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
+});
+
+/**
+ * Announcement Modules
+ */ 
+Route::prefix('announcements')->group(function() {
+    Route::get('fetch', [AnnouncementController::class, 'index'])->name('announcement.list');
+    Route::get('/{id}', [AnnouncementController::class, 'get'])->name('announcement.single');
+    Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
+    Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
+    Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('announcement.delete');
 });
