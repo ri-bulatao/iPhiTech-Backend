@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
@@ -10,7 +12,6 @@ abstract class Page extends BasePage
     /**
      * Assert that the browser is on the page.
      *
-     * @param  Browser  $browser
      * @return void
      */
     public function assert(Browser $browser)

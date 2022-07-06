@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Role;
 use App\Exceptions\VerifyEmailException;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -40,12 +42,11 @@ class AdminLoginController extends Controller
 
         /**
          * For checking if the user role is employee
-         * Refactor this one
+         * Refactor this one.
          */
         $role = Role::where('name', 'admin')->first();
 
-        if( $user->role_id !== $role->id )
-        {
+        if ($user->role_id !== $role->id) {
             return false;
         }
 

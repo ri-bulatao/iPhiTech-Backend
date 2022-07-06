@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Pages;
 
 class Register extends Page
@@ -18,7 +20,6 @@ class Register extends Page
      * Submit the form with the given data.
      *
      * @param  \Laravel\Dusk\Browser $browser
-     * @param  array $data
      * @return void
      */
     public function submit($browser, array $data = [])
