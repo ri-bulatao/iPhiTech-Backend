@@ -2,22 +2,42 @@ function page (path) {
   return () => import(/* webpackChunkName: '' */ `~/pages/${path}`).then(m => m.default || m)
 }
 
+import * as routeNames from '~/config/route-names';
+
 export default [
-  { path: '/', name: 'welcome', component: page('welcome.vue') },
+  { path: '/', name: [routeNames.welcome], component: page('welcome.vue') },
 
   // Admin Pages
-  { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
-  { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue'), 
+  { path: '/admin/login', name: [routeNames.admin_login], component: page('admin/login.vue') },
+  { path: '/admin', name: [routeNames.admin_dashboard], component: page('admin/dashboard.vue'), 
   children: [
     {
-      path: 'announcements',
-      name: 'admin.announcements',
+      path: '',
+      redirect: 'announcement'
+    },
+    {
+      path: 'announcement',
+      name: [routeNames.admin_announcement],
       component: page('admin/announcement/AdminAnnouncement.vue'),
       children: [
         {
-          path: '/',
-          name: 'admin.announcements.list',
+          path: '',
+          redirect: 'list'
+        },
+        {
+          path: 'list',
+          name: [routeNames.announcement_list],
           component: page('admin/announcement/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: [routeNames.announcement_single],
+          component: page('admin/announcement/Single.vue')
+        },
+        {
+          path: 'create',
+          name: [routeNames.announcement_create],
+          component: page('admin/announcement/Create.vue')
         }
       ]
     }
