@@ -3,12 +3,15 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
+namespace App\Http\Controllers\Announcement;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Announcement;
+use App\Models\Announcement as AnnouncementModel;
 
 class AnnouncementController extends Controller
 {
+    
     /**
      * Fetching all the announcements
      */
@@ -26,11 +29,13 @@ class AnnouncementController extends Controller
      */
     public function get($id)
     {
-        $announcement = Announcement::find($id);
+        $announcement = AnnouncementModel::find($id);
 
         return response()->json([
-            'announcement'  => $announcement
+            'successful' => !empty($announcement),
+            'data' => [
+                'announcement'  => $announcement
+            ]
         ], 200);
     }
-
 }
