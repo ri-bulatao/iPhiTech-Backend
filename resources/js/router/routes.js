@@ -8,20 +8,33 @@ export default [
   // Admin Pages
   { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
   { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue'), 
-  children: [
-    {
-      path: 'announcements',
-      name: 'admin.announcements',
-      component: page('admin/announcement/AdminAnnouncement.vue'),
-      children: [
-        {
-          path: '/',
-          name: 'admin.announcements.list',
-          component: page('admin/announcement/List.vue')
-        }
-      ]
-    }
-  ] },
+    children: [
+      {
+        path: 'announcements',
+        name: 'admin.announcements',
+        component: page('admin/announcement/AdminAnnouncement.vue'),
+        children: [
+          {
+            path: '/',
+            name: 'admin.announcements.list',
+            component: page('admin/announcement/List.vue')
+          }
+        ]
+      },
+      {
+        path: 'positions',
+        name: 'admin.positions',
+        component: page('admin/position/AdminUserPosition.vue'),
+        children: [
+          {
+            path: '/',
+            name: 'admin.position.list',
+            component: page('admin/position/List.vue')
+          }
+        ]
+      }
+    ] 
+  },
   
 
   // User Pages
