@@ -20,6 +20,7 @@ $appCss = mix('dist/css/app.css');
 </head>
 <body>
   <div id="app"></div>
+  @routes
 
   <script>
     window.config = @json($config);

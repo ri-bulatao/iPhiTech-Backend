@@ -79,7 +79,7 @@ export default {
   methods: {
     async login () {
       // Submit the form.
-      const { data } = await this.form.post('/api/admin/login')
+      const { data } = await this.form.post(route('admin.login'))
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', {

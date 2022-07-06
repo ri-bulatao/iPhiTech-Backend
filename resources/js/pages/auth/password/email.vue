@@ -47,7 +47,7 @@ export default {
 
   methods: {
     async send () {
-      const { data } = await this.form.post('/api/password/email')
+      const { data } = await this.form.post(route('password.email-reset'))
 
       this.status = data.status
 
