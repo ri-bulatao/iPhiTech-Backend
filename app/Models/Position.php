@@ -11,6 +11,8 @@ class Position extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'position_id', 'id');

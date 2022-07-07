@@ -10,3 +10,10 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const SET_LOCALE = 'SET_LOCALE'
 
 // announcements.js
+
+// positions.js
+export const FETCH_POSITIONS = 'FETCH_POSITIONS'
+export const FETCH_POSITION_SUCCESS = 'FETCH_POSITION_SUCCESS'
+export const FETCH_POSITION_FAILURE = 'FETCH_POSITION_FAILURE'
+export const UPDATE_POSITION = 'UPDATE_POSITION'
+export const SAVE_POSITION = 'SAVE_POSITION'

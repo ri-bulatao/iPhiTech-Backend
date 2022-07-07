@@ -30,6 +30,16 @@ export default [
             path: '/',
             name: 'admin.position.list',
             component: page('admin/position/List.vue')
+          },
+          {
+            path: 'add',
+            name: 'admin.position.add',
+            component: page('admin/position/Add.vue')
+          },
+          {
+            path: 'view/:id',
+            name: 'admin.position.view',
+            component: page('admin/position/View.vue')
           }
         ]
       }

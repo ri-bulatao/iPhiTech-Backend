@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\User\PositionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('update.profile');
         Route::patch('/password', [PasswordController::class, 'update'])->name('update.password');
     });
+
+    Route::get('positions', [PositionController::class, 'index'])->name('user.positions');
+    Route::post('positions', [PositionController::class, 'store'])->name('user.add.position');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

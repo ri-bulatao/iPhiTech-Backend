@@ -29,6 +29,10 @@ export const mutations = {
 
   [types.UPDATE_POSITION] (state, { data }) {
     state.positions = data
+  },
+
+  [types.SAVE_POSITION] (state, { position }) {
+    state.position = position
   }
 }
 
@@ -37,10 +41,14 @@ export const actions = {
   async fetchPositions ({ commit }) {
     try {
       const { data } = await axios.get(route('user.positions'))
-
+      
       commit(types.FETCH_POSITIONS, { data })
     } catch (e) {
       commit(types.FETCH_POSITION_FAILURE)
     }
+  },
+
+  async savePosition ({ commit }, payload) {
+    commit(types.SAVE_POSITION, payload)
   },
 }

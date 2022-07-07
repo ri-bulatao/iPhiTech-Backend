@@ -12,9 +12,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>  
-                            <td>Manager</td>
+                        <tr v-for="(position, index) in positions" :key="position.id">
+                            <td>{{ index + 1 }}</td>  
+                            <td>{{ position.name }}</td>
                             <td>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>
                                 <a href="javascript:void(0)" class="btn btn-warning btn-sm">Edit</a>
@@ -27,3 +27,15 @@
         </div>
     </div>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+    name: 'admin-user-positions',
+
+    computed: mapGetters({
+        positions: 'positions/positions'
+    })
+}
+
+</script>

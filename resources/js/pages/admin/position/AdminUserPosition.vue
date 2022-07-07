@@ -4,7 +4,11 @@
         <div class="row">
             <div class="col-sm-12 col-lg-7 m-auto d-flex justify-content-between align-items-center">
                 <h1>Positions</h1>
-                <a href="javascript:void(0)" class="btn btn-success">Add Position</a>
+                <router-link :to="{ name: 'admin.position.add' }">
+                    <v-button type="primary">
+                        Add Position
+                    </v-button>
+                </router-link>
             </div>
         </div>
         
@@ -18,13 +22,12 @@
 </template>
 
 <script>
-
 export default {
-    name: 'admin-announcement',
+    name: 'admin-user-positions',
     
-    data: () => {
-        
-    }
+    created(){
+        this.$store.dispatch('positions/fetchPositions')
+    },
 }
 
 </script>

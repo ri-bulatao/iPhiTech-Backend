@@ -38,8 +38,8 @@ export const mutations = {
     Cookies.remove('token')
   },
 
-  [types.UPDATE_USER] (state, { user }) {
-    state.user = user
+  [types.UPDATE_USER] (state, { data }) {
+    state.user = data.data
   }
 }
 
@@ -53,7 +53,7 @@ export const actions = {
     try {
       const { data } = await axios.get(route('user.profile'))
 
-      commit(types.FETCH_USER_SUCCESS, { user: data })
+      commit(types.FETCH_USER_SUCCESS, { user: data.data })
     } catch (e) {
       commit(types.FETCH_USER_FAILURE)
     }
