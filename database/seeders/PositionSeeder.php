@@ -21,39 +21,35 @@ class PositionSeeder extends Seeder
          * Generate User Positions.
          */
 
-        # Admin
+        // Admin
         $admin = Position::where('name', 'Admin')->first();
-        if( ! $admin )
-        {
+        if (! $admin) {
             DB::table('positions')->insert([
-                'name'      => 'Admin'
+                'name'      => 'Admin',
             ]);
         }
 
-        # Manager
+        // Manager
         $manager = Position::where('name', 'Manager')->first();
-        if( ! $manager )
-        {
+        if (! $manager) {
             DB::table('positions')->insert([
-                'name'      => 'Manager'
+                'name'      => 'Manager',
             ]);
         }
 
-        # Project Lead
+        // Project Lead
         $lead = Position::where('name', 'Project Lead')->first();
-        if( ! $lead )
-        {
+        if (! $lead) {
             DB::table('positions')->insert([
-                'name'      => 'Project Lead'
+                'name'      => 'Project Lead',
             ]);
         }
 
-        # Employee
+        // Employee
         $employee = Position::where('name', 'Employee')->first();
-        if( ! $employee )
-        {
+        if (! $employee) {
             DB::table('positions')->insert([
-                'name'      => 'Employee'
+                'name'      => 'Employee',
             ]);
         }
     }

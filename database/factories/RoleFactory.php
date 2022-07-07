@@ -32,14 +32,14 @@ class RoleFactory extends Factory
     public function administrator()
     {
         return $this->state(function () {
-            return [ 'name' => Roles::ADMINISTRATOR ];
+            return ['name' => Roles::ADMINISTRATOR];
         });
     }
 
     public function employee()
     {
         return $this->state(function () {
-            return [ 'name' => Roles::EMPLOYEE ];
+            return ['name' => Roles::EMPLOYEE];
         });
     }
 }
