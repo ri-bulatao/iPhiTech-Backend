@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Announcement\AnnouncementController;
+/**
+ * Custom Controllers.
+ */
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -39,8 +43,24 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::patch('/password', [PasswordController::class, 'update'])->name('update.password');
     });
 
-    Route::get('positions', [PositionController::class, 'index'])->name('user.positions');
-    Route::post('positions', [PositionController::class, 'store'])->name('user.add.position');
+    /**
+     * Announcement Modules.
+     */
+    Route::prefix('announcements')->group(function () {
+        Route::get('fetch', [AnnouncementController::class, 'index'])->name('announcement.list');
+        Route::get('/{id}', [AnnouncementController::class, 'get'])->name('announcement.single');
+        Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
+        Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
+        Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('announcement.delete');
+    });
+
+    /**
+     * Positions Modules.
+     */
+    Route::prefix('positions')->group(function () {
+        Route::get('fetch', [PositionController::class, 'index'])->name('position.list');
+        Route::post('/', [PositionController::class, 'store'])->name('positions.store');
+    });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
