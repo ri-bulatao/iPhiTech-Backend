@@ -18,9 +18,10 @@ class CreateAnnouncementsTable extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('contents')->nullable();
+            $table->text('excerpt');
+            $table->binary('contents')->nullable();
             $table->string('status')->default('Pending');
-            $table->string('receiver')->default('employees');
+            $table->integer('receiver')->nullable();
             $table->timestamps();
         });
     }

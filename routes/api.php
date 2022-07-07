@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Announcement\AnnouncementController;
+/**
+ * Custom Controllers.
+ */
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -36,6 +40,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     ->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('update.profile');
         Route::patch('/password', [PasswordController::class, 'update'])->name('update.password');
+    });
+
+    /**
+     * Announcement Modules.
+     */
+    Route::prefix('announcements')->group(function () {
+        Route::get('fetch', [AnnouncementController::class, 'index'])->name('announcement.list');
+        Route::get('/{id}', [AnnouncementController::class, 'get'])->name('announcement.single');
+        Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
+        Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
+        Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('announcement.delete');
     });
 });
 
