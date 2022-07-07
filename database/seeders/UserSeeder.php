@@ -7,8 +7,6 @@ namespace Database\Seeders;
 use App\Enums\RoleEnums as Roles;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -25,7 +23,7 @@ class UserSeeder extends Seeder
         $admin = User::factory()->create([
             'name'       => 'Awesome Admin',
             'email'      => 'awesome@email.com',
-            'password'   =>  bcrypt('admin12345678')
+            'password'   =>  bcrypt('admin12345678'),
         ]);
 
         $admin->assignRole(Roles::ADMINISTRATOR);

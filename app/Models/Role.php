@@ -10,6 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $guard_name = 'api';
-    
+
     use HasFactory;
 }
