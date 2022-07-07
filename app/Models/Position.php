@@ -7,7 +7,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserPosition extends Model
+class Position extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'position_id', 'id');
+    }
 }

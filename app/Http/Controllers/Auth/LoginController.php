@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RoleEnums as Roles;
 use App\Exceptions\VerifyEmailException;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use App\Enums\RoleEnums as Roles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -46,7 +46,7 @@ class LoginController extends Controller
          * For checking if the user role is employee
          * Refactor this one.
          */
-        if (!$user->hasRole(Roles::EMPLOYEE)) {
+        if (! $user->hasRole(Roles::EMPLOYEE)) {
             return false;
         }
 
