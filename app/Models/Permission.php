@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Permission as BasePermission;
 
-class Role extends Model
+class Permission extends BasePermission
 {
     protected $guard_name = 'api';
-    
+
     use HasFactory;
 }
