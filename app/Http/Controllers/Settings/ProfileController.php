@@ -6,13 +6,35 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\JsonResponse;
+use App\Utilities\Result;
+
 
 class ProfileController extends Controller
 {
+    
+    /**
+     * @var Authenticatable
+     */
+    private $user;
+
+    /**
+     * @var Result
+     */
+    private $result;
+
+    public function __construct(
+        Result $result
+    ) {
+        $this->user = auth()->user();
+        $this->result = $result;
+    }
+
     /**
      * Update the user's profile information.
      */
-    public function update(Request $request)
+    public function update(Request $request): JsonResponse
     {
         $user = $request->user();
 
@@ -23,6 +45,6 @@ class ProfileController extends Controller
 
         $user->update($request->only('name', 'email'));
 
-        return response()->json($user);
+        return $this->result->success($user, __('user.update_successfully'));
     }
 }

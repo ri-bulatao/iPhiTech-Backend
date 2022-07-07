@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Auth;
 use App\Exceptions\VerifyEmailException;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Enums\RoleEnums as Roles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class LoginController extends Controller
         }
 
         $user = $this->guard()->user();
+
         if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
             return false;
         }
@@ -44,9 +46,7 @@ class LoginController extends Controller
          * For checking if the user role is employee
          * Refactor this one.
          */
-        $role = Role::where('name', 'employee')->first();
-
-        if ($user->role_id !== $role->id) {
+        if (!$user->hasRole(Roles::EMPLOYEE)) {
             return false;
         }
 

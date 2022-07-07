@@ -176,6 +176,7 @@ return [
          * Package Service Providers...
          */
         Tightenco\Ziggy\ZiggyServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
