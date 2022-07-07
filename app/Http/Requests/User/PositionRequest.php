@@ -26,15 +26,15 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:positions'
+            'name' => 'required|unique:positions',
         ];
     }
-    
+
     public function messages()
     {
         return [
             'name.required'    => 'Name is required',
-            'name.unique'      => 'Name already taken'
+            'name.unique'      => 'Name already taken',
         ];
     }
 }

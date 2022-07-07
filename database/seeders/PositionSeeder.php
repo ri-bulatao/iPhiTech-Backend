@@ -20,7 +20,6 @@ class PositionSeeder extends Seeder
         /**
          * Generate User Positions.
          */
-
         Position::factory()->count(10)->create();
 
         // // Admin

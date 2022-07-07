@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Position;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PositionFactory extends Factory
 {

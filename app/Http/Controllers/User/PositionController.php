@@ -7,9 +7,9 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Utilities\Result;
-use App\Models\Position as PositionModel;
 use App\Http\Requests\User\PositionRequest;
+use App\Models\Position as PositionModel;
+use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
 
 class PositionController extends Controller
@@ -29,7 +29,6 @@ class PositionController extends Controller
      */
     public function index(): JsonResponse
     {
-        
         $positions = PositionModel::all()->toArray();
 
         return $this->result->success(array_reverse($positions));
