@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 
 // state
@@ -39,16 +38,36 @@ export const mutations = {
 // actions
 export const actions = {
   async fetchPositions ({ commit }) {
+    
     try {
-      const { data } = await axios.get(route('user.positions'))
-      
-      commit(types.FETCH_POSITIONS, { data })
+      const { data } = await axios.get(route('position.list'))
+      commit(types.FETCH_POSITIONS, { data: data.data })
     } catch (e) {
       commit(types.FETCH_POSITION_FAILURE)
     }
   },
 
   async savePosition ({ commit }, payload) {
-    commit(types.SAVE_POSITION, payload)
+    return new Promise((resolve, reject) => {
+      axios.post(route('position.store', payload))
+        .then((response) => {
+          resolve(response);
+
+        }).catch((error)=>{
+          reject(error)
+        })
+    })
+  },
+
+  async removePosition ({ commit }, {id}) {
+    return new Promise((resolve, reject) => {
+      axios.delete(route('position.delete', id))
+        .then((response) => {
+          resolve(response);
+
+        }).catch((error)=>{
+          reject(error)
+        })
+    })
   },
 }

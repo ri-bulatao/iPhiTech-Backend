@@ -2,54 +2,79 @@
 
 declare(strict_types=1);
 
+namespace App\Http\Controllers;
+
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Position;
-use Illuminate\Http\Request;
+use App\Utilities\Result;
+use App\Models\Position as PositionModel;
+use App\Http\Requests\User\PositionRequest;
+use Illuminate\Http\JsonResponse;
 
 class PositionController extends Controller
 {
-    public function index()
-    {
-        $positions = Position::all()->toArray();
+    /**
+     * @var Result
+     */
+    private $result;
 
-        return array_reverse($positions);
+    public function __construct(
+        Result $result
+    ) {
+        $this->result = $result;
     }
-    public function store(Request $request)
+    /**
+     * For Fetching all positions.
+     */
+    public function index(): JsonResponse
     {
-        $position = new Position(['name' => $request->input('name')]);
+        
+        $positions = PositionModel::all()->toArray();
+
+        return $this->result->success(array_reverse($positions));
+    }
+
+    /**
+     * For Fetching single position.
+     */
+    public function get($id): JsonResponse
+    {
+        $announcement = PositionModel::find($id);
+
+        return $this->result->success($announcement);
+    }
+
+    /**
+     * For Storing new position.
+     */
+    public function store(PositionRequest $request): JsonResponse
+    {
+        $position = new PositionModel(['name' => $request->input('name')]);
         $position->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Position created!',
-        ]);
+        return $this->result->created($position, 'Position created!');
     }
-    public function show($id)
-    {
-        $position = Position::find($id);
 
-        return response()->json($position);
-    }
-    public function update($id, Request $request)
+    /**
+     * For Updating single position.
+     */
+    public function update($id, PositionRequest $request): JsonResponse
     {
-        $position = Position::find($id);
+        $position = PositionModel::find($id);
         $position->update($request->all());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Position updated!',
-        ]);
+        return $this->result->success($position, 'Position updated!');
     }
-    public function destroy($id)
+
+    /**
+     * For Removing single position.
+     */
+    public function destroy($id): JsonResponse
     {
-        $position = Position::find($id);
+        $position = PositionModel::find($id);
         $position->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Position deleted!',
-        ]);
+        return $this->result->success($position, 'Position deleted!');
     }
 }
