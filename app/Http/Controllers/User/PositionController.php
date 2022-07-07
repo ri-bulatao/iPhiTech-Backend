@@ -60,7 +60,6 @@ class PositionController extends Controller
      */
     public function update(PositionRequest $request, $id): JsonResponse
     {
-
         $position = PositionModel::find($id);
         $position->update($request->all());
 
