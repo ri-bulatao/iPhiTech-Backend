@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Auth\AdminLoginController;
-/**
- * Custom Controllers
- */
 use App\Http\Controllers\Announcement\AnnouncementController;
-
+/**
+ * Custom Controllers.
+ */
+use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OAuthController;
@@ -44,16 +43,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     /**
-     * Announcement Modules
-     */ 
-    Route::prefix('announcements')->group(function() {
+     * Announcement Modules.
+     */
+    Route::prefix('announcements')->group(function () {
         Route::get('fetch', [AnnouncementController::class, 'index'])->name('announcement.list');
         Route::get('/{id}', [AnnouncementController::class, 'get'])->name('announcement.single');
         Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
         Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
         Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('announcement.delete');
     });
-    
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

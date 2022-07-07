@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Announcement;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Announcement as AnnouncementModel;
-use App\Models\Role;
-use Auth;
 
 class AnnouncementRequest extends FormRequest
 {
@@ -30,7 +29,7 @@ class AnnouncementRequest extends FormRequest
             'title' => 'required|unique:announcements',
             'excerpt'   => 'required',
             'content'  => 'required|min:8',
-            'receiver'  => 'required'
+            'receiver'  => 'required',
         ];
     }
 
@@ -41,7 +40,7 @@ class AnnouncementRequest extends FormRequest
             'title.unique'      => 'Title already taken',
             'excerpt.required'  => 'Excerpt is required',
             'content.required'  => 'Content are required',
-            'receiver.required' => 'Receiver is required'
+            'receiver.required' => 'Receiver is required',
         ];
     }
 }

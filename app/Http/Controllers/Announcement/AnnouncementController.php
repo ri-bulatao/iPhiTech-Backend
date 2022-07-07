@@ -3,39 +3,38 @@
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
+
 namespace App\Http\Controllers\Announcement;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Announcement as AnnouncementModel;
 
 class AnnouncementController extends Controller
 {
-    
     /**
-     * Fetching all the announcements
+     * Fetching all the announcements.
      */
     public function test()
     {
         $test = 'testing';
 
         return response()->json([
-            'announcements' => $test
+            'announcements' => $test,
         ], 200);
     }
 
     /**
-     * For Fetching single announcement
+     * For Fetching single announcement.
      */
     public function get($id)
     {
         $announcement = AnnouncementModel::find($id);
 
         return response()->json([
-            'successful' => !empty($announcement),
+            'successful' => ! empty($announcement),
             'data' => [
-                'announcement'  => $announcement
-            ]
+                'announcement'  => $announcement,
+            ],
         ], 200);
     }
 }
