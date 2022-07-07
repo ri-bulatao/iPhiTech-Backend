@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Position;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PositionSeeder extends Seeder
 {

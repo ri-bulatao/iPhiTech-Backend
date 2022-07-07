@@ -29,7 +29,7 @@ class PositionController extends Controller
      */
     public function index(): JsonResponse
     {
-        $this->authorize( 'position_show' );
+        $this->authorize('position_show');
 
         $positions = PositionModel::all()->toArray();
 
@@ -41,7 +41,7 @@ class PositionController extends Controller
      */
     public function get($id): JsonResponse
     {
-        $this->authorize( 'position_show' );
+        $this->authorize('position_show');
 
         $position = PositionModel::find($id);
 
@@ -53,7 +53,7 @@ class PositionController extends Controller
      */
     public function store(PositionRequest $request): JsonResponse
     {
-        $this->authorize( 'position_create' );
+        $this->authorize('position_create');
 
         $position = new PositionModel(['name' => $request->input('name')]);
         $position->save();
@@ -66,8 +66,8 @@ class PositionController extends Controller
      */
     public function update(PositionRequest $request, $id): JsonResponse
     {
-        $this->authorize( 'position_edit' );
-        
+        $this->authorize('position_edit');
+
         $position = PositionModel::find($id);
         $position->update($request->all());
 
@@ -79,7 +79,7 @@ class PositionController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $this->authorize( 'position_delete' );
+        $this->authorize('position_delete');
 
         $position = PositionModel::find($id);
         $position->delete();

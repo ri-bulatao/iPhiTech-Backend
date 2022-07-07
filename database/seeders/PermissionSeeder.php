@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
 use App\Enums\RoleEnums as Roles;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -30,7 +29,7 @@ class PermissionSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             Permission::create([
-                'name'  => $permission
+                'name'  => $permission,
             ]);
         }
 
