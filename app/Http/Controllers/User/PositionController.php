@@ -67,7 +67,7 @@ class PositionController extends Controller
     public function update(PositionRequest $request, $id): JsonResponse
     {
         $this->authorize( 'position_edit' );
-
+        
         $position = PositionModel::find($id);
         $position->update($request->all());
 
