@@ -20,7 +20,7 @@
                                     <td class="col-md-1">{{ index + 1 }}</td>  
                                     <td>{{ position.name }}</td>
                                     <td class="col-md-2">
-                                        <router-link :to="{ name: 'admin.positions.single' }">
+                                        <router-link :to="{ name: 'admin.positions.single', params: {id: position.id} }">
                                             <v-button type="primary" class="btn btn-primary btn-sm">
                                                 View
                                             </v-button>

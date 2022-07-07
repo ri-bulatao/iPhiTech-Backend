@@ -40,9 +40,9 @@ class PositionController extends Controller
      */
     public function get($id): JsonResponse
     {
-        $announcement = PositionModel::find($id);
+        $position = PositionModel::find($id);
 
-        return $this->result->success($announcement);
+        return $this->result->success($position);
     }
 
     /**
@@ -59,12 +59,13 @@ class PositionController extends Controller
     /**
      * For Updating single position.
      */
-    public function update($id, PositionRequest $request): JsonResponse
+    public function update(PositionRequest $request, $id): JsonResponse
     {
+
         $position = PositionModel::find($id);
         $position->update($request->all());
 
-        return $this->result->success($position, 'Position updated!');
+        return $this->result->success($request, 'Position updated!');
     }
 
     /**

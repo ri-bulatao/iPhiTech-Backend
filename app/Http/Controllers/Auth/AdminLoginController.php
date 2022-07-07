@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use App\Enums\RoleEnums as Roles;
 
 class AdminLoginController extends Controller
 {
@@ -44,9 +45,8 @@ class AdminLoginController extends Controller
          * For checking if the user role is employee
          * Refactor this one.
          */
-        $role = Role::where('name', 'admin')->first();
-
-        if ($user->role_id !== $role->id) {
+        
+        if (!$user->hasRole(Roles::ADMINISTRATOR)) {
             return false;
         }
 

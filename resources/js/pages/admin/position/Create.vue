@@ -8,7 +8,6 @@
                     </div>
                     <div class="card-body">
                         <form @submit.prevent="save" @keydown="form.onKeydown($event)">
-                            <alert-success :form="form" :message="$t('position_created')" />
                             <!-- Name -->
                             <div class="mb-3 row">
                                 <label class="col-md-12">{{ $t('name') }}</label>
@@ -57,7 +56,7 @@ export default {
         .then((result) => {
             console.log
             if(result.data.success){
-                this.form.name = "";
+                this.form.reset()
                 this.$store.dispatch('positions/fetchPositions')
                 Swal.fire({
                     icon: 'success',
