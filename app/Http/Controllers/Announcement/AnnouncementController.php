@@ -17,6 +17,7 @@ use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Models\Notification as NotificationModel;
 
 class AnnouncementController extends Controller
 {
@@ -140,17 +141,9 @@ class AnnouncementController extends Controller
         $announcement->save();
 
         $users = User::all();
-        $url = env('APP_URL') . 'announcement/' . $announcement->id;
 
         foreach( $users as $user ) {
-            Mail::send('emails.announcement', [
-                'name'  => $user->name,
-                'url'   => $url
-            ], function($message) use ($user, $announcement) {
-                $message->from('hello@test.com', 'Test Admin')
-                    ->subject($announcement->title)
-                    ->to($user->email);
-            });
+            $user->notifications()->attach($user->id);
         }
 
         return $this->result->success($announcement, 'Announcement was posted');
