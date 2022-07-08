@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\User\PositionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,14 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('update');
             Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('delete');
         });
+
+    /**
+     * Positions Modules.
+     */
+    Route::prefix('positions')->group(function () {
+        Route::get('fetch', [PositionController::class, 'index'])->name('position.list');
+        Route::post('/', [PositionController::class, 'store'])->name('positions.store');
+    });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

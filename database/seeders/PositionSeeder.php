@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\UserPosition;
+use App\Models\Position;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class UserPositionSeeder extends Seeder
+class PositionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,33 +22,33 @@ class UserPositionSeeder extends Seeder
          */
 
         // Admin
-        $admin = UserPosition::where('name', 'Admin')->first();
+        $admin = Position::where('name', 'Admin')->first();
         if (! $admin) {
-            DB::table('user_positions')->insert([
+            DB::table('positions')->insert([
                 'name'      => 'Admin',
             ]);
         }
 
         // Manager
-        $manager = UserPosition::where('name', 'Manager')->first();
+        $manager = Position::where('name', 'Manager')->first();
         if (! $manager) {
-            DB::table('user_positions')->insert([
+            DB::table('positions')->insert([
                 'name'      => 'Manager',
             ]);
         }
 
         // Project Lead
-        $lead = UserPosition::where('name', 'Project Lead')->first();
+        $lead = Position::where('name', 'Project Lead')->first();
         if (! $lead) {
-            DB::table('user_positions')->insert([
+            DB::table('positions')->insert([
                 'name'      => 'Project Lead',
             ]);
         }
 
         // Employee
-        $employee = UserPosition::where('name', 'Employee')->first();
+        $employee = Position::where('name', 'Employee')->first();
         if (! $employee) {
-            DB::table('user_positions')->insert([
+            DB::table('positions')->insert([
                 'name'      => 'Employee',
             ]);
         }
