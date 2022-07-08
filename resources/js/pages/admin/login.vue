@@ -95,14 +95,7 @@ export default {
     },
 
     redirect () {
-      const intendedUrl = Cookies.get('intended_url')
-
-      if (intendedUrl) {
-        Cookies.remove('intended_url')
-        this.$router.push({ path: intendedUrl })
-      } else {
-        this.$router.push({ name: 'admin.dashboard' })
-      }
+      this.$router.push({ name: 'admin.announcements.list' })
     }
   }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RoleEnums as Roles;
 use App\Exceptions\VerifyEmailException;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
@@ -44,9 +45,7 @@ class AdminLoginController extends Controller
          * For checking if the user role is employee
          * Refactor this one.
          */
-        $role = Role::where('name', 'admin')->first();
-
-        if ($user->role_id !== $role->id) {
+        if (! $user->hasRole(Roles::ADMINISTRATOR)) {
             return false;
         }
 
