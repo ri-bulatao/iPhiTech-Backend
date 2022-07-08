@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
-use App\Utilities\Result;
-
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    
     /**
      * @var Authenticatable
      */

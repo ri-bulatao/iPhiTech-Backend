@@ -6,16 +6,14 @@ namespace App\Http\Controllers;
 
 namespace App\Http\Controllers\Announcement;
 
-use Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AnnouncementRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\Announcement as AnnouncementModel;
+use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
-use App\Utilities\Result;
-use App\Http\Requests\AnnouncementRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\ImageRequest;
-
 
 class AnnouncementController extends Controller
 {
@@ -35,9 +33,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * For uploading image 
-     * 
-     * @return JsonResponse
+     * For uploading image.
      */
     public function upload(ImageRequest $request): JsonResponse
     {
@@ -50,78 +46,66 @@ class AnnouncementController extends Controller
         $file_path = env('APP_URL') . '/announcement_contents' . '/' . $file_name;
 
         return $this->result->success([
-            'url'   => $file_path
+            'url'   => $file_path,
         ]);
     }
 
     /**
-     * Fetch all the announcements
-     * 
-     * @return JsonResponse
+     * Fetch all the announcements.
      */
     public function index(Request $request): JsonResponse
     {
         $sortBy = $request->sortBy ?? 'title';
         $sortOrder = $request->sortOrder ?? 'asc';
-        
+
         $announcements = AnnouncementModel::orderBy($sortBy, $sortOrder)->get();
 
-        return $this->result->success( $announcements );
+        return $this->result->success($announcements);
     }
 
     /**
      * For Fetching single announcement.
-     * 
-     * @return JsonResponse
      */
     public function get($id): JsonResponse
     {
         $announcement = AnnouncementModel::find($id);
 
-        if( ! $announcement )
-        {
+        if (! $announcement) {
             return $this->result->notFound();
         }
 
-        return $this->result->success( $announcement );
+        return $this->result->success($announcement);
     }
 
     /**
-     * For adding announcement and saving to the database
-     * 
-     * @return JsonResponse
+     * For adding announcement and saving to the database.
      */
-    public function store( AnnouncementRequest $request ): JsonResponse
+    public function store(AnnouncementRequest $request): JsonResponse
     {
         $data = [
             'title'     => $request->title,
             'excerpt'   => $request->excerpt,
             'receiver'  => $request->receiver,
-            'content'   => $request->content
+            'content'   => $request->content,
         ];
 
-        $announcement = AnnouncementModel::create( $data );
+        $announcement = AnnouncementModel::create($data);
 
-        if( ! $announcement )
-        {
+        if (! $announcement) {
             return $this->result->exception();
         }
 
-        return $this->result->created( $announcement, 'Announcement Created' );
-
+        return $this->result->created($announcement, 'Announcement Created');
     }
 
     /**
-     * For updating the announcement data in the database
-     * 
-     * @return JsonResponse
+     * For updating the announcement data in the database.
      */
-    public function update( AnnouncementRequest $request, $id ): JsonResponse
+    public function update(AnnouncementRequest $request, $id): JsonResponse
     {
-        $announcement = AnnouncementModel::find( $id );
-        
-        if( ! $announcement )
-        {
+        $announcement = AnnouncementModel::find($id);
+
+        if (! $announcement) {
             return $this->result->notFound();
         }
 
@@ -132,32 +116,25 @@ class AnnouncementController extends Controller
         $announcement->save();
 
         return $this->result->success($announcement, 'Announcement updated');
-
     }
 
     /**
-     * For deleting the announcement data in the database
-     * 
-     * @return JsonResponse
+     * For deleting the announcement data in the database.
      */
-    public function delete( $id ): JsonResponse
+    public function delete($id): JsonResponse
     {
-        $announcement = AnnouncementModel::find( $id );
+        $announcement = AnnouncementModel::find($id);
 
-        if( ! $announcement )
-        {
+        if (! $announcement) {
             return $this->result->notFound();
         }
 
         $deleted = $announcement->delete();
 
-        if( ! $deleted )
-        {
+        if (! $deleted) {
             return $this->result->exception();
         }
 
         return $this->result->success($deleted, 'Announcement deleted successfully');
-
     }
-
 }

@@ -34,7 +34,7 @@ class AnnouncementRequest extends FormRequest
     }
 
     /**
-     * Error message for the field validations
+     * Error message for the field validations.
      *
      * @return array
      */
