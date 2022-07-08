@@ -12,4 +12,10 @@ class Announcement extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function scopeSort($query, $sortBy, $sortOrder)
+    {
+        return $query->orderBy($sortBy, $sortOrder)->get();
+    }
+
 }

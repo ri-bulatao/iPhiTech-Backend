@@ -58,7 +58,7 @@ class AnnouncementController extends Controller
         $sortBy = $request->sortBy ?? 'title';
         $sortOrder = $request->sortOrder ?? 'asc';
 
-        $announcements = AnnouncementModel::orderBy($sortBy, $sortOrder)->get();
+        $announcements = AnnouncementModel::sort($sortBy, $sortOrder);
 
         return $this->result->success($announcements);
     }
