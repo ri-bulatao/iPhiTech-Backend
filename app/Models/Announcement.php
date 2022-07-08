@@ -17,5 +17,4 @@ class Announcement extends Model
     {
         return $query->orderBy($sortBy, $sortOrder)->get();
     }
-
 }
