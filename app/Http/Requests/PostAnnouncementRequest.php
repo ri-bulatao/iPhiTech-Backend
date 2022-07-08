@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,7 +27,7 @@ class PostAnnouncementRequest extends FormRequest
     {
         return [
             'id'        => 'required|integer',
-            'status'    => 'required|string'
+            'status'    => 'required|string',
         ];
     }
 
@@ -39,7 +41,7 @@ class PostAnnouncementRequest extends FormRequest
         return [
             'id.required'           => 'The ID field is required',
             'id.integer'            => 'Passed an invalid ID format',
-            'status.required'       => 'The status is required'
+            'status.required'       => 'The status is required',
         ];
     }
 }
