@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 namespace App\Http\Controllers\Announcement;
 
+use App\Events\AnnouncementPosted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Requests\ImageRequest;
@@ -16,8 +17,6 @@ use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Notification as NotificationModel;
-use App\Events\AnnouncementPosted;
 
 class AnnouncementController extends Controller
 {
@@ -129,7 +128,7 @@ class AnnouncementController extends Controller
 
         $users = User::all();
 
-        foreach( $users as $user ) {
+        foreach ($users as $user) {
             $user->notifications()->attach($user->id);
         }
 

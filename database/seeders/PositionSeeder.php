@@ -22,7 +22,7 @@ class PositionSeeder extends Seeder
         $positionConstant = collect((new ReflectionClass(Positions::class))->getConstants());
 
         // Create positions
-        $positions = $positionConstant->map(function($position) {
+        $positions = $positionConstant->map(function ($position) {
             return Position::factory()->make(['name' => $position]);
         });
 

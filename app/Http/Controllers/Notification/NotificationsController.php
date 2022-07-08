@@ -7,11 +7,8 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\Notification;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Models\User;
-use App\Models\Notification;
 use App\Utilities\Result;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class NotificationsController extends Controller
 {
