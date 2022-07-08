@@ -31,9 +31,9 @@ class PositionController extends Controller
     {
         $this->authorize('position_show');
 
-        $positions = PositionModel::all()->toArray();
+        $positions = PositionModel::filter('id', 'DESC');
 
-        return $this->result->success(array_reverse($positions));
+        return $this->result->success($positions);
     }
 
     /**
