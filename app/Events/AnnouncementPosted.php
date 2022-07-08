@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use Symfony\Component\EventDispatcher\Event;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -25,7 +25,7 @@ class AnnouncementPosted extends Event implements ShouldBroadcast
      */
     public function __construct($title)
     {
-        $tthis->message = 'New Announcement was posted!';
+        $this->message = 'New Announcement was posted!';
     }
 
     /**

@@ -18,6 +18,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Notification as NotificationModel;
+use App\Events\AnnouncementPosted;
 
 class AnnouncementController extends Controller
 {
@@ -145,6 +146,8 @@ class AnnouncementController extends Controller
         foreach( $users as $user ) {
             $user->notifications()->attach($user->id);
         }
+
+        event(new AnnouncementPosted($announcement->title));
 
         return $this->result->success($announcement, 'Announcement was posted');
 
