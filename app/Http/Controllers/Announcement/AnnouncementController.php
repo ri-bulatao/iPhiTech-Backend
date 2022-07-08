@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 
 namespace App\Http\Controllers\Announcement;
 
+use Mail;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnnouncementRequest;
+use App\Http\Requests\PostAnnouncementRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\Announcement as AnnouncementModel;
 use App\Utilities\Result;
@@ -34,6 +37,9 @@ class AnnouncementController extends Controller
 
     /**
      * For uploading image.
+     * 
+     * @param ImageRequest $request
+     * @return JsonResponse
      */
     public function upload(ImageRequest $request): JsonResponse
     {
@@ -52,19 +58,29 @@ class AnnouncementController extends Controller
 
     /**
      * Fetch all the announcements.
+     * 
+     * @param Request $request
+     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
-        $sortBy = $request->sortBy ?? 'title';
-        $sortOrder = $request->sortOrder ?? 'asc';
+        $sortBy = $request->sortBy ?? 'created_at';
+        $sortOrder = $request->sortOrder ?? 'desc';
 
         $announcements = AnnouncementModel::sort($sortBy, $sortOrder);
+
+        foreach( $announcements as $announcement ) {
+            $announcement->pretty_created = $announcement->created_at->diffForHumans();
+        }
 
         return $this->result->success($announcements);
     }
 
     /**
      * For Fetching single announcement.
+     * 
+     * @param int $id
+     * @return JsonResponse
      */
     public function get($id): JsonResponse
     {
@@ -74,11 +90,16 @@ class AnnouncementController extends Controller
             return $this->result->notFound();
         }
 
+        $announcement->pretty_created = $announcement->created_at->diffForHumans();
+
         return $this->result->success($announcement);
     }
 
     /**
      * For adding announcement and saving to the database.
+     * 
+     * @param AnnouncementRequest $request
+     * @return JsonResponse
      */
     public function store(AnnouncementRequest $request): JsonResponse
     {
@@ -99,7 +120,49 @@ class AnnouncementController extends Controller
     }
 
     /**
+     * For posting the announcement to make it visible to the front end
+     * 
+     * @param PostAnnouncementRequest $request
+     * @return JsonResponse
+     */
+    public function post(PostAnnouncementRequest $request): JsonResponse
+    {
+        $id = $request->id;
+        $status = $request->status;
+
+        $announcement = AnnouncementModel::find($id);
+
+        if( ! $announcement ) {
+            return $this->result->notFound();
+        }
+
+        $announcement->status = $status;
+        $announcement->save();
+
+        $users = User::all();
+        $url = env('APP_URL') . 'announcement/' . $announcement->id;
+
+        foreach( $users as $user ) {
+            Mail::send('emails.announcement', [
+                'name'  => $user->name,
+                'url'   => $url
+            ], function($message) use ($user, $announcement) {
+                $message->from('hello@test.com', 'Test Admin')
+                    ->subject($announcement->title)
+                    ->to($user->email);
+            });
+        }
+
+        return $this->result->success($announcement, 'Announcement was posted');
+
+    }
+
+    /**
      * For updating the announcement data in the database.
+     * 
+     * @param AnnouncementRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
     public function update(AnnouncementRequest $request, $id): JsonResponse
     {
@@ -120,6 +183,9 @@ class AnnouncementController extends Controller
 
     /**
      * For deleting the announcement data in the database.
+     * 
+     * @param int $id
+     * @return JsonResponse
      */
     public function delete($id): JsonResponse
     {

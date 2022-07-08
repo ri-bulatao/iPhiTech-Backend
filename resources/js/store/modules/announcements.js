@@ -78,6 +78,17 @@ export const actions = {
         })
     },
 
+    postAnnouncement({commit, dispatch}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.put(route('announcements.post'), payload)
+                .then(res => {
+                    let response = res.data
+                    resolve(response)
+                })
+                .catch(err => reject(err))
+        })
+    },
+
     deleteAnnouncement({commit, dispatch}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(route('announcements.delete', { id: payload }))

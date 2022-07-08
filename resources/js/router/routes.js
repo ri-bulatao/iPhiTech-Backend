@@ -5,7 +5,12 @@ function page (path) {
 import * as routeNames from '~/config/route-names';
 
 export default [
+
   { path: '/', name: 'welcome', component: page('welcome.vue') },
+
+  // Front Pages
+  { path: '/announcements', name: 'front.announcements', component: page('users/announcement/Landing.vue') },
+  { path: '/announcement/:id', name: 'front.announcement.single', component: page('users/announcement/Single.vue') },
 
   // Admin Pages
   { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },

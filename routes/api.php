@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/{id}', [AnnouncementController::class, 'get'])->name('single');
             Route::post('/', [AnnouncementController::class, 'store'])->name('store');
             Route::post('/upload', [AnnouncementController::class, 'upload'])->name('upload');
+            Route::put('/post', [AnnouncementController::class, 'post'])->name('post');
             Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('update');
             Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('delete');
         });

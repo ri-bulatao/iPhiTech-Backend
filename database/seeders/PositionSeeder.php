@@ -19,6 +19,12 @@ class PositionSeeder extends Seeder
         /**
          * Generate User Positions.
          */
-        Position::factory()->count(5)->create();
+        $positions = ['Developers', 'Graphics', 'Marketing', 'Project Leads', 'Managers'];
+
+        foreach( $positions as $position ) {
+            Position::factory()->create([
+                'name'  => $position
+            ]);
+        }
     }
 }
