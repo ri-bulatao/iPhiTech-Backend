@@ -129,20 +129,8 @@ class AnnouncementController extends Controller
 
         $users = User::all();
 
-<<<<<<< HEAD
         foreach( $users as $user ) {
             $user->notifications()->attach($user->id);
-=======
-        foreach ($users as $user) {
-            Mail::send('emails.announcement', [
-                'name'  => $user->name,
-                'url'   => $url,
-            ], function ($message) use ($user, $announcement) {
-                $message->from('hello@test.com', 'Test Admin')
-                    ->subject($announcement->title)
-                    ->to($user->email);
-            });
->>>>>>> 937e04a828b0a8ec4bbb7173a6b9404c0c48dd75
         }
 
         event(new AnnouncementPosted($announcement->title));
