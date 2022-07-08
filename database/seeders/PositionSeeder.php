@@ -21,9 +21,9 @@ class PositionSeeder extends Seeder
          */
         $positions = ['Developers', 'Graphics', 'Marketing', 'Project Leads', 'Managers'];
 
-        foreach( $positions as $position ) {
+        foreach ($positions as $position) {
             Position::factory()->create([
-                'name'  => $position
+                'name'  => $position,
             ]);
         }
     }
