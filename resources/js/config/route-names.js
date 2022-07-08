@@ -8,3 +8,8 @@ export const admin_announcement = 'admin.announcements'
 export const announcement_list = 'admin.announcements.list'
 export const announcement_single = 'admin.announcements.single'
 export const announcement_create = 'admin.announcements.create'
+
+export const admin_position = 'admin.positions'
+export const position_list = 'admin.positions.list'
+export const position_single = 'admin.positions.single'
+export const position_create = 'admin.positions.create'

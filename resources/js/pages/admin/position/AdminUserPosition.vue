@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-12 col-lg-7 m-auto d-flex justify-content-between align-items-center">
                 <h1>Positions</h1>
-                <router-link :to="{ name: 'admin.position.add' }">
+                <router-link :to="{ name: 'admin.positions.create' }">
                     <v-button type="primary">
                         Add Position
                     </v-button>

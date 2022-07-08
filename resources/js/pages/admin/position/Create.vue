@@ -17,6 +17,11 @@
                                 </div>
                             </div>
                             <!-- Submit Button -->
+                            <router-link :to="{ name: 'admin.positions.list' }">
+                                <v-button type="secondary">
+                                    Back to List
+                                </v-button>
+                            </router-link>
                             <v-button :loading="form.busy">
                                 Submit
                             </v-button>
@@ -31,6 +36,7 @@
 
 <script>
 import Form from 'vform'
+import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -46,13 +52,31 @@ export default {
 
   methods: {
     async save () {
-        const { data } = await this.form.post(route('user.add.position'))
-        console.log(data)
-        if(data.success){
-            this.$store.dispatch('positions/savePosition', { position: data })
-            this.$router.push({ name: 'admin.positions' })
-        }
-        
+        this.$store.dispatch('positions/savePosition', this.form)
+        .then((result) => {
+            console.log
+            if(result.data.success){
+                this.form.reset()
+                this.$store.dispatch('positions/fetchPositions')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: result.data.message
+                })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops!',
+                    text: "There's something wrong, please try again."
+                })
+            }
+        }).catch((error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: error.response.data.errors.name[0]
+            })
+        })
     }
   }
 }

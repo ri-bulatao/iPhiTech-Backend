@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Position;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
 
-class PositionSeeder extends Seeder
+class AdminPermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,9 +16,6 @@ class PositionSeeder extends Seeder
      */
     public function run()
     {
-        /**
-         * Generate User Positions.
-         */
-        Position::factory()->count(5)->create();
+        Permission::create(['name' => 'admin_access']);
     }
 }

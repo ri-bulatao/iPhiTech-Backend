@@ -45,6 +45,32 @@ export default [
           component: page('admin/announcement/Edit.vue')
         }
       ]
+    },
+    {
+      path: 'position',
+      name: [routeNames.admin_position],
+      component: page('admin/position/AdminUserPosition.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'list'
+        },
+        {
+          path: 'list',
+          name: [routeNames.position_list],
+          component: page('admin/position/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: [routeNames.position_single],
+          component: page('admin/position/Single.vue')
+        },
+        {
+          path: 'create',
+          name: [routeNames.position_create],
+          component: page('admin/position/Create.vue')
+        }
+      ]
     }
   ] },
   

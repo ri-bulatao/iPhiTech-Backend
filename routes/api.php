@@ -62,7 +62,10 @@ Route::group(['middleware' => 'auth:api'], function () {
      */
     Route::prefix('positions')->group(function () {
         Route::get('fetch', [PositionController::class, 'index'])->name('position.list');
-        Route::post('/', [PositionController::class, 'store'])->name('positions.store');
+        Route::get('/{id}', [PositionController::class, 'get'])->name('position.single');
+        Route::post('/', [PositionController::class, 'store'])->name('position.store');
+        Route::put('/update/{id}', [PositionController::class, 'update'])->name('position.update');
+        Route::delete('/{id}', [PositionController::class, 'destroy'])->name('position.delete');
     });
 });
 
