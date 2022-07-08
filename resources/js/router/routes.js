@@ -47,6 +47,27 @@ export default [
       ]
     },
     {
+      path: 'handbook',
+      name: 'handbook',
+      component: page('handbook/index.vue'),
+      children: [
+        // {
+        //   path: '',
+        //   redirect: 'pages'
+        // },
+        // {
+        //   path: 'pages',
+        //   name: 'handbook.pages',
+        //   component: page('handbook/pages.vue')
+        // },
+        // {
+        //   path: 'pages/:id',
+        //   name: 'handbook.pages.view',
+        //   component: page('handbook/pages/view.vue')
+        // }
+      ]
+    },
+    {
       path: 'position',
       name: [routeNames.admin_position],
       component: page('admin/position/AdminUserPosition.vue'),

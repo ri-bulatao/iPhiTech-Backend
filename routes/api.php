@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Announcement\AnnouncementController;
 /**
  * Custom Controllers.
  */
@@ -17,6 +16,8 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
+use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Handbook\HandbookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,19 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::put('/update/{id}', [PositionController::class, 'update'])->name('position.update');
         Route::delete('/{id}', [PositionController::class, 'destroy'])->name('position.delete');
     });
+
+    /**
+     * Handbooks Modules.
+     */
+    Route::name('handbook.')
+        ->prefix('handbook')
+        ->group(function () {
+            Route::get('/',  [HandbookController::class, 'index'])->name('all');
+            Route::get('/{id}',  [HandbookController::class, 'get'])->name('show');
+            Route::post('/',  [HandbookController::class, 'store'])->name('store');
+            Route::put('/update/{id}',  [HandbookController::class, 'update'])->name('update');
+            Route::delete('/{id}',  [HandbookController::class, 'destroy'])->name('delete');
+        });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
