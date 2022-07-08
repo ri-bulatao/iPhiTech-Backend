@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class HandbookPage extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,10 +20,10 @@ class HandbookPage extends Model
         'handbook_id',
         'name',
         'content',
-        'created_at',   
+        'created_at',
         'updated_at',
     ];
-    
+
     public function handbook()
     {
         return $this->belongsTo('App\Models\Handbook', 'handbook_id');

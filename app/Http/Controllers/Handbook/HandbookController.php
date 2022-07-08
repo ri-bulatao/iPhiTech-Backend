@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Handbook;
 
-
 use App\Http\Controllers\Controller;
+use App\Models\Handbook;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Handbook;
 
 class HandbookController extends Controller
 {
@@ -29,7 +30,7 @@ class HandbookController extends Controller
         $this->result = $result;
     }
 
-     /**
+    /**
      * Fetch all the handbook versions.
      */
     public function index(Request $request): JsonResponse
@@ -40,7 +41,7 @@ class HandbookController extends Controller
     }
 
     /**
-     * Fetch Handbook
+     * Fetch Handbook.
      */
     public function get($id): JsonResponse
     {
@@ -54,7 +55,7 @@ class HandbookController extends Controller
     }
 
     /**
-     * Store Handbook new version
+     * Store Handbook new version.
      */
     public function store(Request $request): JsonResponse
     {
@@ -62,7 +63,7 @@ class HandbookController extends Controller
             \DB::beginTransaction();
 
             $metadata = [
-                'author' => $this->user()
+                'author' => $this->user(),
             ];
 
             $data = [
@@ -80,7 +81,6 @@ class HandbookController extends Controller
             \DB::rollback();
         }
 
-        
         if ($handbook) {
             return $this->result->success($role, __('messages.handbook_create_response'));
         }
@@ -89,14 +89,13 @@ class HandbookController extends Controller
     }
 
     /**
-     * Update Handbook
+     * Update Handbook.
      */
     public function update(Request $request, $id): JsonResponse
     {
         try {
             \DB::beginTransaction();
 
-            
             $handbook = Handbook::find($id);
 
             if (! $handbook) {
@@ -113,7 +112,7 @@ class HandbookController extends Controller
 
             \DB::rollback();
         }
-        
+
         if ($handbook) {
             return $this->result->success($role, __('messages.handbook_update_response'));
         }
@@ -122,14 +121,13 @@ class HandbookController extends Controller
     }
 
     /**
-     * Delete Handbook
+     * Delete Handbook.
      */
     public function delete($id): JsonResponse
     {
         try {
             \DB::beginTransaction();
 
-            
             $handbook = Handbook::find($id);
 
             if (! $handbook) {
@@ -145,7 +143,7 @@ class HandbookController extends Controller
 
             \DB::rollback();
         }
-        
+
         if ($handbook) {
             return $this->result->success($role, __('messages.handbook_delete_response'));
         }
