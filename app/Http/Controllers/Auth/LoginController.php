@@ -46,7 +46,7 @@ class LoginController extends Controller
          * For checking if the user role is employee
          * Refactor this one.
          */
-        if (!$user->hasRole(Roles::EMPLOYEE)) {
+        if ( ! $user->hasRole(Roles::EMPLOYEE) ) {
             return false;
         }
 

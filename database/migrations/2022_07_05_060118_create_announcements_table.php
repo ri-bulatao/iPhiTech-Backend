@@ -19,7 +19,7 @@ class CreateAnnouncementsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('excerpt');
-            $table->binary('contents')->nullable();
+            $table->binary('content')->nullable();
             $table->string('status')->default('Pending');
             $table->integer('receiver')->nullable();
             $table->timestamps();

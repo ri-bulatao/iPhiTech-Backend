@@ -2,26 +2,30 @@
     <div>
         <div class="row">
             <div class="col-sm-12">
-                
+                <div class="d-flex justify-content-end">
+                    <router-link class="btn btn-success" :to="{ name: 'admin.announcements.create' }">Create Announcement</router-link>
+                </div>
                 <table class="table table-striped caption-top">
                     <caption>List of Announcements</caption>
                     <thead>
                         <tr>
-                            <td> <strong>#</strong> </td>
-                            <td> <strong>Announcement Title</strong> </td>
-                            <td><strong>Status</strong></td>
+                            <td> <strong><a href="javascript:void(0)" @click="() => handleSort('id')">ID</a></strong> </td>
+                            <td> <strong> <a href="javascript:void(0)" @click="() => handleSort('title')">Announcement Title</a> </strong> </td>
+                            <td><strong><a href="javascript:void(0)" @click="() => handleSort('excerpt')">Excerpt</a></strong></td>
+                            <td><strong><a href="javascript:void(0)" @click="() => handleSort('status')">Status</a></strong></td>
                             <td> <strong>Actions</strong> </td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>  
-                            <td>Lorem Ipsum 1</td>
-                            <td>Posted</td>
+                        <tr v-for="announcement in announcements" :key="announcement.id">
+                            <td>{{ announcement.id }}</td>  
+                            <td>{{ announcement.title }}</td>
+                            <td>{{ announcement.excerpt }}</td>
+                            <td>{{ announcement.status }}</td>
                             <td>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>
-                                <a href="javascript:void(0)" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="javascript:void(0)" class="btn btn-danger btn-sm">Delete</a>
+                                <router-link :to="{ name: 'admin.announcements.single', params: { id: announcement.id } }" class="btn btn-primary btn-sm">View</router-link>
+                                <router-link :to="{ name: 'admin.announcements.edit', params: { id: announcement.id } }" class="btn btn-warning btn-sm">Edit</router-link>
+                                <a @click="() => deleteReady(announcement.id)" href="javascript:void(0)" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     </tbody>
@@ -30,3 +34,93 @@
         </div>
     </div>
 </template>
+
+<script>
+
+import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
+
+export default {
+
+    data: () => ({
+        sortBy: 'title',
+        sortOrder: 'asc'
+    }),
+
+    computed: mapGetters({
+        announcements: 'announcements/announcements'
+    }),
+
+    methods: {
+        handleSort(handle) {
+            this.sortBy = handle
+            this.sortOrder = this.sortOrder == 'asc' ? 'desc' : 'asc'
+            
+            let payload = {
+                sortBy: this.sortBy,
+                sortOrder: this.sortOrder
+            }
+
+            this.$store.dispatch('announcements/fetchAnnouncements', payload)
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ooops!',
+                        text: 'Something went wrong!'
+                    })
+                })
+        },
+
+        deleteReady(id) {
+            Swal.fire({
+                icon: 'question',
+                title: 'Are you sure to delete ?',
+                text: 'There is no undo for this action',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Delete!'
+            })
+            .then(result => {
+                if(result.isConfirmed) {
+                    this.delete(id)
+                }
+            })
+        },
+
+        delete(id) {
+            this.$store.dispatch('announcements/deleteAnnouncement', id)
+                .then(res => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        message: res.message
+                    })
+
+                    this.$store.dispatch('announcements/fetchAnnouncements')
+
+                })
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ooops!',
+                        text: 'Something went wrong!'
+                    })
+                })
+        }
+    },
+
+    mounted() {
+        let payload = {
+            sortBy: this.sortBy,
+            sortOrder: this.sortOrder
+        }
+        this.$store.dispatch('announcements/fetchAnnouncements', payload)
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ooops!',
+                    text: 'Something went wrong!'
+                })
+            })
+    }
+}
+</script>

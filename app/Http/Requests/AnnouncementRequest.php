@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Announcement;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,6 +33,11 @@ class AnnouncementRequest extends FormRequest
         ];
     }
 
+    /**
+     * Error message for the field validations
+     *
+     * @return array
+     */
     public function messages()
     {
         return [

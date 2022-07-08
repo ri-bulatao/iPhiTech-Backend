@@ -45,13 +45,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     /**
      * Announcement Modules.
      */
-    Route::prefix('announcements')->group(function () {
-        Route::get('fetch', [AnnouncementController::class, 'index'])->name('announcement.list');
-        Route::get('/{id}', [AnnouncementController::class, 'get'])->name('announcement.single');
-        Route::post('/', [AnnouncementController::class, 'store'])->name('announcement.store');
-        Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('announcement.update');
-        Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('announcement.delete');
-    });
+    Route::name('announcements.')
+        ->prefix('announcements')
+        ->group(function () {
+            Route::get('/', [AnnouncementController::class, 'index'])->name('list');
+            Route::get('/{id}', [AnnouncementController::class, 'get'])->name('single');
+            Route::post('/', [AnnouncementController::class, 'store'])->name('store');
+            Route::post('/upload', [AnnouncementController::class, 'upload'])->name('upload');
+            Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+        });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
