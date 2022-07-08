@@ -5,11 +5,11 @@ function page (path) {
 import * as routeNames from '~/config/route-names';
 
 export default [
-  { path: '/', name: [routeNames.welcome], component: page('welcome.vue') },
+  { path: '/', name: 'welcome', component: page('welcome.vue') },
 
   // Admin Pages
-  { path: '/admin/login', name: [routeNames.admin_login], component: page('admin/login.vue') },
-  { path: '/admin', name: [routeNames.admin_dashboard], component: page('admin/dashboard.vue'), 
+  { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
+  { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue'), 
   children: [
     {
       path: '',
@@ -17,7 +17,7 @@ export default [
     },
     {
       path: 'announcement',
-      name: [routeNames.admin_announcement],
+      name: 'admin.announcements',
       component: page('admin/announcement/AdminAnnouncement.vue'),
       children: [
         {
@@ -26,18 +26,23 @@ export default [
         },
         {
           path: 'list',
-          name: [routeNames.announcement_list],
+          name: 'admin.announcements.list',
           component: page('admin/announcement/List.vue')
         },
         {
           path: 'single/:id',
-          name: [routeNames.announcement_single],
+          name: 'admin.announcements.single',
           component: page('admin/announcement/Single.vue')
         },
         {
           path: 'create',
-          name: [routeNames.announcement_create],
+          name: 'admin.announcements.create',
           component: page('admin/announcement/Create.vue')
+        },
+        {
+          path: 'edit/:id',
+          name: 'admin.announcements.edit',
+          component: page('admin/announcement/Edit.vue')
         }
       ]
     },
