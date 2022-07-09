@@ -1,20 +1,16 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
+import Form from 'vform'
 
 // state
 export const state = {
     loading: false,
     handbooks: [],
     handbook: {},
-    handbookForm: {
+    handbookForm: new Form({
         version_name: '',
-    },
-    handbookFormRules: {
-        version_name: [
-            { required: true, message: 'Please input version name', trigger: 'blur' }
-        ]
-    }
+    })
 }
 
 // getters
@@ -23,7 +19,6 @@ export const getters = {
     handbooks: state => state.handbooks,
     handbook: state => state.handbook,
     handbookForm: state => state.handbookForm,
-    handbookFormRules: state => state.handbookFormRules,
 }
 
 // mutations
@@ -33,20 +28,21 @@ export const mutations = {
         state.loading = false
     },
 
-    [types.FETCH_HANDBOOK] (state, {handbook}) {
-        state.handbook = handbook
+    [types.FETCH_HANDBOOK] (state, {data}) {
+        state.handbook = data
         
         state.loading = false
     },
 
     [types.SAVE_HANDBOOK] (state, {handbook}) {
-        const index = state.handbooks.findIndex(_handbook => _handbook.id === handbook.id)
+        const index = state.handbooks.findIndex(hb => hb.id === handbook.id)
         state.handbookForm.reset()
 
         if (index !== -1) {
             state.handbooks.splice(index, 1, handbook)
+            state.handbook = handbook;
         } else {
-            state.handbooks.push(role)
+            state.handbooks.push(handbook)
         }
 
         state.loading = false
@@ -71,6 +67,7 @@ export const actions = {
             commit(types.FETCH_ALL_HANDBOOKS, data)
             
         } catch (error) {
+            state.loading = false
             console.log(error.message)
         }
     },
@@ -81,8 +78,9 @@ export const actions = {
             state.loading = true
             
             const { data } = await axios.get(route('handbook.show', id))
-            commit(types.FETCH_HANDBOOK, data.data)
+            commit(types.FETCH_HANDBOOK, data)
         } catch (error) {
+            state.loading = false
             console.log(error.message)
         }
     },
@@ -100,6 +98,7 @@ export const actions = {
             commit(types.SAVE_HANDBOOK, { handbook: data.data })
             return data
         } catch (error) {
+            state.loading = false
             return state.handbookForm.errors
         }
     },
@@ -110,6 +109,7 @@ export const actions = {
             commit(types.DELETE_HANDBOOK, id)
             return data
         } catch (error) {
+            state.loading = false
             const { response } = error
             return response.data
         }

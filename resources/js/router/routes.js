@@ -51,20 +51,23 @@ export default [
       name: 'handbook',
       component: page('handbook/index.vue'),
       children: [
-        // {
-        //   path: '',
-        //   redirect: 'pages'
-        // },
-        // {
-        //   path: 'pages',
-        //   name: 'handbook.pages',
-        //   component: page('handbook/pages.vue')
-        // },
-        // {
-        //   path: 'pages/:id',
-        //   name: 'handbook.pages.view',
-        //   component: page('handbook/pages/view.vue')
-        // }
+        {
+          path: '',
+          redirect: 'pages'
+        },
+        {
+          path: 'pages',
+          name: 'handbook.pages',
+          component: page('handbook/pages.vue'),
+          children: [
+            {
+              path: 'view/:id',
+              name: 'handbook.pages.view',
+              component: page('handbook/view.vue')
+            }
+          ]
+        },
+        
       ]
     },
     {

@@ -8,6 +8,7 @@ use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\Handbook\HandbookRequest;
 use App\Models\Handbook;
 
 class HandbookController extends Controller
@@ -55,34 +56,25 @@ class HandbookController extends Controller
 
     /**
      * Store Handbook new version
+     * 
+     * ERROR on Request Validation
      */
-    public function store(Request $request): JsonResponse
+    public function store(HandbookRequest $request): JsonResponse
     {
-        try {
-            \DB::beginTransaction();
+       
+        $metadata = [
+            'author' => $this->user
+        ];
 
-            $metadata = [
-                'author' => $this->user()
-            ];
+        $data = [
+            'version_name' => $request->version_name,
+            'metadata' => $metadata,
+        ];
 
-            $data = [
-                'version_name' => $request->version_name,
-                'metadata' => $metadata,
-            ];
+        $handbook = Handbook::create($data);
 
-            $handbook = Handbook::create($data);
-
-            \DB::commit();
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            \Log::error($e->getTraceAsString());
-
-            \DB::rollback();
-        }
-
-        
         if ($handbook) {
-            return $this->result->success($role, __('messages.handbook_create_response'));
+            return $this->result->success($handbook, __('messages.handbook_create_response'));
         }
 
         return $this->result->badRequest(__('messages.general_error_response'));
@@ -91,31 +83,20 @@ class HandbookController extends Controller
     /**
      * Update Handbook
      */
-    public function update(Request $request, $id): JsonResponse
+    public function update(HandbookRequest $request, $id): JsonResponse
     {
-        try {
-            \DB::beginTransaction();
+        
+        $handbook = Handbook::find($id);
 
-            
-            $handbook = Handbook::find($id);
-
-            if (! $handbook) {
-                return $this->result->notFound();
-            }
-
-            $handbook->version_name = $request->version_name;
-            $handbook->save();
-
-            \DB::commit();
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            \Log::error($e->getTraceAsString());
-
-            \DB::rollback();
+        if (! $handbook) {
+            return $this->result->notFound();
         }
+
+        $handbook->version_name = $request->version_name;
+        $handbook->save();
         
         if ($handbook) {
-            return $this->result->success($role, __('messages.handbook_update_response'));
+            return $this->result->success($handbook, __('messages.handbook_update_response'));
         }
 
         return $this->result->badRequest(__('messages.general_error_response'));
@@ -124,30 +105,18 @@ class HandbookController extends Controller
     /**
      * Delete Handbook
      */
-    public function delete($id): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        try {
-            \DB::beginTransaction();
+        $handbook = Handbook::find($id);
 
-            
-            $handbook = Handbook::find($id);
-
-            if (! $handbook) {
-                return $this->result->notFound();
-            }
-
-            $handbook->delete();
-
-            \DB::commit();
-        } catch (\Exception $e) {
-            \Log::error($e->getMessage());
-            \Log::error($e->getTraceAsString());
-
-            \DB::rollback();
+        if (! $handbook) {
+            return $this->result->notFound();
         }
+
+        $handbook->delete();
         
         if ($handbook) {
-            return $this->result->success($role, __('messages.handbook_delete_response'));
+            return $this->result->success($handbook, __('messages.handbook_delete_response'));
         }
 
         return $this->result->badRequest(__('messages.general_error_response'));
