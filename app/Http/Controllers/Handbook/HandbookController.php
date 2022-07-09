@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Handbook;
 
-
 use App\Http\Controllers\Controller;
+use App\Models\Handbook;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
@@ -30,7 +32,7 @@ class HandbookController extends Controller
         $this->result = $result;
     }
 
-     /**
+    /**
      * Fetch all the handbook versions.
      */
     public function index(Request $request): JsonResponse
@@ -41,7 +43,7 @@ class HandbookController extends Controller
     }
 
     /**
-     * Fetch Handbook
+     * Fetch Handbook.
      */
     public function get($id): JsonResponse
     {
@@ -81,7 +83,7 @@ class HandbookController extends Controller
     }
 
     /**
-     * Update Handbook
+     * Update Handbook.
      */
     public function update(HandbookRequest $request, $id): JsonResponse
     {
@@ -103,7 +105,7 @@ class HandbookController extends Controller
     }
 
     /**
-     * Delete Handbook
+     * Delete Handbook.
      */
     public function destroy($id): JsonResponse
     {

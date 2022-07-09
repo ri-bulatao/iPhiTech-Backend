@@ -22,13 +22,12 @@ class Handbook extends Model
         'created_at',
         'updated_at',
     ];
-    
+
     protected $casts = [
         'metadata' => 'array',
-        'handbook_pages' => 'array'
+        'handbook_pages' => 'array',
     ];
 
-    
     public function handbook_pages()
     {
         return $this->hasMany('App\Models\Handbook');

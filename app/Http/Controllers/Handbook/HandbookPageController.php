@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Handbook;
+declare(strict_types=1);
 
+namespace App\Http\Controllers\Handbook;
 
 use App\Http\Controllers\Controller;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class HandbookPageController extends Controller
 {

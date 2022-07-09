@@ -5,6 +5,7 @@ declare(strict_types=1);
 /**
  * Custom Controllers.
  */
+use App\Http\Controllers\Announcement\AnnouncementController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -13,11 +14,10 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
-use App\Http\Controllers\Announcement\AnnouncementController;
-use App\Http\Controllers\Handbook\HandbookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,11 +75,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::name('handbook.')
         ->prefix('handbook')
         ->group(function () {
-            Route::get('/',  [HandbookController::class, 'index'])->name('all');
-            Route::get('/{id}',  [HandbookController::class, 'get'])->name('show');
-            Route::post('/',  [HandbookController::class, 'store'])->name('store');
-            Route::put('/update/{id}',  [HandbookController::class, 'update'])->name('update');
-            Route::delete('/{id}',  [HandbookController::class, 'destroy'])->name('delete');
+            Route::get('/', [HandbookController::class, 'index'])->name('all');
+            Route::get('/{id}', [HandbookController::class, 'get'])->name('show');
+            Route::post('/', [HandbookController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [HandbookController::class, 'update'])->name('update');
+            Route::delete('/{id}', [HandbookController::class, 'destroy'])->name('delete');
         });
 });
 
