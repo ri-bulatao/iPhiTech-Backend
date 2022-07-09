@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Handbook;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,7 +17,6 @@ class HandbookRequest extends FormRequest
     {
         return auth()->check();
     }
-
 
     /**
      * Get the validation rules that apply to the request.

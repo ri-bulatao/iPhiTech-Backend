@@ -26,7 +26,4 @@ class HandbookPageController extends Controller
         $this->user = auth()->user();
         $this->result = $result;
     }
-
-    
-    
 }

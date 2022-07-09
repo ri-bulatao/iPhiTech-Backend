@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Handbook;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Handbook\HandbookRequest;
+use App\Models\Handbook;
 use App\Models\Handbook;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\Handbook\HandbookRequest;
-use App\Models\Handbook;
 
 class HandbookController extends Controller
 {
@@ -57,15 +57,14 @@ class HandbookController extends Controller
     }
 
     /**
-     * Store Handbook new version
-     * 
+     * Store Handbook new version.
+     *
      * ERROR on Request Validation
      */
     public function store(HandbookRequest $request): JsonResponse
     {
-       
         $metadata = [
-            'author' => $this->user
+            'author' => $this->user,
         ];
 
         $data = [
@@ -87,7 +86,6 @@ class HandbookController extends Controller
      */
     public function update(HandbookRequest $request, $id): JsonResponse
     {
-        
         $handbook = Handbook::find($id);
 
         if (! $handbook) {
@@ -96,7 +94,7 @@ class HandbookController extends Controller
 
         $handbook->version_name = $request->version_name;
         $handbook->save();
-        
+
         if ($handbook) {
             return $this->result->success($handbook, __('messages.handbook_update_response'));
         }
@@ -116,7 +114,7 @@ class HandbookController extends Controller
         }
 
         $handbook->delete();
-        
+
         if ($handbook) {
             return $this->result->success($handbook, __('messages.handbook_delete_response'));
         }
