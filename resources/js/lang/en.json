@@ -52,5 +52,6 @@
   "city": "City",
   "province": "Province",
   "zip_code": "Zip Code",
-  "country": "Country"
+  "country": "Country",
+  "position": "Position"
 }
