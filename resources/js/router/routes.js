@@ -48,7 +48,7 @@ export default [
     },
     {
       path: 'position',
-      name: [routeNames.admin_position],
+      name: 'admin.positions',
       component: page('admin/position/AdminUserPosition.vue'),
       children: [
         {
@@ -57,18 +57,44 @@ export default [
         },
         {
           path: 'list',
-          name: [routeNames.position_list],
+          name: 'admin.positions.list',
           component: page('admin/position/List.vue')
         },
         {
           path: 'single/:id',
-          name: [routeNames.position_single],
+          name: 'admin.positions.single',
           component: page('admin/position/Single.vue')
         },
         {
           path: 'create',
-          name: [routeNames.position_create],
+          name: 'admin.positions.create',
           component: page('admin/position/Create.vue')
+        }
+      ]
+    },
+    {
+      path: 'user',
+      name: 'admin.users',
+      component: page('admin/user/AdminUser.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'list'
+        },
+        {
+          path: 'list',
+          name: 'admin.users.list',
+          component: page('admin/user/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: 'admin.users.single',
+          component: page('admin/user/Single.vue')
+        },
+        {
+          path: 'create',
+          name: 'admin.users.create',
+          component: page('admin/user/Create.vue')
         }
       ]
     }

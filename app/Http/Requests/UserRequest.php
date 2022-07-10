@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Requests\User;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PositionRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +24,18 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:positions',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            // 'new_password' => 'min:6|max:100',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required'    => 'Name is required',
-            'name.unique'      => 'Name already taken',
+            'first_name.required'    => 'First Name is required!',
+            'last_name.required'      => 'Last Name is required!',
+            'name.min'      => 'Minimum 8 characters!',
         ];
     }
 }

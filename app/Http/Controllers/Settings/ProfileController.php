@@ -37,11 +37,23 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'gender' => 'required',
         ]);
 
-        $user->update($request->only('name', 'email'));
+        $user->update($request->only('first_name', 'middle_name', 'last_name', 'phone_number', 'email', 'gender', 'marital_status', 'date_of_birth'));
+        
+        $emergency_contact = [
+            "full_name" =>  $request->ec_full_name,
+            "relationship" =>  $request->ec_relationship,
+            "phone_number" =>  $request->ec_phone_number,
+        ];
+
+        $user->emergency_contact = json_encode($emergency_contact);
+        $user->save();
 
         return $this->result->success($user, __('user.update_successfully'));
     }

@@ -22,6 +22,11 @@
               Positions
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'admin.users.list' }" class="nav-link">
+              Users
+            </router-link>
+          </li>
         </ul>
 
         <ul class="navbar-nav ms-auto">
@@ -31,7 +36,7 @@
                href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             >
               <img :src="user.photo_url" class="rounded-circle profile-photo me-1">
-              {{ user.name }}
+              {{ user.full_name }}
             </a>
             <div class="dropdown-menu">
               <router-link :to="{ name: 'settings.profile' }" class="dropdown-item ps-3">

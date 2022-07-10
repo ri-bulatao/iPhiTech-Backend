@@ -15,7 +15,7 @@ class Position extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'position_id', 'id');
+        return $this->belongsTo(User::class, 'position_id' , 'id');
     }
 
     public function scopeFilter($query, $sortBy, $sortOrder)

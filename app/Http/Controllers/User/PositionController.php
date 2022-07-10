@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\PositionRequest;
+use App\Http\Requests\PositionRequest;
 use App\Models\Position as PositionModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;

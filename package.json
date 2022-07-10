@@ -15,6 +15,7 @@
     "@popperjs/core": "^2.9.3",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
+    "country-state-city": "^3.0.1",
     "js-cookie": "^2.2.1",
     "sweetalert2": "^11.1.2",
     "vform": "^2.1.1",
