@@ -45,11 +45,11 @@ class ProfileController extends Controller
         ]);
 
         $user->update($request->only('first_name', 'middle_name', 'last_name', 'phone_number', 'email', 'gender', 'marital_status', 'date_of_birth'));
-        
+
         $emergency_contact = [
-            "full_name" =>  $request->ec_full_name,
-            "relationship" =>  $request->ec_relationship,
-            "phone_number" =>  $request->ec_phone_number,
+            'full_name' =>  $request->ec_full_name,
+            'relationship' =>  $request->ec_relationship,
+            'phone_number' =>  $request->ec_phone_number,
         ];
 
         $user->emergency_contact = json_encode($emergency_contact);
