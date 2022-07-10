@@ -12,6 +12,8 @@ export default [
   { path: '/announcements', name: 'front.announcements', component: page('users/announcement/Landing.vue') },
   { path: '/announcement/:id', name: 'front.announcement.single', component: page('users/announcement/Single.vue') },
 
+  { path: '/notifications', name: 'front.notificaitons', component: page('users/notifications/Landing.vue') },
+
   // Admin Pages
   { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
   { path: '/admin', name: 'admin.dashboard', component: page('admin/dashboard.vue'), 

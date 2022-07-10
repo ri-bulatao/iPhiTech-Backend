@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->string('title');
             $table->tinyInteger('read');
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

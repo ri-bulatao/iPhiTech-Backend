@@ -18,6 +18,7 @@ use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Notification\NotificationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,17 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::put('/post', [AnnouncementController::class, 'post'])->name('post');
             Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('update');
             Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+        });
+
+    /**
+     * Notification Module
+     */
+    Route::name('notifications.')
+        ->prefix('notifications')
+        ->group(function() {
+            Route::get('/', [NotificationsController::class, 'index'])->name('list');
+            Route::put('/{id}', [NotificationsController::class, 'update'])->name('update');
+            Route::delete('/{id}', [NotificationsController::class, 'delete'])->name('delete');
         });
 
     /**

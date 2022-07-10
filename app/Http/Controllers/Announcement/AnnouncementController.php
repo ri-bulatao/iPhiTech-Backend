@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\Announcement;
 
 use App\Events\AnnouncementPosted;
+use App\Models\Notification as NotificationModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Requests\ImageRequest;
@@ -126,10 +127,18 @@ class AnnouncementController extends Controller
         $announcement->status = $status;
         $announcement->save();
 
+        $url = '/announcement' . '/' . $announcement->id;
+
+        $notification = NotificationModel::create([
+            'title'     => 'New Announcement Posted',
+            'read'      => false,
+            'url'       => $url
+        ]);
+
         $users = User::all();
 
         foreach ($users as $user) {
-            $user->notifications()->attach($user->id);
+            $notification->users()->attach($user->id);
         }
 
         event(new AnnouncementPosted($announcement->title));
