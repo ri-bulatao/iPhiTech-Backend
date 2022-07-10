@@ -7,12 +7,12 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\Announcement;
 
 use App\Events\AnnouncementPosted;
-use App\Models\Notification as NotificationModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Requests\ImageRequest;
 use App\Http\Requests\PostAnnouncementRequest;
 use App\Models\Announcement as AnnouncementModel;
+use App\Models\Notification as NotificationModel;
 use App\Models\User;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -132,7 +132,7 @@ class AnnouncementController extends Controller
         $notification = NotificationModel::create([
             'title'     => 'New Announcement Posted',
             'read'      => false,
-            'url'       => $url
+            'url'       => $url,
         ]);
 
         $users = User::all();

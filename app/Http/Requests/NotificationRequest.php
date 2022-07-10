@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,13 +28,13 @@ class NotificationRequest extends FormRequest
         return [
             'title' => 'required',
             'url' => 'required',
-            'read' => 'required'
+            'read' => 'required',
         ];
     }
 
     /**
-     * Error messages
-     * 
+     * Error messages.
+     *
      * @return array
      */
     public function messages()
@@ -40,7 +42,7 @@ class NotificationRequest extends FormRequest
         return [
             'title.required' => 'The title field is required',
             'url.required'  => 'The URL field is required',
-            'read.required' => 'The Read field is required'
+            'read.required' => 'The Read field is required',
         ];
     }
 }

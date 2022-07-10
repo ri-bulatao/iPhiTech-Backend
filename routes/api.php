@@ -14,11 +14,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Notification\NotificationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,11 +60,11 @@ Route::group(['middleware' => 'auth:api'], function () {
         });
 
     /**
-     * Notification Module
+     * Notification Module.
      */
     Route::name('notifications.')
         ->prefix('notifications')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [NotificationsController::class, 'index'])->name('list');
             Route::put('/{id}', [NotificationsController::class, 'update'])->name('update');
             Route::delete('/{id}', [NotificationsController::class, 'delete'])->name('delete');

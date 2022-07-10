@@ -7,11 +7,10 @@ namespace App\Http\Controllers;
 namespace App\Http\Controllers\Notification;
 
 use App\Http\Controllers\Controller;
-use App\Utilities\Result;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Models\User;
 use App\Http\Requests\NotificationRequest;
 use App\Models\Notification as NotificationModel;
+use App\Utilities\Result;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 
 class NotificationsController extends Controller
@@ -33,9 +32,7 @@ class NotificationsController extends Controller
     }
 
     /**
-     * For fetching all notifications
-     * 
-     * @return JsonResponse
+     * For fetching all notifications.
      */
     public function index(): JsonResponse
     {
@@ -45,12 +42,9 @@ class NotificationsController extends Controller
     }
 
     /**
-     * For updating the notification
-     * 
-     * @param NotificationRequest $request
+     * For updating the notification.
+     *
      * @param int $id
-     * 
-     * @return JsonResponse
      */
     public function update(NotificationRequest $request, $id): JsonResponse
     {
@@ -58,9 +52,9 @@ class NotificationsController extends Controller
         $read = $request->read;
         $url = $request->url;
 
-        $notification = NotificationModel::find( $id );
+        $notification = NotificationModel::find($id);
 
-        if( ! $notification ) {
+        if (! $notification) {
             return $this->result->notFound();
         }
 
@@ -70,27 +64,24 @@ class NotificationsController extends Controller
         $notification->save();
 
         return $this->result->success('Notification Updated');
-
     }
 
     /**
-     * For deleting the notifications
-     * 
+     * For deleting the notifications.
+     *
      * @param int $id
-     * 
-     * @return JsonResponse
      */
     public function delete($id): JsonResponse
     {
-        $notification  = NotificationModel::find($id);
+        $notification = NotificationModel::find($id);
 
-        if( ! $notification ) {
+        if (! $notification) {
             return $this->result->notFound();
         }
 
         $action = $notification->delete();
 
-        if( ! $action ) {
+        if (! $action) {
             return $this->result->exception();
         }
 
