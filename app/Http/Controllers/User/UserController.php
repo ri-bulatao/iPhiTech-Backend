@@ -6,7 +6,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use Illuminate\Http\Request;
 use App\Models\User as UserModel;
 use App\Models\UserAddress as UserAddressModel;
 use App\Utilities\Result;
@@ -19,18 +18,18 @@ class UserController extends Controller
      */
     private $result;
 
-    public function __construct( Result $result ) {
+    public function __construct(Result $result)
+    {
         $this->result = $result;
     }
     /**
      * For Fetching all users.
      */
-
     public function index(): JsonResponse
     {
-        # Except ID #1 - Admin
+        // Except ID #1 - Admin
         $users = UserModel::with('position')->filter('id', 'DESC')->except(1);
-        
+
         return $this->result->success($users);
     }
 
@@ -50,17 +49,17 @@ class UserController extends Controller
     public function store(UserRequest $request): JsonResponse
     {
 
-        # Check if admin trying to change the password
-        $new_password = "";
-        if( $request->new_password != '' ){
-            # Encrypt the password
+        // Check if admin trying to change the password
+        $new_password = '';
+        if ($request->new_password != '') {
+            // Encrypt the password
             $new_password = bcrypt($request->new_password);
         }
 
         $emergency_contact = [
-            "full_name"     =>  $request->ec_full_name,
-            "relationship"  =>  $request->ec_relationship,
-            "phone_number"  =>  $request->ec_phone_number,
+            'full_name'     =>  $request->ec_full_name,
+            'relationship'  =>  $request->ec_relationship,
+            'phone_number'  =>  $request->ec_phone_number,
         ];
 
         $data = [
@@ -74,24 +73,24 @@ class UserController extends Controller
             'date_of_birth'     => $request->date_of_birth,
             'password'          => $new_password,
             'position_id'       => $request->position,
-            'emergency_contact' => json_encode($emergency_contact)
+            'emergency_contact' => json_encode($emergency_contact),
         ];
 
         $user = UserModel::create($data);
 
-        # User Address
+        // User Address
         $address_data = [
             'user_id'           => $user->id,
             'street_address'    => $request->street_address,
             'city'              => $request->city,
             'state'             => $request->state,
             'zip_code'          => $request->zip_code,
-            'country'           => $request->country
+            'country'           => $request->country,
         ];
 
         $user_address = UserAddressModel::create($address_data);
 
-        if (!$user && !$user_address) {
+        if (! $user && ! $user_address) {
             return $this->result->exception();
         }
 
@@ -107,14 +106,14 @@ class UserController extends Controller
         $user->update($request->only('first_name', 'middle_name', 'last_name', 'phone_number', 'email', 'gender', 'marital_status', 'date_of_birth'));
 
         $emergency_contact = [
-            "full_name"     =>  $request->ec_full_name,
-            "relationship"  =>  $request->ec_relationship,
-            "phone_number"  =>  $request->ec_phone_number,
+            'full_name'     =>  $request->ec_full_name,
+            'relationship'  =>  $request->ec_relationship,
+            'phone_number'  =>  $request->ec_phone_number,
         ];
 
-        # Check if admin trying to change the password
-        if( $request->new_password != '' ){
-            # Encrypt the password
+        // Check if admin trying to change the password
+        if ($request->new_password != '') {
+            // Encrypt the password
             $new_password = bcrypt($request->new_password);
             $user->password = $new_password;
         }
@@ -123,24 +122,23 @@ class UserController extends Controller
         $user->position_id = $request->position;
         $user->save();
 
-        # Update User Address Model
-        $user_address = UserAddressModel::where("user_id", $user->id)->first();
-        if (!empty($user_address)) {
+        // Update User Address Model
+        $user_address = UserAddressModel::where('user_id', $user->id)->first();
+        if (! empty($user_address)) {
             $user_address->update($request->only('street_address', 'city', 'state', 'zip_code', 'country'));
-        }else{
-            # User Address
+        } else {
+            // User Address
             $address_data = [
                 'user_id'           => $user->id,
                 'street_address'    => $request->street_address,
                 'city'              => $request->city,
                 'state'             => $request->state,
                 'zip_code'          => $request->zip_code,
-                'country'           => $request->country
+                'country'           => $request->country,
             ];
 
             UserAddressModel::create($address_data);
         }
-        
 
         return $this->result->success($user, 'User updated!');
     }
@@ -154,7 +152,7 @@ class UserController extends Controller
         $user->delete();
 
         $user_address = UserAddressModel::where('user_id', $id)->first();
-        if($user_address){
+        if ($user_address) {
             $user_address->delete();
         }
 

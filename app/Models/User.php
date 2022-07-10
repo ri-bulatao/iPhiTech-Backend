@@ -64,7 +64,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      */
     protected $appends = [
         'photo_url',
-        'full_name'
+        'full_name',
     ];
 
     /**
@@ -136,7 +136,6 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     {
         return $this->hasOne(Position::class, 'id', 'position_id');
     }
-
 
     // ADDITIONAL
     public function getFullNameAttribute() // notice that the attribute name is in CamelCase.
