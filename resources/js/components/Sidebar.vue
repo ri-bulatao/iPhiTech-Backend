@@ -1,14 +1,21 @@
 <template>
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar-wrapper">
         <router-link class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" :to="'/'">
-            <span class="fs-4">Dashboard</span>
+            <span class="fs-4">iPhiTech Logo</span>
         </router-link>
         <hr>
         <!-- For Admins -->
         <ul class="nav nav-pills flex-column mb-auto">
+            <!-- Dashboard -->
+            <li class="nav-item mb-1">
+                <router-link :to="'#'" class="nav-link rounded text-white">
+                    Dashboard
+                </router-link>
+            </li>
+
             <!-- Users -->
             <li class="nav-item mb-1" v-if="admin">
-                <router-link class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false" :to="'#'">User</router-link>
+                <a class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false" href="javascript:void(0)">User</a>
                 <div id="users-collapse" class="collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                         <li>
@@ -23,7 +30,7 @@
 
             <!-- Positions -->
             <li class="nav-item mb-1" v-if="admin">
-                <router-link :to="'#'" class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#positions-collapse" aria-expanded="false">Position</router-link>
+                <a href="javascript:void(0)" class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#positions-collapse" aria-expanded="false">Position</a>
                 <div id="positions-collapse" class="collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                         <li>
@@ -38,14 +45,14 @@
 
             <!-- Announcements -->
             <li class="nav-item mb-1" v-if="admin">
-                <router-link :to="'#'" class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#announcement-collapse" aria-expanded="false">Announcements</router-link>
+                <a href="javascript:void(0)" class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#announcement-collapse" aria-expanded="false">Announcements</a>
                 <div id="announcement-collapse" class="collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                         <li>
                             <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.announcement_list] }">Announcements List</router-link>
                         </li>
                         <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.announcement_edit] }">Create Announcement</router-link>
+                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.announcement_create] }">Create Announcement</router-link>
                         </li>
                     </ul>
                 </div>
