@@ -131,9 +131,14 @@ export default {
 
     let channel = pusher.subscribe('posted-announcements');
 
-    channel.bind('posted-announcements', (data) => {
-      alert('Announcement Posted')
+    channel.bind('posted-announcements', async (data) => {
       console.log(data)
+      let permission = await Notification.requestPermission()
+      const notif = new Notification('New Announcement Posted', {
+        body: 'Checkout the new announcement'
+      })
+      this.$store.dispatch('notifications/fetchUnreadNotifications')
+      setTimeout(() => notif.close(), 4*1000);
     })
   },
 
