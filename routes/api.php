@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         ->prefix('notifications')
         ->group(function () {
             Route::get('/', [NotificationsController::class, 'index'])->name('list');
+            Route::get('unread', [NotificationsController::class, 'unread'])->name('unread');
             Route::put('/{id}', [NotificationsController::class, 'update'])->name('update');
             Route::delete('/{id}', [NotificationsController::class, 'delete'])->name('delete');
         });
