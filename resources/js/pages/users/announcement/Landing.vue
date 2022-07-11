@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 col-lg-4 m-auto" v-for="announcement in announcements" :key="announcement.id">
-                    <div class="card px-3">
+                    <div class="card px-3 mt-3">
                         <div class="card-body">
                             <h5 class="card-title">{{ announcement.title }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ announcement.pretty_created }}</h6>

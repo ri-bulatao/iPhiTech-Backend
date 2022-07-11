@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Config;
 
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
@@ -157,5 +158,14 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     public function notifications()
     {
         return $this->belongsToMany(NotificationModel::class);
+    }
+
+    public function menu()
+    {
+        if( $this->hasRole('administrator') ) {
+            return Config::get('menu.administrator');
+        }
+
+        return Config::get('menu.employee');
     }
 }

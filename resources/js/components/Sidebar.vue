@@ -4,61 +4,21 @@
             <span class="fs-4">iPhiTech Logo</span>
         </router-link>
         <hr>
-        <!-- For Admins -->
+
         <ul class="nav nav-pills flex-column mb-auto">
-            <!-- Dashboard -->
-            <li class="nav-item mb-1">
-                <router-link :to="'#'" class="nav-link rounded text-white">
-                    Dashboard
-                </router-link>
-            </li>
-
-            <!-- Users -->
-            <li class="nav-item mb-1" v-if="admin">
-                <a class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false" href="javascript:void(0)">User</a>
-                <div id="users-collapse" class="collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+            <!-- Loop from menu object of user -->
+            <li class="nav-item mb-1" v-for="menu in user.menu.side" v-if="menu.hasChildren">
+                <a href="javascript:void(0)" :class="menu.class" data-bs-toggle="collapse" :data-bs-target="'#' + menu.toggleId" aria-expanded="false">{{ menu.name }}</a>
+                <div :id="menu.toggleId" class="collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1" v-for="submenu in menu.subMenus">
                         <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.user_list] }">User List</router-link>
-                        </li>
-                        <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.user_create] }">Create User</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Positions -->
-            <li class="nav-item mb-1" v-if="admin">
-                <a href="javascript:void(0)" class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#positions-collapse" aria-expanded="false">Position</a>
-                <div id="positions-collapse" class="collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                        <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.position_list] }">Position List</router-link>
-                        </li>
-                        <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.position_create] }">Create Position</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Announcements -->
-            <li class="nav-item mb-1" v-if="admin">
-                <a href="javascript:void(0)" class="nav-link rounded btn-toggle align-items-center collapsed text-white" data-bs-toggle="collapse" data-bs-target="#announcement-collapse" aria-expanded="false">Announcements</a>
-                <div id="announcement-collapse" class="collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
-                        <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.announcement_list] }">Announcements List</router-link>
-                        </li>
-                        <li>
-                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.announcement_create] }">Create Announcement</router-link>
+                            <router-link :class="submenu.class" :to="{ name: submenu.routeName }">{{ submenu.name }}</router-link>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item mb-1" v-else>
-                <router-link :to="{ name: [routeNames.front_announcements] }" class="nav-link text-white align-items-center rounded">Announcements</router-link>
+                <router-link :to="{ name: menu.routeName }" :class="menu.class">{{ menu.name }}</router-link>
             </li>
         </ul>
         <hr>
@@ -75,6 +35,8 @@
 
 <script>
 import * as routeNames from '~/config/route-names'
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'sidebar',
 
@@ -82,6 +44,10 @@ export default {
         routeNames,
         admin: true
     }),
+
+    computed: mapGetters({
+        user: 'auth/user'
+    }), 
 
     mounted() {
         this.routeNames = routeNames

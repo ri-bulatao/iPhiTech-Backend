@@ -54,6 +54,7 @@
               </a>
             </div>
           </li>
+
           <!-- Guest -->
           <template v-else>
             <li class="nav-item">

@@ -109,7 +109,7 @@ export default [
   
 
   // User Pages
-  { path: '/user', name: 'user.dashboard', component: page('users/dashboard.vue') },
+  { path: '/user', name: [routeNames.user_dashboard], component: page('users/dashboard.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },

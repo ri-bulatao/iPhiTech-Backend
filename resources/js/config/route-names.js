@@ -21,5 +21,7 @@ export const user_single = 'admin.user.single'
 export const user_create = 'admin.user.create'
 
 // Front user side
+export const user_dashboard = 'user.dashboard'
+
 export const front_announcements = 'front.announcements'
 export const front_announcement_single = 'front.announcement.single'
