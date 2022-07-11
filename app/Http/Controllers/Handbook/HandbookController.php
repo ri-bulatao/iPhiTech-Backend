@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Handbook;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Handbook\HandbookRequest;
 use App\Models\Handbook;
-use App\Models\Handbook;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
