@@ -54,6 +54,30 @@ export default [
       ]
     },
     {
+      path: 'handbook',
+      name: 'handbook',
+      component: page('handbook/index.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'pages'
+        },
+        {
+          path: 'pages',
+          name: 'handbook.pages',
+          component: page('handbook/pages.vue'),
+          children: [
+            {
+              path: 'view/:id',
+              name: 'handbook.pages.view',
+              component: page('handbook/view.vue')
+            }
+          ]
+        },
+        
+      ]
+    },
+    {
       path: 'position',
       name: 'admin.positions',
       component: page('admin/position/AdminUserPosition.vue'),
