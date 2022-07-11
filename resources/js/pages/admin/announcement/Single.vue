@@ -17,7 +17,7 @@
             <div class="py-2 overflow-hidden" v-html="announcement.content"></div>
         </div>
         <div class="col-lg-10 m-auto pt-5 d-flex justify-content-end">
-            <button class="btn btn-success">Post Announcement</button>
+            <button class="btn btn-success" @click="post">Post Announcement</button>
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
 
@@ -36,11 +37,34 @@ export default {
         announcement: 'announcements/announcement'
     }),
 
+    methods: {
+        post() {
+            let payload = {
+                id: this.id,
+                status: 'posted'
+            }
+
+            this.$store.dispatch('announcements/postAnnouncement', payload)
+                .then(res => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: res.message
+                    })
+
+                    this.$store.dispatch('announcements/fetchAnnouncement', this.id)
+                })
+        },
+    },
+
     mounted() {
         this.id = this.$route.params.id
         this.$store.dispatch('announcements/fetchAnnouncement', this.id)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong!'
+                })
+            })
     }
 }
 </script>

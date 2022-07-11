@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
@@ -53,8 +54,20 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/{id}', [AnnouncementController::class, 'get'])->name('single');
             Route::post('/', [AnnouncementController::class, 'store'])->name('store');
             Route::post('/upload', [AnnouncementController::class, 'upload'])->name('upload');
+            Route::put('/post', [AnnouncementController::class, 'post'])->name('post');
             Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('update');
             Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+        });
+
+    /**
+     * Notification Module.
+     */
+    Route::name('notifications.')
+        ->prefix('notifications')
+        ->group(function () {
+            Route::get('/', [NotificationsController::class, 'index'])->name('list');
+            Route::put('/{id}', [NotificationsController::class, 'update'])->name('update');
+            Route::delete('/{id}', [NotificationsController::class, 'delete'])->name('delete');
         });
 
     /**
