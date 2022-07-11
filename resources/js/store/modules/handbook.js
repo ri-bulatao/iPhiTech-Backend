@@ -1,11 +1,11 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 import Form from 'vform'
 
 // state
 export const state = {
     loading: false,
+    page_title: "",
     handbooks: [],
     handbook: {},
     handbookForm: new Form({
@@ -16,6 +16,7 @@ export const state = {
 // getters
 export const getters = {
     loading: state => state.loading,
+    page_title: state => state.page_title,
     handbooks: state => state.handbooks,
     handbook: state => state.handbook,
     handbookForm: state => state.handbookForm,
@@ -29,8 +30,8 @@ export const mutations = {
     },
 
     [types.FETCH_HANDBOOK] (state, {data}) {
+        state.page_title = data.version_name.split("__")[1];
         state.handbook = data
-        
         state.loading = false
     },
 
@@ -53,17 +54,18 @@ export const mutations = {
         if (index !== -1) {
             state.handbooks.splice(index, 1)
         }
-    },
+    }
 }
 
 // actions
 export const actions = {
     
-  async fetchHandbooks ({ commit }, queryInfo) {
-    try {
+    async fetchHandbooks ({ commit }) {
+        try {
             state.loading = true
             
-            const { data } = await axios.get(route('handbook.all'), queryInfo)
+            const { data } = await axios.get(route('handbook.all'))
+
             commit(types.FETCH_ALL_HANDBOOKS, data)
             
         } catch (error) {
@@ -78,10 +80,10 @@ export const actions = {
             state.loading = true
             
             const { data } = await axios.get(route('handbook.show', id))
+
             commit(types.FETCH_HANDBOOK, data)
         } catch (error) {
             state.loading = false
-            console.log(error.message)
         }
     },
     
@@ -89,9 +91,9 @@ export const actions = {
         try {
             state.loading = true
                 
-        if (id) {
-            state.handbookForm.id = id;
-        }
+            if (id) {
+                state.handbookForm.id = id;
+            }
 
             const saveURL = state.handbookForm.id ? route('handbook.update', id) : route('handbook.store')
             const { data } = await (state.handbookForm.id ? state.handbookForm.put(saveURL) : state.handbookForm.post(saveURL))
@@ -114,5 +116,4 @@ export const actions = {
             return response.data
         }
     },
-    
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Handbook\HandbookController;
+use App\Http\Controllers\Handbook\HandbookPageController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
@@ -80,6 +81,16 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/', [HandbookController::class, 'store'])->name('store');
             Route::put('/update/{id}', [HandbookController::class, 'update'])->name('update');
             Route::delete('/{id}', [HandbookController::class, 'destroy'])->name('delete');
+        });
+
+    Route::name('handbook_page.')
+        ->prefix('handbook_page')
+        ->group(function () {
+            Route::get('/{id}', [HandbookPageController::class, 'get'])->name('all');
+            Route::get('/single/{id}', [HandbookPageController::class, 'show'])->name('show');
+            Route::post('/', [HandbookPageController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [HandbookPageController::class, 'update'])->name('update');
+            Route::delete('/{id}', [HandbookPageController::class, 'destroy'])->name('delete');
         });
 });
 

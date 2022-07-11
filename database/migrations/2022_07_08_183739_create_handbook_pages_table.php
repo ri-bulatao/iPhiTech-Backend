@@ -22,7 +22,7 @@ class CreateHandbookPagesTable extends Migration
                 ->references('id')->on('handbooks')
                 ->onDelete('cascade');
             $table->string('title');
-            $table->text('content');
+            $table->longText('content');
             $table->timestamps();
         });
     }

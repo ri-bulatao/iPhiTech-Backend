@@ -1,33 +1,53 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
-                    <div class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                        <span class="fs-5 fw-semibold">Content Pages</span>
+            <div class="col-lg-12 p-3">
+                <div class="page-header">
+                    <h2>{{ handbook_page.title }}</h2>
+                    <small>sample</small>
+                </div>
+                <hr>
+                <div class="page-body">
+                    <div class="py-2 overflow-hidden" v-html="handbook_page.content"></div>
+                </div>
+                <div class="page-footer d-flex justify-content-end">
+                    <div>
+                        <button class="btn btn-warning" @click="setModalType(null)">Edit</button>
+                        <button class="btn btn-danger" @click="deleteHandbookPage()">Delete</button>
                     </div>
-                    <div class="list-group list-group-flush border-bottom scrollarea">
-                    <a href="#" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">List group item heading</strong>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">List group item heading</strong>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">List group item heading</strong>
-                        </div>
-                    </a>
+                </div>
+            </div>
+        </div>
 
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">List group item heading</strong>
+        <button class="visually-hidden" data-bs-toggle="modal" data-bs-target="#updateHandbookPage" ref="handbookModalBtn"></button>
+        <!-- Modal -->
+        <div class="modal fade" id="updateHandbookPage" tabindex="-1" aria-labelledby="updateHandbookPage" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Handbook Page</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="submitForm" v-if="!loading">
+                            <div class="form-group py-2">
+                                <label for="title">Title</label>
+                                <input v-model="handbookPageForm.title" type="text" name="title" class="form-control" placeholder="Handbook page title">
+                            </div>
+                            <div class="form-group py-2">
+                                <label for="content">Content</label>
+                                <vue-editor id="editor"
+                                    v-model="handbookPageForm.content">
+                                </vue-editor>
+                            </div>
+                        </form>
+                        <div v-else>
+                            {{ type ? 'Saving Handbook...' : 'Creating new Handbook...' }}
                         </div>
-                    </a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="modalHandbookForm">Close</button>
+                        <button type="button" class="btn btn-primary" @click="saveHandbook()">Save Handbook</button>
                     </div>
                 </div>
             </div>
@@ -38,182 +58,92 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import { VueEditor } from 'vue2-editor'
 import Swal from 'sweetalert2'
 
 export default {
+    components: { VueEditor },
 
     data: () => ({
-        sortBy: 'title',
-        sortOrder: 'asc'
+        type: null
     }),
 
     computed: mapGetters({
-        announcements: 'announcements/announcements'
+        loading: "handbook-page/loading",
+        handbook_page: 'handbook-page/handbook_page',
+        handbookPageForm: "handbook-page/handbookPageForm",
+        selected_handbook: "handbook-page/selected_handbook",
     }),
 
     methods: {
-        handleSort(handle) {
-            this.sortBy = handle
-            this.sortOrder = this.sortOrder == 'asc' ? 'desc' : 'asc'
-            
-            let payload = {
-                sortBy: this.sortBy,
-                sortOrder: this.sortOrder
-            }
+        setModalType(type) {
+            this.type = type;
+            this.$refs['handbookModalBtn'].click();
 
-            this.$store.dispatch('announcements/fetchAnnouncements', payload)
+            this.handbookPageForm.keys().forEach(key => {
+                this.handbookPageForm[key] = this.handbook_page[key]
+            })
+        },
+
+        saveHandbook() {
+            const id = this.selected_handbook;
+
+            this.$store.dispatch('handbook-page/saveHandbookPage', {id, type: 'update'})
+                .then(({success, message}) => {
+                    if(success){
+                        Swal.fire({
+                            icon: 'success',
+                            title: message
+                        })
+                        this.$refs['modalHandbookForm'].click();
+                    }
+                    
+                })
                 .catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops!',
-                        text: 'Something went wrong!'
-                    })
+                    console.log(err)
                 })
         },
 
-        deleteReady(id) {
+        deleteHandbookPage() {
+            var id = this.selected_handbook;
             Swal.fire({
-                icon: 'question',
-                title: 'Are you sure to delete ?',
-                text: 'There is no undo for this action',
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, Delete!'
-            })
-            .then(result => {
-                if(result.isConfirmed) {
-                    this.delete(id)
-                }
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    this.$store.dispatch('handbook-page/deleteHandbookPage', id)
+                    .then(({success, message}) => {
+                        if (success) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Handbook version has been deleted.',
+                                'success'
+                            )
+                            this.$store.dispatch('handbook-page/getLastHandbook').then((data) => {
+                                var first_page = data.id;
+                                this.$store.dispatch('handbook-page/fetchSingleHandbook', {id: first_page})
+                                this.$router.push({ name: 'handbook.pages.view', params: {id: first_page} }) 
+                            })
+                            
+                        } else {
+                            Swal.fire(
+                            'Error!',
+                            message,
+                            'error')
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
             })
         },
-
-        delete(id) {
-            this.$store.dispatch('announcements/deleteAnnouncement', id)
-                .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        message: res.message
-                    })
-
-                    this.$store.dispatch('announcements/fetchAnnouncements')
-
-                })
-                .catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops!',
-                        text: 'Something went wrong!'
-                    })
-                })
-        }
-    },
-
-    mounted() {
-        let payload = {
-            sortBy: this.sortBy,
-            sortOrder: this.sortOrder
-        }
-        this.$store.dispatch('announcements/fetchAnnouncements', payload)
-            .catch(err => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ooops!',
-                    text: 'Something went wrong!'
-                })
-            })
     }
 }
 </script>
-
-<style lang="scss" scoped>
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-
-html {
-  height: -webkit-fill-available;
-}
-
-main {
-  display: flex;
-  flex-wrap: nowrap;
-  height: 100vh;
-  height: -webkit-fill-available;
-  max-height: 100vh;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.b-example-divider {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
-  border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-}
-
-.bi {
-  vertical-align: -.125em;
-  pointer-events: none;
-  fill: currentColor;
-}
-
-.dropdown-toggle { outline: 0; }
-
-.nav-flush .nav-link {
-  border-radius: 0;
-}
-
-.btn-toggle {
-  display: inline-flex;
-  align-items: center;
-  padding: .25rem .5rem;
-  font-weight: 600;
-  color: rgba(0, 0, 0, .65);
-  background-color: transparent;
-  border: 0;
-}
-.btn-toggle:hover,
-.btn-toggle:focus {
-  color: rgba(0, 0, 0, .85);
-  background-color: #d2f4ea;
-}
-
-.btn-toggle::before {
-  width: 1.25em;
-  line-height: 0;
-  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
-  transition: transform .35s ease;
-  transform-origin: .5em 50%;
-}
-
-.btn-toggle[aria-expanded="true"] {
-  color: rgba(0, 0, 0, .85);
-}
-.btn-toggle[aria-expanded="true"]::before {
-  transform: rotate(90deg);
-}
-
-.btn-toggle-nav a {
-  display: inline-flex;
-  padding: .1875rem .5rem;
-  margin-top: .125rem;
-  margin-left: 1.25rem;
-  text-decoration: none;
-}
-.btn-toggle-nav a:hover,
-.btn-toggle-nav a:focus {
-  background-color: #d2f4ea;
-}
-
-.scrollarea {
-  overflow-y: auto;
-}
-
-.fw-semibold { font-weight: 600; }
-.lh-tight { line-height: 1.25; }
-
-</style>

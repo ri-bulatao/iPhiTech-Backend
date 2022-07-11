@@ -34,7 +34,7 @@ class HandbookController extends Controller
     /**
      * Fetch all the handbook versions.
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         $handbookVersions = Handbook::all();
 

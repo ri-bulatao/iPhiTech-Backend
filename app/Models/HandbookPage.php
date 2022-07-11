@@ -18,7 +18,7 @@ class HandbookPage extends Model
      */
     protected $fillable = [
         'handbook_id',
-        'name',
+        'title',
         'content',
         'created_at',
         'updated_at',
