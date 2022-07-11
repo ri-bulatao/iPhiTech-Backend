@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Notification as NotificationModel;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -25,9 +26,17 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'phone_number',
         'email',
+        'gender',
+        'marital_status',
+        'date_of_birth',
+        'emergency_contact',
         'password',
+        'position_id',
     ];
 
     /**
@@ -56,6 +65,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      */
     protected $appends = [
         'photo_url',
+        'full_name',
     ];
 
     /**
@@ -121,5 +131,31 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     public function user_role()
     {
         return $this->belongsTo('App\Models\Role', 'role_id')->with('permissions');
+    }
+
+    public function position()
+    {
+        return $this->hasOne(Position::class, 'id', 'position_id');
+    }
+
+    // ADDITIONAL
+    public function getFullNameAttribute() // notice that the attribute name is in CamelCase.
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function scopeFilter($query, $sortBy, $sortOrder)
+    {
+        return $query->orderBy($sortBy, $sortOrder)->get();
+    }
+
+    public function user_address()
+    {
+        return $this->hasOne(UserAddress::class, 'user_id', 'id');
+    }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(NotificationModel::class);
     }
 }
