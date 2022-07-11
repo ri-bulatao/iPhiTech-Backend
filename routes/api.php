@@ -18,6 +18,7 @@ use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
+use App\Http\Controllers\User\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,6 +80,17 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [PositionController::class, 'store'])->name('position.store');
         Route::put('/update/{id}', [PositionController::class, 'update'])->name('position.update');
         Route::delete('/{id}', [PositionController::class, 'destroy'])->name('position.delete');
+    });
+
+    /**
+     * Admin User Modules.
+     */
+    Route::prefix('admin_user')->group(function () {
+        Route::get('fetch', [AdminUserController::class, 'index'])->name('admin_user.list');
+        Route::get('/{id}', [AdminUserController::class, 'get'])->name('admin_user.single');
+        Route::post('/', [AdminUserController::class, 'store'])->name('admin_user.store');
+        Route::put('/update/{id}', [AdminUserController::class, 'update'])->name('admin_user.update');
+        Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('admin_user.delete');
     });
 });
 

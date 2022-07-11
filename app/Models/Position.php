@@ -22,4 +22,9 @@ class Position extends Model
     {
         return $this->belongsTo(User::class, 'position_id', 'id');
     }
+
+    public function scopeFilter($query, $sortBy, $sortOrder)
+    {
+        return $query->orderBy($sortBy, $sortOrder)->get();
+    }
 }
