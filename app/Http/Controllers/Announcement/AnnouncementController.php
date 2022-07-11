@@ -18,7 +18,6 @@ use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Config;
 
 class AnnouncementController extends Controller
 {
