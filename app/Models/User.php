@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Notification as NotificationModel;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -151,5 +152,10 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     public function user_address()
     {
         return $this->hasOne(UserAddress::class, 'user_id', 'id');
+    }
+    
+    public function notifications()
+    {
+        return $this->belongsToMany(NotificationModel::class);
     }
 }

@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AnnouncementRequest extends FormRequest
+class NotificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,24 +27,22 @@ class AnnouncementRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'excerpt'   => 'required',
-            'content'  => 'required|min:8',
-            'receiver'  => 'required',
+            'url' => 'required',
+            'read' => 'required',
         ];
     }
 
     /**
-     * Error message for the field validations.
+     * Error messages.
      *
      * @return array
      */
     public function messages()
     {
         return [
-            'title.required'    => 'Title is required',
-            'excerpt.required'  => 'Excerpt is required',
-            'content.required'  => 'Content are required',
-            'receiver.required' => 'Receiver is required',
+            'title.required' => 'The title field is required',
+            'url.required'  => 'The URL field is required',
+            'read.required' => 'The Read field is required',
         ];
     }
 }

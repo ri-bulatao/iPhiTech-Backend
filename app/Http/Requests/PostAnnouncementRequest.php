@@ -6,7 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AnnouncementRequest extends FormRequest
+class PostAnnouncementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,25 +26,22 @@ class AnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'excerpt'   => 'required',
-            'content'  => 'required|min:8',
-            'receiver'  => 'required',
+            'id'        => 'required|integer',
+            'status'    => 'required|string',
         ];
     }
 
     /**
-     * Error message for the field validations.
+     * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function messages()
     {
         return [
-            'title.required'    => 'Title is required',
-            'excerpt.required'  => 'Excerpt is required',
-            'content.required'  => 'Content are required',
-            'receiver.required' => 'Receiver is required',
+            'id.required'           => 'The ID field is required',
+            'id.integer'            => 'Passed an invalid ID format',
+            'status.required'       => 'The status is required',
         ];
     }
 }

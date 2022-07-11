@@ -13,6 +13,9 @@ export const SET_LOCALE = 'SET_LOCALE'
 export const SET_ANNOUNCEMENTS = 'SET_ANNOUNCEMENTS'
 export const SET_ANNOUNCEMENT = 'SET_ANNOUNCEMENT'
 
+// notifications.js
+export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS'
+
 // positions.js
 export const FETCH_POSITIONS = 'FETCH_POSITIONS'
 export const FETCH_SINGLE_POSITION = 'FETCH_SINGLE_POSITION'

@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             PositionSeeder::class,
-            PositionSeeder::class,
             PermissionSeeder::class,
             AdminPermissionSeeder::class,
         ]);

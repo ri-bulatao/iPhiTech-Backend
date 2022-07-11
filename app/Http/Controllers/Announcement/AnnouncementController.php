@@ -6,10 +6,14 @@ namespace App\Http\Controllers;
 
 namespace App\Http\Controllers\Announcement;
 
+use App\Events\AnnouncementPosted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Requests\ImageRequest;
+use App\Http\Requests\PostAnnouncementRequest;
 use App\Models\Announcement as AnnouncementModel;
+use App\Models\Notification as NotificationModel;
+use App\Models\User;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
@@ -55,16 +59,22 @@ class AnnouncementController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $sortBy = $request->sortBy ?? 'title';
-        $sortOrder = $request->sortOrder ?? 'asc';
+        $sortBy = $request->sortBy ?? 'created_at';
+        $sortOrder = $request->sortOrder ?? 'desc';
 
         $announcements = AnnouncementModel::sort($sortBy, $sortOrder);
+
+        foreach ($announcements as $announcement) {
+            $announcement->pretty_created = $announcement->created_at->diffForHumans();
+        }
 
         return $this->result->success($announcements);
     }
 
     /**
      * For Fetching single announcement.
+     *
+     * @param int $id
      */
     public function get($id): JsonResponse
     {
@@ -73,6 +83,8 @@ class AnnouncementController extends Controller
         if (! $announcement) {
             return $this->result->notFound();
         }
+
+        $announcement->pretty_created = $announcement->created_at->diffForHumans();
 
         return $this->result->success($announcement);
     }
@@ -99,7 +111,45 @@ class AnnouncementController extends Controller
     }
 
     /**
+     * For posting the announcement to make it visible to the front end.
+     */
+    public function post(PostAnnouncementRequest $request): JsonResponse
+    {
+        $id = $request->id;
+        $status = $request->status;
+
+        $announcement = AnnouncementModel::find($id);
+
+        if (! $announcement) {
+            return $this->result->notFound();
+        }
+
+        $announcement->status = $status;
+        $announcement->save();
+
+        $url = '/announcement' . '/' . $announcement->id;
+
+        $notification = NotificationModel::create([
+            'title'     => 'New Announcement Posted',
+            'read'      => false,
+            'url'       => $url,
+        ]);
+
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $notification->users()->attach($user->id);
+        }
+
+        event(new AnnouncementPosted($announcement->title));
+
+        return $this->result->success($announcement, 'Announcement was posted');
+    }
+
+    /**
      * For updating the announcement data in the database.
+     *
+     * @param int $id
      */
     public function update(AnnouncementRequest $request, $id): JsonResponse
     {
@@ -120,6 +170,8 @@ class AnnouncementController extends Controller
 
     /**
      * For deleting the announcement data in the database.
+     *
+     * @param int $id
      */
     public function delete($id): JsonResponse
     {

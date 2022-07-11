@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Enums\PositionEnums as Positions;
 use App\Models\Position;
 use Illuminate\Database\Seeder;
+use ReflectionClass;
 
 class PositionSeeder extends Seeder
 {
@@ -16,9 +18,15 @@ class PositionSeeder extends Seeder
      */
     public function run()
     {
-        /**
-         * Generate User Positions.
-         */
-        Position::factory()->count(5)->create();
+        // Get all positions
+        $positionConstant = collect((new ReflectionClass(Positions::class))->getConstants());
+
+        // Create positions
+        $positions = $positionConstant->map(function ($position) {
+            return Position::factory()->make(['name' => $position]);
+        });
+
+        // Insert positions
+        Position::insert($positions->toArray());
     }
 }
