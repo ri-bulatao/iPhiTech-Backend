@@ -18,7 +18,6 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-
         // Get All Roles
         $roleConstants = collect((new ReflectionClass(Roles::class))->getConstants());
 

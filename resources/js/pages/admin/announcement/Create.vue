@@ -15,10 +15,7 @@
                         <label for="receiver">Receiver</label>
                         <select v-model="form.receiver" name="receiver" id="receiver" class="form-control">
                             <option value="0">All Employee</option>
-                            <option value="1">Developers</option>
-                            <option value="2">Managers</option>
-                            <option value="3">Graphics</option>
-                            <option value="4">Admins</option>
+                            <option v-for="position in positions" :key="position.id" :value="position.id">{{ position.name }}</option>
                         </select>
                     </div>
                     <div class="form-group py-2">
@@ -41,6 +38,7 @@ import Form from 'vform'
 import Swal from 'sweetalert2'
 import Cookies from 'js-cookie'
 import { VueEditor } from 'vue2-editor'
+import { mapGetters } from 'vuex'
 
 export default {
 
@@ -55,6 +53,10 @@ export default {
             receiver: '0',
             content: ''
         })
+    }),
+
+    computed: mapGetters({
+        positions: 'positions/positions'
     }),
 
     methods: {
@@ -99,6 +101,20 @@ export default {
                 this.$router.push({ name: 'admin.announcements.list' })
             }
         }
+    },
+
+    mounted() {
+        this.$store.dispatch('positions/fetchPositions')
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oooppss!',
+                    text: 'Something went wrong!'
+                })
+            })
     },
 
     metaInfo () {

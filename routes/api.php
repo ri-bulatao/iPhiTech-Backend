@@ -16,9 +16,11 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
+use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
+use App\Http\Controllers\User\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,8 +57,20 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/{id}', [AnnouncementController::class, 'get'])->name('single');
             Route::post('/', [AnnouncementController::class, 'store'])->name('store');
             Route::post('/upload', [AnnouncementController::class, 'upload'])->name('upload');
+            Route::put('/post', [AnnouncementController::class, 'post'])->name('post');
             Route::put('/update/{id}', [AnnouncementController::class, 'update'])->name('update');
             Route::delete('/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+        });
+
+    /**
+     * Notification Module.
+     */
+    Route::name('notifications.')
+        ->prefix('notifications')
+        ->group(function () {
+            Route::get('/', [NotificationsController::class, 'index'])->name('list');
+            Route::put('/{id}', [NotificationsController::class, 'update'])->name('update');
+            Route::delete('/{id}', [NotificationsController::class, 'delete'])->name('delete');
         });
 
     /**
@@ -71,7 +85,18 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     /**
-     * Handbooks Modules.
+     * Admin User Modules.
+     */
+    Route::prefix('admin_user')->group(function () {
+        Route::get('fetch', [AdminUserController::class, 'index'])->name('admin_user.list');
+        Route::get('/{id}', [AdminUserController::class, 'get'])->name('admin_user.single');
+        Route::post('/', [AdminUserController::class, 'store'])->name('admin_user.store');
+        Route::put('/update/{id}', [AdminUserController::class, 'update'])->name('admin_user.update');
+        Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('admin_user.delete');
+    });
+
+    /**
+     * Handbook Modules.
      */
     Route::name('handbook.')
         ->prefix('handbook')

@@ -26,7 +26,7 @@ class AnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:announcements',
+            'title' => 'required',
             'excerpt'   => 'required',
             'content'  => 'required|min:8',
             'receiver'  => 'required',
@@ -42,7 +42,6 @@ class AnnouncementRequest extends FormRequest
     {
         return [
             'title.required'    => 'Title is required',
-            'title.unique'      => 'Title already taken',
             'excerpt.required'  => 'Excerpt is required',
             'content.required'  => 'Content are required',
             'receiver.required' => 'Receiver is required',

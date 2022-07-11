@@ -5,7 +5,14 @@ function page (path) {
 import * as routeNames from '~/config/route-names';
 
 export default [
+
   { path: '/', name: 'welcome', component: page('welcome.vue') },
+
+  // Front Pages
+  { path: '/announcements', name: 'front.announcements', component: page('users/announcement/Landing.vue') },
+  { path: '/announcement/:id', name: 'front.announcement.single', component: page('users/announcement/Single.vue') },
+
+  { path: '/notifications', name: 'front.notificaitons', component: page('users/notifications/Landing.vue') },
 
   // Admin Pages
   { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
@@ -72,7 +79,7 @@ export default [
     },
     {
       path: 'position',
-      name: [routeNames.admin_position],
+      name: 'admin.positions',
       component: page('admin/position/AdminUserPosition.vue'),
       children: [
         {
@@ -81,18 +88,44 @@ export default [
         },
         {
           path: 'list',
-          name: [routeNames.position_list],
+          name: 'admin.positions.list',
           component: page('admin/position/List.vue')
         },
         {
           path: 'single/:id',
-          name: [routeNames.position_single],
+          name: 'admin.positions.single',
           component: page('admin/position/Single.vue')
         },
         {
           path: 'create',
-          name: [routeNames.position_create],
+          name: 'admin.positions.create',
           component: page('admin/position/Create.vue')
+        }
+      ]
+    },
+    {
+      path: 'user',
+      name: 'admin.users',
+      component: page('admin/user/AdminUser.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'list'
+        },
+        {
+          path: 'list',
+          name: 'admin.users.list',
+          component: page('admin/user/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: 'admin.users.single',
+          component: page('admin/user/Single.vue')
+        },
+        {
+          path: 'create',
+          name: 'admin.users.create',
+          component: page('admin/user/Create.vue')
         }
       ]
     }

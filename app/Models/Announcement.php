@@ -13,6 +13,11 @@ class Announcement extends Model
 
     protected $guarded = [];
 
+    public function positions()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
     public function scopeSort($query, $sortBy, $sortOrder)
     {
         return $query->orderBy($sortBy, $sortOrder)->get();
