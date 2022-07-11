@@ -17,14 +17,14 @@
                                 </div>
                             </div>
                             <!-- Submit Button -->
-                            <router-link :to="{ name: 'admin.positions.list' }">
-                                <v-button type="secondary">
-                                    Back to List
-                                </v-button>
-                            </router-link>
-                            <v-button :loading="form.busy">
+                            <v-button :loading="form.busy" class="btn btn-primary btn-sm">
                                 Submit
                             </v-button>
+
+                            <router-link 
+                                class="btn btn-secondary btn-sm" 
+                                :to="{ name: 'admin.positions.list' }"
+                            > Back to List </router-link>
                         </form>
                     </div>
                 </div>
@@ -38,6 +38,18 @@
 import Form from 'vform'
 import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 
 export default {
   data: () => ({
@@ -58,9 +70,10 @@ export default {
             if(result.data.success){
                 this.form.reset()
                 this.$store.dispatch('positions/fetchPositions')
-                Swal.fire({
+
+                Toast.fire({
                     icon: 'success',
-                    title: 'Success!',
+                    title: "Success!",
                     text: result.data.message
                 })
             }else{
@@ -71,11 +84,13 @@ export default {
                 })
             }
         }).catch((error) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops!',
-                text: error.response.data.errors.name[0]
-            })
+            if(error.response){
+                Toast.fire({
+                    icon: 'error',
+                    title: "Oops!",
+                    text: error.response.data.errors.name[0]
+                })
+            }
         })
     }
   }
