@@ -64,17 +64,17 @@ export default [
         },
         {
           path: 'list',
-          name: 'admin.positions.list',
+          name: [routeNames.position_list],
           component: page('admin/position/List.vue')
         },
         {
           path: 'single/:id',
-          name: 'admin.positions.single',
+          name: [routeNames.position_single],
           component: page('admin/position/Single.vue')
         },
         {
           path: 'create',
-          name: 'admin.positions.create',
+          name: [routeNames.position_create],
           component: page('admin/position/Create.vue')
         }
       ]
@@ -90,17 +90,17 @@ export default [
         },
         {
           path: 'list',
-          name: 'admin.users.list',
+          name: [routeNames.user_list],
           component: page('admin/user/List.vue')
         },
         {
           path: 'single/:id',
-          name: 'admin.users.single',
+          name: [routeNames.user_single],
           component: page('admin/user/Single.vue')
         },
         {
           path: 'create',
-          name: 'admin.users.create',
+          name: [routeNames.user_create],
           component: page('admin/user/Create.vue')
         }
       ]

@@ -16,6 +16,10 @@ export const position_list = 'admin.positions.list'
 export const position_single = 'admin.positions.single'
 export const position_create = 'admin.positions.create'
 
+export const user_list = 'admin.user.list'
+export const user_single = 'admin.user.single'
+export const user_create = 'admin.user.create'
+
 // Front user side
 export const front_announcements = 'front.announcements'
 export const front_announcement_single = 'front.announcement.single'

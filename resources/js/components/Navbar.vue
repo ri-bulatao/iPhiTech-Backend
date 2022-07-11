@@ -11,8 +11,8 @@
 
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <!-- <locale-dropdown /> -->
-          <li class="nav-item">
+          <locale-dropdown />
+          <!-- <li class="nav-item">
             <router-link :to="{ name: 'admin.announcements.list' }" class="nav-link">
               Announcements
             </router-link>
@@ -26,7 +26,7 @@
             <router-link :to="{ name: 'admin.users.list' }" class="nav-link">
               Users
             </router-link>
-          </li>
+          </li> -->
         </ul>
 
         <ul class="navbar-nav ms-auto">

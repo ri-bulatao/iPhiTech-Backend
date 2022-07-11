@@ -19,10 +19,10 @@
                 <div id="users-collapse" class="collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                         <li>
-                            <router-link class="nav-link rounded text-white" :to="'#'">User List</router-link>
+                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.user_list] }">User List</router-link>
                         </li>
                         <li>
-                            <router-link class="nav-link rounded text-white" :to="'#'">Create User</router-link>
+                            <router-link class="nav-link rounded text-white" :to="{ name: [routeNames.user_create] }">Create User</router-link>
                         </li>
                     </ul>
                 </div>
