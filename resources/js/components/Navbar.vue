@@ -27,6 +27,11 @@
               Users
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'handbook.pages' }" class="nav-link">
+              Handbooks
+            </router-link>
+          </li>
         </ul>
 
         <ul class="navbar-nav ms-auto">
