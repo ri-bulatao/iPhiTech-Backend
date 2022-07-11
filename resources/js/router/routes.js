@@ -9,8 +9,8 @@ export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
 
   // Front Pages
-  { path: '/announcements', name: 'front.announcements', component: page('users/announcement/Landing.vue') },
-  { path: '/announcement/:id', name: 'front.announcement.single', component: page('users/announcement/Single.vue') },
+  { path: '/announcements', name: [routeNames.front_announcements], component: page('users/announcement/Landing.vue') },
+  { path: '/announcement/:id', name: [routeNames.front_announcement_single], component: page('users/announcement/Single.vue') },
 
   { path: '/notifications', name: 'front.notificaitons', component: page('users/notifications/Landing.vue') },
 
@@ -24,7 +24,7 @@ export default [
     },
     {
       path: 'announcement',
-      name: 'admin.announcements',
+      name: [routeNames.admin_announcement],
       component: page('admin/announcement/AdminAnnouncement.vue'),
       children: [
         {
@@ -33,22 +33,22 @@ export default [
         },
         {
           path: 'list',
-          name: 'admin.announcements.list',
+          name: [routeNames.announcement_list],
           component: page('admin/announcement/List.vue')
         },
         {
           path: 'single/:id',
-          name: 'admin.announcements.single',
+          name: [routeNames.announcement_single],
           component: page('admin/announcement/Single.vue')
         },
         {
           path: 'create',
-          name: 'admin.announcements.create',
+          name: [routeNames.announcement_create],
           component: page('admin/announcement/Create.vue')
         },
         {
           path: 'edit/:id',
-          name: 'admin.announcements.edit',
+          name: [routeNames.announcement_edit],
           component: page('admin/announcement/Edit.vue')
         }
       ]
