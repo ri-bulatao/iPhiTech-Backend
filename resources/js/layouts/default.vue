@@ -1,7 +1,7 @@
 <template>
   <div class="main-layout">
     <navbar />
-
+    <sidebar />
     <div class="container-fluid mt-4">
       <child />
     </div>
@@ -10,12 +10,14 @@
 
 <script>
 import Navbar from '~/components/Navbar'
+import Sidebar from '~/components/Sidebar'
 
 export default {
   name: 'MainLayout',
 
   components: {
-    Navbar
+    Navbar,
+    Sidebar
   }
 }
 </script>

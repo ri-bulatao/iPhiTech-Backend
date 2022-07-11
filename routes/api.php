@@ -34,6 +34,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/menu', [AnnouncementController::class, 'test'])->name('test');
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -69,6 +71,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         ->prefix('notifications')
         ->group(function () {
             Route::get('/', [NotificationsController::class, 'index'])->name('list');
+            Route::get('unread', [NotificationsController::class, 'unread'])->name('unread');
             Route::put('/{id}', [NotificationsController::class, 'update'])->name('update');
             Route::delete('/{id}', [NotificationsController::class, 'delete'])->name('delete');
         });
