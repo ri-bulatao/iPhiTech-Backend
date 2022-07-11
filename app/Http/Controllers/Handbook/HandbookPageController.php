@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Handbook;
 
 use App\Http\Controllers\Controller;
+use App\Models\HandbookPage as HandbookPageModel;
 use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
-use App\Models\HandbookPage as HandbookPageModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -35,7 +35,7 @@ class HandbookPageController extends Controller
      */
     public function get($id): JsonResponse
     {
-        $handbook_page = HandbookPageModel::where("handbook_id", $id)->get();
+        $handbook_page = HandbookPageModel::where('handbook_id', $id)->get();
 
         if (! $handbook_page) {
             return $this->result->notFound();
@@ -49,7 +49,7 @@ class HandbookPageController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $handbook_page = HandbookPageModel::where("id", $id)->first();
+        $handbook_page = HandbookPageModel::where('id', $id)->first();
 
         if (! $handbook_page) {
             return $this->result->notFound();
@@ -68,7 +68,7 @@ class HandbookPageController extends Controller
         $data = [
             'handbook_id'   => $request->handbook_id,
             'title'         => $request->title,
-            'content'       => $request->content
+            'content'       => $request->content,
         ];
 
         $handbookPage = HandbookPageModel::create($data);
@@ -91,8 +91,8 @@ class HandbookPageController extends Controller
             return $this->result->notFound();
         }
 
-        $handbookPage->title    = $request->title;
-        $handbookPage->content  = $request->content;
+        $handbookPage->title = $request->title;
+        $handbookPage->content = $request->content;
         $handbookPage->save();
 
         if ($handbookPage) {
