@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="d-flex justify-content-end mb-3">
-                    <router-link class="btn btn-success" :to="{ name: 'admin.users.create' }">Create User</router-link>
+                    <router-link class="btn btn-success" :to="{ name: 'admin.user.create' }">Create User</router-link>
                 </div>
                 <div class="card">
                     <div class="card-header">
@@ -29,7 +29,7 @@
                                     <td class="col-md-2">
                                         <router-link 
                                             class="btn btn-primary btn-sm" 
-                                            :to="{ name: 'admin.users.single', params: {id: user.id} }"
+                                            :to="{ name: 'admin.user.single', params: {id: user.id} }"
                                         > View </router-link>
                                         <button @click="remove(user.id)" class="btn btn-danger btn-sm">Remove</button>
                                     </td>

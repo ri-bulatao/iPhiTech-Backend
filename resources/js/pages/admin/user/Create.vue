@@ -205,7 +205,7 @@
                             
                             <router-link 
                                 class="btn btn-secondary btn-sm" 
-                                :to="{ name: 'admin.users.list' }"
+                                :to="{ name: 'admin.user.list' }"
                             > Back to List </router-link>
                         </form>
                     </div>
@@ -217,7 +217,7 @@
 </template>
 
 <script>
-import Form from 'vform'
+
 import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
 
@@ -235,33 +235,14 @@ const Toast = Swal.mixin({
 
 export default {
     data: () => ({
-        form: new Form({
-            first_name: '',
-            middle_name: '',
-            last_name: '',
-            phone_number: '',
-            email: '',
-            gender: '',
-            marital_status: '',
-            date_of_birth: '',
-            ec_full_name: '',
-            ec_relationship: '',
-            ec_phone_number: '',
-            new_password: '',
-            confirm_password: '',
-            street_address: '',
-            city: '',
-            state: '',
-            zip_code: '',
-            country: '',
-            position: ''
-        })
+        
     }),
 
     computed: mapGetters({
         countries: 'users/countries',
         cities: 'users/cities',
         states: 'users/states',
+        form: 'users/form',
         positions: 'positions/positions'
     }),
 
@@ -286,10 +267,9 @@ export default {
                 return false;
             }
             
-            this.$store.dispatch('users/saveUser', this.form)
+            this.$store.dispatch('users/saveUser')
             .then((result) => {
                 if(result.data.success){
-                    this.form.reset()
                     this.$store.dispatch('users/fetchUsers')
 
                     Toast.fire({

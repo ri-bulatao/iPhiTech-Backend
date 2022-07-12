@@ -21,11 +21,12 @@ class UserSeeder extends Seeder
          * Generate Admin user.
          */
         $admin = User::factory()->create([
-            'first_name'       => 'Awesome',
-            'middle_name'       => '',
-            'last_name'       => 'Admin',
-            'email'      => 'awesome@email.com',
-            'password'   =>  bcrypt('admin12345678'),
+            'first_name'    => 'Awesome',
+            'middle_name'   => '',
+            'last_name'     => 'Admin',
+            'email'         => 'awesome@email.com',
+            'position_id'   => 5,
+            'password'      =>  bcrypt('admin12345678'),
         ]);
 
         $admin->assignRole(Roles::ADMINISTRATOR);
@@ -34,11 +35,12 @@ class UserSeeder extends Seeder
          * Generate sample employee account.
          */
         $employee = User::factory()->create([
-            'first_name'       => 'Awesome',
-            'middle_name'       => '',
-            'last_name'       => 'Employee',
-            'email'      => 'employee@email.com',
-            'password'   =>  bcrypt('employee12345678'),
+            'first_name'    => 'Awesome',
+            'middle_name'   => '',
+            'last_name'     => 'Employee',
+            'email'         => 'employee@email.com',
+            'position_id'   => 5,
+            'password'      =>  bcrypt('employee12345678'),
         ]);
 
         $employee->assignRole(Roles::EMPLOYEE);

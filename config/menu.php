@@ -136,6 +136,22 @@ declare(strict_types=1);
                         ],
                     ],
                 ],
+                /*
+                |--------------------------------------------------------------------------
+                | Handbook module menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Handbooks',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'icon-grid',
+                    'toggleId' => 'handbook-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'handbook.pages',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Handbooks'],
+                    'subMenus' => [],
+                ],
             ],
             'top' => [
                 [

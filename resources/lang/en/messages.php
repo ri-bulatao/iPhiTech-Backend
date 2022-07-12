@@ -18,5 +18,10 @@ return [
     'handbook_delete_response' => 'Handbook successfully deleted.',
     'handbook_not_found_response' => 'Handbook not found.',
 
+    'user_create_response' => 'User successfully created.',
+    'user_update_response' => 'User successfully updated.',
+    'user_delete_response' => 'User successfully deleted.',
+    'user_not_found_response' => 'User not found.',
+
     'general_error_response' => 'Something went wrong. We\'ll fix this as soon as possible.',
 ];
