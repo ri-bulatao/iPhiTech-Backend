@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
 use App\Models\Announcement as AnnouncementModel;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AnnouncementTest extends TestCase
 {
@@ -19,7 +21,7 @@ class AnnouncementTest extends TestCase
             'excerpt' => 'Testing Excerpt',
             'content' => 'Testing Content',
             'status' => 'pending',
-            'receiver' => '1'
+            'receiver' => '1',
         ];
 
         $user = User::factory()->create()->first();
@@ -38,7 +40,7 @@ class AnnouncementTest extends TestCase
             'excerpt' => '',
             'content' => '',
             'status' => '',
-            'receiver' => ''
+            'receiver' => '',
         ];
 
         $user = User::factory()->create()->first();
@@ -58,7 +60,6 @@ class AnnouncementTest extends TestCase
         $this->withHeaders(['Accept' => 'application/json'])
             ->get(route('announcements.list'))
             ->assertStatus(200);
-
     }
 
     /** @test */
@@ -72,7 +73,6 @@ class AnnouncementTest extends TestCase
         $this->withHeaders(['Accept' => 'application/json'])
             ->get(route('announcements.single', ['id' => $announcement->id]))
             ->assertStatus(200);
-
     }
 
     /** @test */
@@ -89,11 +89,11 @@ class AnnouncementTest extends TestCase
             'excerpt' => $data->excerpt,
             'content' => $data->content,
             'receiver' => $data->receiver,
-            'status' => $data->status
+            'status' => $data->status,
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
-            ->put(route('announcements.post' ,['id' => $data->id]), $announcement)
+            ->put(route('announcements.post', ['id' => $data->id]), $announcement)
             ->assertStatus(200);
     }
 
@@ -104,18 +104,17 @@ class AnnouncementTest extends TestCase
         $this->be($user);
 
         $data = AnnouncementModel::factory()->create([
-            'status' => 'posted'
+            'status' => 'posted',
         ])->first();
 
         $announcement = [
             'id' => $data->id,
-            'status' => 'Posted'
+            'status' => 'Posted',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('announcements.post', ['id' => $data->id]), $announcement)
             ->assertStatus(422);
-
     }
 
     /** @test */
@@ -126,13 +125,12 @@ class AnnouncementTest extends TestCase
 
         $announcement = [
             'id' => '1234567891234567',
-            'status' => 'posted'
+            'status' => 'posted',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('announcements.post', ['id' => '1234567891234567']), $announcement)
             ->assertStatus(404);
-
     }
 
     /** @test */
@@ -149,7 +147,7 @@ class AnnouncementTest extends TestCase
             'excerpt' => 'edited excerpt',
             'content' => 'edited content',
             'status' => 'pending',
-            'receiver' => '1'
+            'receiver' => '1',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -171,13 +169,12 @@ class AnnouncementTest extends TestCase
             'excerpt' => '',
             'content' => '',
             'status' => '',
-            'receiver' => ''
+            'receiver' => '',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('announcements.update', ['id' => $data->id]), $announcement)
             ->assertStatus(422);
-
     }
 
     /** @test */
@@ -192,7 +189,7 @@ class AnnouncementTest extends TestCase
             'excerpt' => 'edited excerpt',
             'content' => 'edited content',
             'status' => 'pending',
-            'receiver' => '1'
+            'receiver' => '1',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])

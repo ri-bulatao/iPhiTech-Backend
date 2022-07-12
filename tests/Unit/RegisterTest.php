@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use App\Models\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
@@ -19,7 +21,7 @@ class RegisterTest extends TestCase
             'last_name' => 'Test lastname',
             'email' => 'test@test.app',
             'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password_confirmation' => 'secret',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -38,7 +40,7 @@ class RegisterTest extends TestCase
             'last_name' => 'test@test.app',
             'email' => 'awesome@email.com',
             'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password_confirmation' => 'secret',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
