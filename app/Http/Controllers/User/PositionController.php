@@ -70,7 +70,7 @@ class PositionController extends Controller
 
         $position = PositionModel::find($id);
 
-        if( ! $position ) {
+        if (! $position) {
             return $this->result->notFound();
         }
 
@@ -88,10 +88,10 @@ class PositionController extends Controller
 
         $position = PositionModel::find($id);
 
-        if( ! $position ) {
+        if (! $position) {
             return $this->result->notFound();
         }
-        
+
         $position->delete();
 
         return $this->result->success($position, 'Position deleted!');

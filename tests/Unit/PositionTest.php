@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Enums\RoleEnums as Roles;
 use Spatie\Permission\Models\Permission;
+use Tests\TestCase;
 
 class PositionTest extends TestCase
 {
@@ -24,13 +25,14 @@ class PositionTest extends TestCase
     public function give_permission($user, $permission)
     {
         $permission = Permission::create(['name' => $permission]);
+
         return $user->givePermissionTo($permission);
     }
 
     public function get_data()
     {
         return [
-            'name' => 'Test Position'
+            'name' => 'Test Position',
         ];
     }
 
@@ -38,7 +40,7 @@ class PositionTest extends TestCase
     public function can_add_position()
     {
         $user = $this->get_user();
-        
+
         $user = $this->give_permission($user, 'position_create');
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -137,7 +139,7 @@ class PositionTest extends TestCase
         $user = $this->give_permission($user, 'position_edit');
 
         $created = Position::factory()->create()->first();
-        
+
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('position.update', ['id' => $created->id]), $this->get_data())
             ->assertStatus(200);
@@ -147,7 +149,7 @@ class PositionTest extends TestCase
     public function can_not_update_position_if_not_authorized()
     {
         $created = Position::factory()->create()->first();
-        
+
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('position.update', ['id' => $created->id]), $this->get_data())
             ->assertStatus(401);
@@ -158,7 +160,7 @@ class PositionTest extends TestCase
     {
         $user = $this->get_user();
         $created = Position::factory()->create()->first();
-        
+
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('position.update', ['id' => $created->id]), $this->get_data())
             ->assertStatus(403);
@@ -169,7 +171,7 @@ class PositionTest extends TestCase
     {
         $user = $this->get_user();
         $user = $this->give_permission($user, 'position_edit');
-        
+
         $this->withHeaders(['Accept' => 'application/json'])
             ->put(route('position.update', ['id' => '12345678912345678']), $this->get_data())
             ->assertStatus(404);
