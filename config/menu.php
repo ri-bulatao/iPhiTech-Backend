@@ -12,6 +12,7 @@ declare(strict_types=1);
 
         'administrator' => [
             'side' => [
+
                 /*
                 |--------------------------------------------------------------------------
                 | Dashboard
@@ -136,20 +137,21 @@ declare(strict_types=1);
                         ],
                     ],
                 ],
+
                 /*
                 |--------------------------------------------------------------------------
-                | Handbook module menu
+                | Handbook modules menu
                 |--------------------------------------------------------------------------
                 */
                 [
-                    'name' => 'Handbooks',
+                    'name' => 'Handbook',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'book',
                     'toggleId' => 'handbook-collapse',
                     'hasChildren' => false,
-                    'routeName' => 'handbook.pages',
+                    'routeName' => 'handbook',
                     'imgIcon' => 'lead-icon.png',
-                    'permissions' => ['Handbooks'],
+                    'permissions' => ['Handbook'],
                     'subMenus' => [],
                 ],
             ],
@@ -174,6 +176,12 @@ declare(strict_types=1);
 
         'employee' => [
             'side' => [
+
+                /*
+                |--------------------------------------------------------------------------
+                | Dashboard
+                |--------------------------------------------------------------------------
+                */
                 [
                     'name' => 'Dashboard',
                     'class' => 'nav-link rounded btn-toggle align-items-center collapsed text-white',
@@ -184,6 +192,12 @@ declare(strict_types=1);
                     'permissions' => ['Dashboard'],
                     'subMenus' => [],
                 ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Announcement module menu
+                |--------------------------------------------------------------------------
+                */
                 [
                     'name' => 'Announcements',
                     'class' => 'nav-link rounded text-white',
@@ -192,6 +206,23 @@ declare(strict_types=1);
                     'routeName' => 'front.announcements',
                     'imgIcon' => 'lead-icon.png',
                     'permissions' => ['Announcements'],
+                    'subMenus' => [],
+                ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Handbook modules menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Handbook',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'book',
+                    'toggleId' => 'handbook-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'handbook',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Handbook'],
                     'subMenus' => [],
                 ],
             ],

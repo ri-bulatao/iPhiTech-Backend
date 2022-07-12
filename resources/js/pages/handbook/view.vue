@@ -10,7 +10,7 @@
                 <div class="page-body">
                     <div class="py-2 overflow-hidden" v-html="handbook_page.content"></div>
                 </div>
-                <div class="page-footer d-flex justify-content-end">
+                <div v-if="user.is_admin" class="page-footer d-flex justify-content-end">
                     <div>
                         <button class="btn btn-warning" @click="setModalType(null)">Edit</button>
                         <button class="btn btn-danger" @click="deleteHandbookPage()">Delete</button>
@@ -69,6 +69,7 @@ export default {
     }),
 
     computed: mapGetters({
+        user: 'auth/user',
         loading: "handbook-page/loading",
         handbook_page: 'handbook-page/handbook_page',
         handbookPageForm: "handbook-page/handbookPageForm",

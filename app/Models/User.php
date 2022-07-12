@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\RoleEnums as Roles;
 use App\Models\Notification as NotificationModel;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
-use Config;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -160,9 +161,14 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
         return $this->belongsToMany(NotificationModel::class);
     }
 
+    public function is_admin(): bool
+    {
+        return $this->hasRole(Roles::ADMINISTRATOR);
+    }
+
     public function menu()
     {
-        if ($this->hasRole('administrator')) {
+        if ($this->hasRole(Roles::ADMINISTRATOR)) {
             return Config::get('menu.administrator');
         }
 

@@ -34,20 +34,8 @@
 </template>
 <script>
 import Form from 'vform'
-import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
     data: () => ({
@@ -77,25 +65,12 @@ export default {
                 if(result.data.success){
                     this.form.reset()
                     this.$store.dispatch('positions/fetchPositions')
-                    Toast.fire({
-                        icon: 'success',
-                        title: "Success!",
-                        text: result.data.message
-                    })
+                    ToastSuccess('Success!', result.data.message)
                 }else{
-                    Toast.fire({
-                        icon: 'error',
-                        title: "Oops!",
-                        text: "There's something wrong, please try again."
-                    })
+                    ToastError('Oops!', 'There\'s something wrong, please try again.')
                 }
             }).catch((error) => {
-                Toast.fire({
-                    icon: 'error',
-                    title: "Oops!",
-                    text: error.response.data.errors.name[0]
-                })
-                
+                ToastError('Oops!', error.response.data.errors.name[0])
             })
         }
     }

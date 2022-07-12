@@ -12,7 +12,7 @@
                         <option :value="handbook.id" :key="handbook.id"  v-for="handbook in handbooks">{{handbook.version_name}}</option>
                     </select>
                 </div>
-                <div class="d-flex col-lg-6 justify-content-end">
+                <div v-if="user.is_admin" class="d-flex col-lg-6 justify-content-end">
                     <div class="col-lg-2 ml-auto">
                         <button class="btn btn-primary" @click="setModalType(null)">Add</button>
                     </div>
@@ -85,6 +85,7 @@ export default {
     }),
     
     computed: mapGetters({
+        user: 'auth/user',
         handbook: "handbook/handbook",
         loading: "handbook/loading",
         handbooks: "handbook/handbooks",
@@ -190,6 +191,7 @@ export default {
                 }
 
                 this.$store.dispatch('handbook-page/selectHandbook', {id})
+
                 if(response.data.length > 0){
                     this.$store.dispatch('handbook-page/fetchSingleHandbook', {id})
                     this.$router.push({ name: 'handbook.pages.view', params: {id} }) 

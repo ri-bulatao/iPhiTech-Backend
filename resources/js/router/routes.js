@@ -55,7 +55,7 @@ export default [
     },
     {
       path: 'handbook',
-      name: 'handbook',
+      name: [routeNames.admin_handbook],
       component: page('handbook/index.vue'),
       children: [
         {
@@ -64,12 +64,12 @@ export default [
         },
         {
           path: 'pages',
-          name: 'handbook.pages',
+          name: [routeNames.handbook_pages],
           component: page('handbook/pages.vue'),
           children: [
             {
               path: 'view/:id',
-              name: 'handbook.pages.view',
+              name: [routeNames.handbook_view],
               component: page('handbook/view.vue')
             }
           ]

@@ -40,9 +40,9 @@
 
 <script>
 import Form from 'vform'
-import Swal from 'sweetalert2'
 import Cookies from 'js-cookie'
 import { VueEditor } from 'vue2-editor'
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
 
@@ -70,17 +70,11 @@ export default {
             }
             this.$store.dispatch('announcements/updateAnnouncement', payload)
                 .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Updated!',
-                        text: res.message
-                    })
-
+                    ToastSuccess('Updated!', res.message)
                     this.redirect()
-
                 })
                 .catch(err => {
-                    console.log(err)
+                    ToastError()
                 })
         },
 
@@ -118,7 +112,7 @@ export default {
                 this.form.excerpt = res.excerpt
                 this.form.content = res.content
             })
-            .catch(err => console.log(err))
+            .catch(err => ToastError())
     },
 
     metaInfo () {

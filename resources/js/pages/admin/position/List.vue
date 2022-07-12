@@ -40,19 +40,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Swal from 'sweetalert2'
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
     name: 'admin-user-positions',
@@ -67,19 +55,12 @@ export default {
                 .then((result) => {
                     if(result.data.success){
                         this.$store.dispatch('positions/fetchPositions')
-                        Toast.fire({
-                            icon: 'success',
-                            title: "Success!",
-                            text: result.data.message
-                        })
+                        ToastSuccess('Success!', result.data.message)
                     }else{
-                        Toast.fire({
-                            icon: 'error',
-                            title: "Oops!",
-                            text: "There's something wrong, please try again."
-                        })
+                        ToastError('Oops!', 'There\'s something wrong, please try again.')
                     }
                 }).catch((error) => {
+                    ToastError('Oops!', 'There\'s something wrong, please try again.')
                     console.log(error)
                 })
         }

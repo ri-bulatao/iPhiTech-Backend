@@ -35,10 +35,10 @@
 
 <script>
 import Form from 'vform'
-import Swal from 'sweetalert2'
 import Cookies from 'js-cookie'
 import { VueEditor } from 'vue2-editor'
 import { mapGetters } from 'vuex'
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
 
@@ -63,17 +63,11 @@ export default {
         submitForm() {
             this.$store.dispatch('announcements/createAnnouncement', this.form)
                 .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Created!',
-                        text: res.message
-                    })
-                    
+                    ToastSuccess('Created!', res.message)                    
                     this.redirect()
-
                 })
                 .catch(err => {
-                    console.log(err)
+                    ToastError()
                 })
         },
 
@@ -105,15 +99,8 @@ export default {
 
     mounted() {
         this.$store.dispatch('positions/fetchPositions')
-            .then(res => {
-                console.log(res)
-            })
             .catch(err => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oooppss!',
-                    text: 'Something went wrong!'
-                })
+                ToastError()
             })
     },
 

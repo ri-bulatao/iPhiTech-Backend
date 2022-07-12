@@ -46,8 +46,7 @@ export default {
     name: 'sidebar',
 
     data: () => ({
-        routeNames,
-        admin: true
+        routeNames
     }),
 
     computed: mapGetters({
