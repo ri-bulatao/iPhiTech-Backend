@@ -28,7 +28,8 @@ class UserRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            // 'new_password' => 'min:6|max:100',
+            'email' => 'required|unique:users',
+            // 'new_password' => 'required|min:6',
         ];
     }
 
@@ -37,6 +38,8 @@ class UserRequest extends FormRequest
         return [
             'first_name.required'    => 'First Name is required!',
             'last_name.required'      => 'Last Name is required!',
+            'email.required' => 'The email field is required!',
+            'email.unique' => 'The email is already taken',
             'name.min'      => 'Minimum 8 characters!',
         ];
     }
