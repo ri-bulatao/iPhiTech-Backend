@@ -8,6 +8,7 @@ import '~/plugins'
 import '~/components'
 
 Vue.config.productionTip = false
+Vue.use(require('vue-moment')); // Moment JS
 
 /* eslint-disable no-new */
 new Vue({

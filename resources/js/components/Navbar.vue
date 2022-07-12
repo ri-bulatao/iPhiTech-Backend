@@ -46,6 +46,12 @@
                 <fa icon="cog" fixed-width />
                 {{ $t('settings') }}
               </router-link>
+              
+              <!-- Initial Need to Update to Menu Item to Sidebar -->
+              <router-link :to="{ name: 'handbook' }" class="dropdown-item ps-3">
+                <fa icon="cog" fixed-width />
+                Handbook
+              </router-link>
 
               <div class="dropdown-divider" />
               <a href="#" class="dropdown-item ps-3" @click.prevent="logout">
