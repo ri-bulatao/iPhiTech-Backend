@@ -2,7 +2,7 @@
   <div class="main-layout">
     <navbar />
     <sidebar />
-    <div class="container-fluid mt-4">
+    <div class="container-fluid custom-container">
       <child />
     </div>
   </div>
@@ -21,3 +21,8 @@ export default {
   }
 }
 </script>
+<style>
+  .custom-container {
+    margin-top: 3.5rem !important;
+  }
+</style>
