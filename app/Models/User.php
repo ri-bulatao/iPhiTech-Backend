@@ -7,13 +7,13 @@ namespace App\Models;
 use App\Models\Notification as NotificationModel;
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Config;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Config;
 
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
@@ -162,7 +162,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 
     public function menu()
     {
-        if( $this->hasRole('administrator') ) {
+        if ($this->hasRole('administrator')) {
             return Config::get('menu.administrator');
         }
 

@@ -61,8 +61,8 @@ declare(strict_types=1);
                             'routeName' => 'admin.user.create',
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Announcements'],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
 
                 /*
@@ -97,8 +97,8 @@ declare(strict_types=1);
                             'routeName' => 'admin.positions.create',
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Announcements'],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
 
                 /*
@@ -133,8 +133,8 @@ declare(strict_types=1);
                             'routeName' => 'admin.announcements.create',
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Announcements'],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
             ],
             'top' => [
@@ -206,7 +206,7 @@ declare(strict_types=1);
                     'routeName' => 'logout',
                     'subMenus' => [],
                 ],
-            ]
+            ],
         ],
 
     ];
