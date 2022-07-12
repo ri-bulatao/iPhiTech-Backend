@@ -10,6 +10,7 @@ use App\Models\User as UserModel;
 use App\Models\UserAddress as UserAddressModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -112,7 +113,7 @@ class UserController extends Controller
     /**
      * For Updating single user.
      */
-    public function update(UserRequest $request, $id): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
         $user = UserModel::find($id);
 

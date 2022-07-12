@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|unique:users',
-            // 'new_password' => 'required|min:6',
+            'new_password' => 'required|min:6',
         ];
     }
 
@@ -40,7 +40,8 @@ class UserRequest extends FormRequest
             'last_name.required'      => 'Last Name is required!',
             'email.required' => 'The email field is required!',
             'email.unique' => 'The email is already taken',
-            'name.min'      => 'Minimum 8 characters!',
+            'password.required' => 'The password is required',
+            'password.min' => 'The password should be atleast 6 characters long'
         ];
     }
 }
