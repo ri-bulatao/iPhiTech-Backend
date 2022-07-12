@@ -34,6 +34,7 @@ class UserController extends Controller
     public function current(Request $request)
     {
         $this->user->menu = $this->user->menu();
+        $this->user->is_admin = $this->user->is_admin();
 
         return $this->result->success($this->user, __('user.has_record'));
     }

@@ -38,8 +38,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import Swal from 'sweetalert2'
-import axios from 'axios'
+import { ToastSuccess, ToastError, AlertQuestion } from '~/config/alerts'
 
 export default {
 
@@ -63,48 +62,24 @@ export default {
             }
 
             this.$store.dispatch('announcements/fetchAnnouncements', payload)
-                .catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops!',
-                        text: 'Something went wrong!'
-                    })
-                })
+                .catch(err => ToastError())
         },
 
         deleteReady(id) {
-            Swal.fire({
-                icon: 'question',
-                title: 'Are you sure to delete ?',
-                text: 'There is no undo for this action',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Delete!'
-            })
-            .then(result => {
-                if(result.isConfirmed) {
+            AlertQuestion('Are you sure to delete ?', 'There is no undo for this action', true, 'Yes, Delete!')
+                .then(res => {
                     this.delete(id)
-                }
-            })
+                })
         },
 
         delete(id) {
             this.$store.dispatch('announcements/deleteAnnouncement', id)
                 .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        message: res.message
-                    })
-
+                    ToastSuccess('Deleted!', res.message)
                     this.$store.dispatch('announcements/fetchAnnouncements')
-
                 })
                 .catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops!',
-                        text: 'Something went wrong!'
-                    })
+                    ToastError()
                 })
         }
     },
@@ -116,11 +91,7 @@ export default {
         }
         this.$store.dispatch('announcements/fetchAnnouncements', payload)
             .catch(err => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ooops!',
-                    text: 'Something went wrong!'
-                })
+                ToastError()
             })
     }
 }

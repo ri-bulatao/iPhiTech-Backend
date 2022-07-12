@@ -218,20 +218,8 @@
 
 <script>
 import Form from 'vform'
-import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
     data: () => ({
@@ -269,20 +257,12 @@ export default {
         async save () {
             // Check the password
             if(this.form.new_password == ""){
-                Toast.fire({
-                    icon: 'error',
-                    title: "Oops!",
-                    text: 'Password is required!'
-                })
+                ToastError('Oops!', 'Password is required!')
                 return false;
             }
 
             if(this.form.new_password != this.form.confirm_password){
-                Toast.fire({
-                    icon: 'error',
-                    title: "Oops!",
-                    text: "Those passwords don't match. Try again"
-                })
+                ToastError('Oops!', 'Those passwords don\'t match. Try again')
                 return false;
             }
             
@@ -292,25 +272,14 @@ export default {
                     this.form.reset()
                     this.$store.dispatch('users/fetchUsers')
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: "Success",
-                        text: result.data.message
-                    })
+                    ToastSuccess('Success', result.data.message)
+
                 }else{
-                    Toast.fire({
-                        icon: 'error',
-                        title: "Oops!",
-                        text: "There's something wrong, please try again."
-                    })
+                    ToastError()
                 }
             }).catch((error) => {
                 if(error.response){
-                    Toast.fire({
-                        icon: 'error',
-                        title: "Oops!",
-                        text: error.response.data.errors.new_password[0]
-                    })
+                    ToastError('Oops!', error.response.data.errors.new_password[0])
                 }
             })
         },

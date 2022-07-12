@@ -88,6 +88,7 @@ export const actions = {
             
             commit(types.FETCH_ALL_HANDBOOKS_PAGE, data)
             return data;
+            
         } catch (error) {
             console.log(error)
             state.loading = false

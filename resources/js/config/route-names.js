@@ -20,6 +20,10 @@ export const user_list = 'admin.user.list'
 export const user_single = 'admin.user.single'
 export const user_create = 'admin.user.create'
 
+export const admin_handbook = 'handbook'
+export const handbook_pages = 'handbook.pages'
+export const handbook_view = 'handbook.pages.view'
+
 // Front user side
 export const user_dashboard = 'user.dashboard'
 

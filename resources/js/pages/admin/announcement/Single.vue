@@ -25,7 +25,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import Swal from 'sweetalert2'
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
 
@@ -46,25 +46,17 @@ export default {
 
             this.$store.dispatch('announcements/postAnnouncement', payload)
                 .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: res.message
-                    })
-
+                    ToastSuccess('Success!', res.message)
                     this.$store.dispatch('announcements/fetchAnnouncement', this.id)
                 })
+                .catch(err => ToastError())
         },
     },
 
     mounted() {
         this.id = this.$route.params.id
         this.$store.dispatch('announcements/fetchAnnouncement', this.id)
-            .catch(err => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Something went wrong!'
-                })
-            })
+            .catch(err => ToastError())
     }
 }
 </script>

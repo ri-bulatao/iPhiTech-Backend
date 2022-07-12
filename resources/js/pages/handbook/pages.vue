@@ -20,12 +20,12 @@
                                     <span class="mb-1">{{ item.title }}</span>
                                 </div>
                             </div>
-                            <div
+                            <div v-if="user.is_admin"
                                 class="list-group-item list-group-item-action py-3 lh-tight cursor-pointer" 
                                 aria-current="true"
                                 @click="setModalType('save')"
                             >
-                                <div class="d-flex w-100 align-items-center justify-content-center">
+                                <div  class="d-flex w-100 align-items-center justify-content-center">
                                     <span class="mb-1"><fa icon="plus" fixed-width />New Page</span>
                                 </div>
                             </div>
@@ -92,6 +92,7 @@ export default {
     }),
 
     computed: mapGetters({
+        user: 'auth/user',
         handbooks_page: 'handbook-page/handbooks_page',
         selected_handbook: 'handbook-page/selected_handbook',
         handbook: 'handbook/handbook',

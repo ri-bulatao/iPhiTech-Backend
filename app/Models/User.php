@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Enums\RoleEnums as Roles;
 
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
@@ -160,9 +161,14 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
         return $this->belongsToMany(NotificationModel::class);
     }
 
+    public function is_admin(): bool
+    {
+        return $this->hasRole(Roles::ADMINISTRATOR);
+    }
+
     public function menu()
     {
-        if ($this->hasRole('administrator')) {
+        if ($this->hasRole(Roles::ADMINISTRATOR)) {
             return Config::get('menu.administrator');
         }
 
