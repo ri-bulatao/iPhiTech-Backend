@@ -41,7 +41,7 @@ class UserRequest extends FormRequest
             'email.required' => 'The email field is required!',
             'email.unique' => 'The email is already taken',
             'password.required' => 'The password is required',
-            'password.min' => 'The password should be atleast 6 characters long'
+            'password.min' => 'The password should be atleast 6 characters long',
         ];
     }
 }
