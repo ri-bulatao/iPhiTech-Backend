@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class UserTest extends TestCase
 {
@@ -20,7 +22,7 @@ class UserTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'johndoe@test.app',
-            'new_password' => 'Testing123'
+            'new_password' => 'Testing123',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -35,7 +37,7 @@ class UserTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'johndoe@test.app',
-            'new_password' => 'Testing123'
+            'new_password' => 'Testing123',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -62,7 +64,6 @@ class UserTest extends TestCase
         $user = User::factory()->create()->first();
         $this->be($user);
 
-        
         $this->withHeaders(['Accept' => 'application/json'])
             ->get(route('admin_user.list'))
             ->assertStatus(200);
@@ -110,7 +111,7 @@ class UserTest extends TestCase
         $data = [
             'first_name' => 'JohnE',
             'last_name' => 'DoeE',
-            'email' => 'johndoe@test.app'
+            'email' => 'johndoe@test.app',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -126,7 +127,7 @@ class UserTest extends TestCase
         $data = [
             'first_name' => 'JohnE',
             'last_name' => 'DoeE',
-            'email' => 'johndoe@test.app'
+            'email' => 'johndoe@test.app',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -145,7 +146,7 @@ class UserTest extends TestCase
         $data = [
             'first_name' => 'JohnE',
             'last_name' => 'DoeE',
-            'email' => 'johndoe@test.app'
+            'email' => 'johndoe@test.app',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
