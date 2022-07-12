@@ -21,7 +21,7 @@ declare(strict_types=1);
                     'name' => 'Dashboard',
                     'class' => 'nav-link rounded text-white',
                     'toggleId' => 'dashboard-collapse',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'home',
                     'hasChildren' => false,
                     'routeName' => 'user.dashboard',
                     'imgIcon' => 'lead-icon.png',
@@ -37,7 +37,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Users',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'hospital-user',
                     'toggleId' => 'user-collapse',
                     'hasChildren' => true,
                     'routeName' => 'admin.announcements',
@@ -47,7 +47,7 @@ declare(strict_types=1);
                         [
                             'name' => 'User List',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'icon-grid',
+                            'iconClass' => 'clipboard-list',
                             'hasChildren' => false,
                             'routeName' => 'admin.user.list',
                             'imgIcon' => 'lead-icon.png',
@@ -56,7 +56,7 @@ declare(strict_types=1);
                         [
                             'name' => 'Create User',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'icon-grid',
+                            'iconClass' => 'plus',
                             'hasChildren' => false,
                             'routeName' => 'admin.user.create',
                             'imgIcon' => 'lead-icon.png',
@@ -73,7 +73,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Position',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'file-contract',
                     'toggleId' => 'position-collapse',
                     'hasChildren' => true,
                     'routeName' => 'admin.announcements',
@@ -83,7 +83,7 @@ declare(strict_types=1);
                         [
                             'name' => 'Position List',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'icon-grid',
+                            'iconClass' => 'clipboard-list',
                             'hasChildren' => false,
                             'routeName' => 'admin.positions.list',
                             'imgIcon' => 'lead-icon.png',
@@ -92,7 +92,7 @@ declare(strict_types=1);
                         [
                             'name' => 'Create Position',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'icon-grid',
+                            'iconClass' => 'plus',
                             'hasChildren' => false,
                             'routeName' => 'admin.positions.create',
                             'imgIcon' => 'lead-icon.png',
@@ -109,7 +109,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Announcements',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'headphones',
                     'toggleId' => 'announcement-collapse',
                     'hasChildren' => true,
                     'routeName' => 'admin.announcements',
@@ -119,22 +119,38 @@ declare(strict_types=1);
                         [
                             'name' => 'Announcement List',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'icon-grid',
+                            'iconClass' => 'clipboard-list',
                             'hasChildren' => true,
                             'routeName' => 'admin.announcements.list',
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Announcements'],
                         ],
                         [
-                            'name' => 'Poste Announcement',
+                            'name' => 'Post Announcement',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'icon-grid',
+                            'iconClass' => 'plus',
                             'hasChildren' => true,
                             'routeName' => 'admin.announcements.create',
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Announcements'],
                         ],
                     ],
+                ],
+                /*
+                |--------------------------------------------------------------------------
+                | Handbook module menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Handbooks',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'icon-grid',
+                    'toggleId' => 'handbook-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'handbook.pages',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Handbooks'],
+                    'subMenus' => [],
                 ],
             ],
             'top' => [
@@ -161,7 +177,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Dashboard',
                     'class' => 'nav-link rounded btn-toggle align-items-center collapsed text-white',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'home',
                     'hasChildren' => false,
                     'routeName' => 'user.dashboard',
                     'imgIcon' => 'lead-icon.png',
@@ -171,7 +187,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Announcements',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'icon-grid',
+                    'iconClass' => 'headphones',
                     'hasChildren' => false,
                     'routeName' => 'front.announcements',
                     'imgIcon' => 'lead-icon.png',

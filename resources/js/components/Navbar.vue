@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
     <div class="container">
       <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
         {{ appName }}
@@ -20,11 +20,11 @@
         <ul class="navbar-nav ms-auto">
 
           <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle btn btn-info"
+            <a class="nav-link dropdown-toggle"
                href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             >
-              Notifications
-              <span class="badge badge-pill badge-light">{{ notifications.length }}</span>
+              <fa icon="bell" />
+              <span class="position-absolute top-1 start-10 translate-middle badge rounded-pill badge-notification bg-danger">{{ notifications.length }}</span>
             </a>
             <div class="dropdown-menu">
               <a href="javascript:void(0)" @click="() => updateRedirect(notification)" class="dropdown-item ps-3" v-for="notification in notifications" :key="notification.id">{{ notification.title }}</a>
@@ -163,6 +163,10 @@ export default {
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 100%;
+}
+
+.nav-item .dropdown-menu.show{
+  left: -6rem;
 }
 </style>

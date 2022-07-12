@@ -204,7 +204,7 @@
                             
                             <router-link 
                                 class="btn btn-secondary btn-sm" 
-                                :to="{ name: 'admin.users.list' }"
+                                :to="{ name: 'admin.user.list' }"
                             > Back to List </router-link>
                         </form>
                     </div>
@@ -321,6 +321,8 @@ export default {
                         title: "Success!",
                         text: result.data.message
                     })
+
+                    this.redirect();
                 }else{
                     Toast.fire({
                         icon: 'error',
@@ -345,6 +347,10 @@ export default {
 
         stateChange() {
             this.$store.dispatch('users/fetchCitiesOfState', { countryCode: this.form.country })
+        },
+
+        redirect() {
+            this.$router.push({ name: 'admin.user.list' })
         }
     }
 }

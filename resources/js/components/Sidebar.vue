@@ -8,16 +8,21 @@
         <ul class="nav nav-pills flex-column mb-auto">
             <!-- Loop from menu object of user -->
             <li class="nav-item mb-1" v-for="menu in user.menu.side" v-if="menu.hasChildren">
-                <a href="javascript:void(0)" :class="menu.class" data-bs-toggle="collapse" :data-bs-target="'#' + menu.toggleId" aria-expanded="false">{{ menu.name }}</a>
+                <div class="d-flex align-items-center">
+                    <fa :icon="menu.iconClass" />
+                    <a href="javascript:void(0)" :class="menu.class" data-bs-toggle="collapse" :data-bs-target="'#' + menu.toggleId" aria-expanded="false">{{ menu.name }}</a>
+                </div>
                 <div :id="menu.toggleId" class="collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1" v-for="submenu in menu.subMenus">
-                        <li>
+                        <li class="d-flex align-items-center">
+                            <fa :icon="submenu.iconClass" />
                             <router-link :class="submenu.class" :to="{ name: submenu.routeName }">{{ submenu.name }}</router-link>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-item mb-1" v-else>
+            <li class="nav-item mb-1 d-flex align-items-center" v-else>
+                <fa :icon="menu.iconClass" />
                 <router-link :to="{ name: menu.routeName }" :class="menu.class">{{ menu.name }}</router-link>
             </li>
         </ul>

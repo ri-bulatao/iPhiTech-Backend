@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as types from '../mutation-types'
 import { Country, State, City }  from 'country-state-city';
+import Form from 'vform'
 
 // state
 export const state = {
@@ -9,6 +10,27 @@ export const state = {
   countries: null,
   states: null,
   cities: null,
+  form: new Form({
+    first_name: '',
+    middle_name: '',
+    last_name: '',
+    phone_number: '',
+    email: '',
+    gender: '',
+    marital_status: '',
+    date_of_birth: '',
+    ec_full_name: '',
+    ec_relationship: '',
+    ec_phone_number: '',
+    new_password: '',
+    confirm_password: '',
+    street_address: '',
+    city: '',
+    state: '',
+    zip_code: '',
+    country: '',
+    position: ''
+  })
 }
 
 // getters
@@ -17,7 +39,8 @@ export const getters = {
   user: state => state.user,
   countries: state => state.countries,
   cities: state => state.cities,
-  states: state => state.states
+  states: state => state.states,
+  form: state => state.form
 }
 
 // mutations
