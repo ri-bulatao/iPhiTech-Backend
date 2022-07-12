@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use App\Models\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Auth;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
@@ -17,7 +19,7 @@ class LoginTest extends TestCase
     {
         $formData = [
             'email' => '',
-            'password'  => ''
+            'password'  => '',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -27,8 +29,8 @@ class LoginTest extends TestCase
                 'message'   => 'The given data was invalid.',
                 'errors'    => [
                     'email' => ['The email field is required.'],
-                    'password' => ['The password field is required.']
-                ]
+                    'password' => ['The password field is required.'],
+                ],
             ]);
     }
 
@@ -37,7 +39,7 @@ class LoginTest extends TestCase
     {
         $user = [
             'email' => 'test@invalid.com',
-            'password'  => '123'
+            'password'  => '123',
         ];
 
         $this->withHeaders(['Accept' => 'application/json'])
@@ -53,6 +55,5 @@ class LoginTest extends TestCase
         $this->be($user);
 
         Auth::shouldReceive('user')->andReturn($user = Mockery::mock('StdClass'));
-
     }
 }

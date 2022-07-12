@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -18,7 +20,7 @@ class AnnouncementFactory extends Factory
             'excerpt' => $this->faker->text,
             'content' => $this->faker->text,
             'receiver' => '1',
-            'status' => 'pending'
+            'status' => 'pending',
         ];
     }
 }

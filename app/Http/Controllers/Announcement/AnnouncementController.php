@@ -125,7 +125,7 @@ class AnnouncementController extends Controller
             return $this->result->notFound();
         }
 
-        if( $announcement->status == 'posted' || $announcement->status == 'Posted' ) {
+        if ($announcement->status == 'posted' || $announcement->status == 'Posted') {
             return $this->result->validationError($announcement, 'Announcement already posted');
         }
 
