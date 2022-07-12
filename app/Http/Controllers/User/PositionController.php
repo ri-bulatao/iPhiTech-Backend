@@ -69,6 +69,11 @@ class PositionController extends Controller
         $this->authorize('position_edit');
 
         $position = PositionModel::find($id);
+
+        if( ! $position ) {
+            return $this->result->notFound();
+        }
+
         $position->update($request->all());
 
         return $this->result->success($request, 'Position updated!');
@@ -82,6 +87,11 @@ class PositionController extends Controller
         $this->authorize('position_delete');
 
         $position = PositionModel::find($id);
+
+        if( ! $position ) {
+            return $this->result->notFound();
+        }
+        
         $position->delete();
 
         return $this->result->success($position, 'Position deleted!');
