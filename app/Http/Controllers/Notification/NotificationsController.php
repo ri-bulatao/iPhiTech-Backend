@@ -42,6 +42,24 @@ class NotificationsController extends Controller
     }
 
     /**
+     * For fetching all unread notifications.
+     */
+    public function unread(): JsonResponse
+    {
+        $user_notifications = $this->user->load('notifications');
+
+        $notifications = [];
+
+        foreach ($user_notifications->notifications as $notification) {
+            if (! $notification->read) {
+                $notifications[] = $notification;
+            }
+        }
+
+        return $this->result->success($notifications);
+    }
+
+    /**
      * For updating the notification.
      *
      * @param int $id

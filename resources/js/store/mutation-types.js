@@ -15,6 +15,7 @@ export const SET_ANNOUNCEMENT = 'SET_ANNOUNCEMENT'
 
 // notifications.js
 export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS'
+export const SET_UNREAD_NOTIFICATIONS = 'SET_UNREAD_NOTIFICATIONS'
 
 // positions.js
 export const FETCH_POSITIONS = 'FETCH_POSITIONS'

@@ -41,4 +41,9 @@ class AnnouncementPosted extends Event implements ShouldBroadcast
             'posted-announcements',
         ];
     }
+
+    public function broadcastAs()
+    {
+        return 'posted-announcements';
+    }
 }

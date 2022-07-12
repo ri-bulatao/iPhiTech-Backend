@@ -33,6 +33,8 @@ class UserController extends Controller
      */
     public function current(Request $request)
     {
+        $this->user->menu = $this->user->menu();
+
         return $this->result->success($this->user, __('user.has_record'));
     }
 }

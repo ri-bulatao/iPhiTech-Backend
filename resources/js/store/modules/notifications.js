@@ -3,16 +3,22 @@ import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 
 export const state = {
-    notifications: []
+    notifications: [],
+    unreadNotifications: []
 }
 
 export const getters = {
-    notifications: state => state.notifications
+    notifications: state => state.notifications,
+    unreadNotifications: state => state.unreadNotifications
 }
 
 export const mutations = {
     [types.SET_NOTIFICATIONS] (state, {notifications}) {
         state.notifications = notifications
+    },
+
+    [types.SET_UNREAD_NOTIFICATIONS] (state, {unreadNotifications}) {
+        state.unreadNotifications = unreadNotifications
     }
 }
 
@@ -23,6 +29,17 @@ export const actions = {
                 .then(res => {
                     let notifications = res.data.data.notifications
                     commit(types.SET_NOTIFICATIONS, {notifications: notifications})
+                    resolve(res.data)
+                })
+                .catch(err => reject(err))
+        })
+    },
+
+    fetchUnreadNotifications({commit, dispatch}) {
+        return new Promise((resolve, reject) => {
+            axios.get(route('notifications.unread'), {}, { headers: { Authorization: 'Bearer ' + Cookies.get('token') } })
+                .then(res => {
+                    commit(types.SET_UNREAD_NOTIFICATIONS, { unreadNotifications: res.data.data })
                     resolve(res.data)
                 })
                 .catch(err => reject(err))

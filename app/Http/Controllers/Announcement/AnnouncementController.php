@@ -33,6 +33,7 @@ class AnnouncementController extends Controller
 
     public function __construct(Result $result)
     {
+        $this->user = auth()->user();
         $this->result = $result;
     }
 
