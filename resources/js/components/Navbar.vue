@@ -20,11 +20,11 @@
         <ul class="navbar-nav ms-auto">
 
           <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle btn btn-info"
+            <a class="nav-link dropdown-toggle"
                href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             >
-              Notifications
-              <span class="badge badge-pill badge-light">{{ notifications.length }}</span>
+              <fa icon="bell" />
+              <span class="position-absolute top-1 start-10 translate-middle badge rounded-pill badge-notification bg-danger">{{ notifications.length }}</span>
             </a>
             <div class="dropdown-menu">
               <a href="javascript:void(0)" @click="() => updateRedirect(notification)" class="dropdown-item ps-3" v-for="notification in notifications" :key="notification.id">{{ notification.title }}</a>
