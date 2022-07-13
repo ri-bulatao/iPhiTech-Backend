@@ -56,26 +56,7 @@ export default [
     {
       path: 'handbook',
       name: [routeNames.admin_handbook],
-      component: page('handbook/index.vue'),
-      children: [
-        {
-          path: 'pages',
-          name: [routeNames.handbook_pages],
-          component: page('handbook/pages.vue'),
-          children: [
-            {
-              path: 'view/:id',
-              name: [routeNames.handbook_view],
-              component: page('handbook/view.vue')
-            }
-          ]
-        },
-        {
-          path: 'single',
-          name: [routeNames.handbook_single],
-          component: page('handbook/single.vue')
-        }
-      ]
+      component: page('handbook/index.vue')
     },
     {
       path: 'position',
@@ -133,7 +114,7 @@ export default [
   
 
   // User Pages
-  { path: '/user', name: [routeNames.user_dashboard], component: page('users/dashboard.vue') },
+  { path: '/dashboard', name: [routeNames.dashboard], component: page('dashboard.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },

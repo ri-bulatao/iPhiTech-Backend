@@ -108,6 +108,10 @@ class AnnouncementController extends Controller
             return $this->result->exception();
         }
 
+        // Update the url for notification redirection
+        $announcement->url = env('APP_URL') . '/announcement' . '/' . $announcement->id;
+        $announcement->save();
+
         return $this->result->created($announcement, 'Announcement Created');
     }
 
@@ -132,12 +136,10 @@ class AnnouncementController extends Controller
         $announcement->status = $status;
         $announcement->save();
 
-        $url = '/announcement' . '/' . $announcement->id;
-
         $notification = NotificationModel::create([
-            'title'     => 'New Announcement Posted',
+            'title'     => 'Announcement: ' . $announcement->title,
             'read'      => false,
-            'url'       => $url,
+            'url'       => $announcement->url,
         ]);
 
         $users = User::all();
@@ -146,7 +148,7 @@ class AnnouncementController extends Controller
             $notification->users()->attach($user->id);
         }
 
-        // event(new AnnouncementPosted($announcement->title));
+        event(new AnnouncementPosted($announcement->title, $announcement->url));
 
         return $this->result->success($announcement, 'Announcement was posted');
     }

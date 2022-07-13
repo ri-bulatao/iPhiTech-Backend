@@ -42,6 +42,8 @@ import { ToastSuccess, ToastError, AlertQuestion } from '~/config/alerts'
 
 export default {
 
+    middleware: 'admin',
+
     data: () => ({
         sortBy: 'title',
         sortOrder: 'asc'

@@ -56,10 +56,11 @@ export const mutations = {
     },
     [types.DELETE_HANDBOOK] (state, id) {
         const index = state.handbooks.findIndex(_handbook => _handbook.id === id)
-
         if (index !== -1) {
             state.handbooks.splice(index, 1)
         }
+
+        state.handbook = {}
     }
 }
 

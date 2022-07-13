@@ -44,6 +44,8 @@ export default {
 
     name: 'announcement-create',
 
+    middleware: 'admin',
+
     components: { VueEditor },
 
     data: () => ({

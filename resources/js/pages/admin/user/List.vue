@@ -60,7 +60,7 @@ const Toast = Swal.mixin({
 
 export default {
     name: 'admin-user-users',
-
+    middleware: 'admin',
     computed: mapGetters({
         users: 'users/users'
     }),

@@ -29,6 +29,8 @@ import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
 
+    middleware: 'admin',
+
     data: () => ({
         id: ''
     }),

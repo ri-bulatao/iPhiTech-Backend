@@ -32,8 +32,8 @@
         
         <!-- Contents -->
         <div class="row mt-3">
-            <div v-if="handbookVersion" class="col-sm-12 col-lg-7 m-auto content-pages">
-                <router-view></router-view>
+            <div v-if="handbook !== null" class="col-sm-12 col-lg-7 m-auto content-pages">
+                <single-handbook />
             </div>
             <!-- No Data -->
             <div v-else class="col-sm-12 col-lg-7 m-auto content-pages">
@@ -86,12 +86,19 @@
 <script>
 
 import { mapGetters } from "vuex";
-import Swal from 'sweetalert2'
 import moment, { now } from 'moment';
-import { ToastSuccess, ToastError } from '~/config/alerts'
+import { ToastSuccess, ToastError, AlertQuestion } from '~/config/alerts'
+import SingleHandbook from './single'
+import * as types from '~/store/mutation-types'
 
 export default {
     name: 'admin-announcement',
+    middleware: 'auth',
+
+    components: {
+        SingleHandbook
+    },
+
     data: () => ({
         handbookVersion: null,
         preVersion: '',
@@ -115,6 +122,7 @@ export default {
             this.selectHandbook();
         });
     },
+
     methods: {
 
         downloadHandbook() {
@@ -162,54 +170,38 @@ export default {
         saveHandbook() {
             const id = this.type ? this.handbookVersion : null;
             
-            this.handbookForm.version_name = this.handbookForm.version_name ? this.preVersion + this.handbookForm.version_name : '';
+            this.handbookForm.version_name = this.handbookForm.version_name ? this.preVersion + this.handbookForm.version_name : ''
 
             this.$store.dispatch('handbook/saveHandbook', id)
                 .then(({success, message}) => {
                     if (success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: message
-                        })
-                        this.$refs['modalHandbookForm'].click();
+                        ToastSuccess('Handbook Saved', message)
+                        this.$refs['modalHandbookForm'].click()
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    ToastError()
                 })
         },
 
         deleteHandbook() {
-            Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    
+
+            AlertQuestion('Are you sure?', 'You won\'t be able to revert this!', true, 'Yes, delete it!')
+                .then((result) => {
+                    if (result.isConfirmed) {
+
                     this.$store.dispatch('handbook/deleteHandbook', this.handbookVersion)
                     .then(({success, message}) => {
                         if (success) {
-                            Swal.fire(
-                            'Deleted!',
-                            'Handbook version has been deleted.',
-                            'success')
-                            this.selectHandbook();
+                            ToastSuccess('Deleted!', 'Handbook version has been deleted.')
                         } else {
-                            Swal.fire(
-                            'Error!',
-                            message,
-                            'error')
+                            ToastError('Error!', message)
                         }
                     })
                     .catch(err => {
-                        console.log(err)
+                        ToastError()
                     })
-            }
+                }
             })
         },
 
@@ -217,25 +209,8 @@ export default {
             this.$store.dispatch('handbook/fetchHandbook', this.handbookVersion)
                 .then(res => {
                     console.log(res)
-                    this.$router.push({ name: 'handbook.single' })
+                    // this.$router.push({ name: 'handbook.single' })
                 })
-            // this.$store.dispatch('handbook-page/fetchHandbooksPage', this.handbookVersion).then((response)=>{
-            //     console.log(response)
-            //     var id = null;
-            //     if(this.$route.params.id){
-            //         id = this.$route.params.id;
-
-            //     }else{
-            //         id = response.data[0].id;
-            //     }
-
-            //     this.$store.dispatch('handbook-page/selectHandbook', {id})
-
-            //     if(response.data.length > 0){
-            //         this.$store.dispatch('handbook-page/fetchSingleHandbook', {id})
-            //         this.$router.push({ name: 'handbook.pages.view', params: {id} }) 
-            //     }
-            // })
         }
     },
 }

@@ -4,17 +4,32 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use App\Enums\RoleEnums as Roles;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function create_roles()
+    {
+        Role::create([
+            'name' => Roles::EMPLOYEE,
+        ]);
+
+        Role::create([
+            'name' => Roles::ADMINISTRATOR,
+        ]);
+    }
+
     /** @test */
     public function can_create_user()
     {
+        $this->create_roles();
+
         $user = User::factory()->create()->first();
         $this->be($user);
 

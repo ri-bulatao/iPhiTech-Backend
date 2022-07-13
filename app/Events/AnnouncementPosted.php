@@ -17,15 +17,18 @@ class AnnouncementPosted extends Event implements ShouldBroadcast
 
     public $title;
     public $message;
+    public $url;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($title)
+    public function __construct($announcementTitle, $url)
     {
-        $this->message = 'New Announcement was posted!';
+        $this->title = 'New Announcement was posted!';
+        $this->message = $announcementTitle;
+        $this->url = $url;
     }
 
     /**

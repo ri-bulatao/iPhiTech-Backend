@@ -28,7 +28,7 @@ export const handbook_view = 'handbook.pages.view'
 export const handbook_single = 'handbook.single'
 
 // Front user side
-export const user_dashboard = 'user.dashboard'
+export const dashboard = 'dashboard'
 
 export const front_announcements = 'front.announcements'
 export const front_announcement_single = 'front.announcement.single'
