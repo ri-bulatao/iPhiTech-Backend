@@ -11,6 +11,10 @@ use App\Models\UserAddress as UserAddressModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Mail\UserCreated;
+use Illuminate\Support\Facades\Mail;
+use App\Enums\RoleEnums as Roles;
 
 class UserController extends Controller
 {
@@ -63,11 +67,8 @@ class UserController extends Controller
     {
 
         // Check if admin trying to change the password
-        $new_password = '';
-        if ($request->new_password != '') {
-            // Encrypt the password
-            $new_password = bcrypt($request->new_password);
-        }
+        $random = Str::random(8);
+        $new_password = $request->new_password ?? $random;
 
         $emergencyContact = [
             'full_name'     =>  $request->ec_full_name,
@@ -84,12 +85,16 @@ class UserController extends Controller
             'gender'            => $request->gender,
             'marital_status'    => $request->marital_status,
             'date_of_birth'     => $request->date_of_birth,
-            'password'          => $new_password,
+            'password'          => bcrypt($new_password),
             'position_id'       => $request->position,
             'emergency_contact' => json_encode($emergencyContact),
         ];
 
         $user = UserModel::create($data);
+
+        $user->assignRole(Roles::EMPLOYEE);
+
+        Mail::to($user)->send(new UserCreated($user, $new_password));
 
         // User Address
         $addressData = [
