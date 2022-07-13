@@ -125,6 +125,10 @@ class AnnouncementController extends Controller
             return $this->result->notFound();
         }
 
+        if ($announcement->status == 'posted' || $announcement->status == 'Posted') {
+            return $this->result->validationError($announcement, 'Announcement already posted');
+        }
+
         $announcement->status = $status;
         $announcement->save();
 
@@ -142,7 +146,7 @@ class AnnouncementController extends Controller
             $notification->users()->attach($user->id);
         }
 
-        event(new AnnouncementPosted($announcement->title));
+        // event(new AnnouncementPosted($announcement->title));
 
         return $this->result->success($announcement, 'Announcement was posted');
     }

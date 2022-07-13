@@ -205,7 +205,7 @@
                             
                             <router-link 
                                 class="btn btn-secondary btn-sm" 
-                                :to="{ name: 'admin.user.list' }"
+                                :to="{ name: 'admin.users.list' }"
                             > Back to List </router-link>
                         </form>
                     </div>
@@ -218,19 +218,50 @@
 
 <script>
 import Form from 'vform'
+import Swal from 'sweetalert2'
 import { mapGetters } from 'vuex'
-import { ToastSuccess, ToastError } from '~/config/alerts'
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 
 export default {
     data: () => ({
-        
+        form: new Form({
+            first_name: '',
+            middle_name: '',
+            last_name: '',
+            phone_number: '',
+            email: '',
+            gender: '',
+            marital_status: '',
+            date_of_birth: '',
+            ec_full_name: '',
+            ec_relationship: '',
+            ec_phone_number: '',
+            new_password: '',
+            confirm_password: '',
+            street_address: '',
+            city: '',
+            state: '',
+            zip_code: '',
+            country: '',
+            position: ''
+        })
     }),
 
     computed: mapGetters({
         countries: 'users/countries',
         cities: 'users/cities',
         states: 'users/states',
-        form: 'users/form',
         positions: 'positions/positions'
     }),
 
@@ -238,28 +269,48 @@ export default {
         async save () {
             // Check the password
             if(this.form.new_password == ""){
-                ToastError('Oops!', 'Password is required!')
+                Toast.fire({
+                    icon: 'error',
+                    title: "Oops!",
+                    text: 'Password is required!'
+                })
                 return false;
             }
 
             if(this.form.new_password != this.form.confirm_password){
-                ToastError('Oops!', 'Those passwords don\'t match. Try again')
+                Toast.fire({
+                    icon: 'error',
+                    title: "Oops!",
+                    text: "Those passwords don't match. Try again"
+                })
                 return false;
             }
             
-            this.$store.dispatch('users/saveUser')
+            this.$store.dispatch('users/saveUser', this.form)
             .then((result) => {
                 if(result.data.success){
+                    this.form.reset()
                     this.$store.dispatch('users/fetchUsers')
 
-                    ToastSuccess('Success', result.data.message)
-
+                    Toast.fire({
+                        icon: 'success',
+                        title: "Success",
+                        text: result.data.message
+                    })
                 }else{
-                    ToastError()
+                    Toast.fire({
+                        icon: 'error',
+                        title: "Oops!",
+                        text: "There's something wrong, please try again."
+                    })
                 }
             }).catch((error) => {
                 if(error.response){
-                    ToastError('Oops!', error.response.data.errors.new_password[0])
+                    Toast.fire({
+                        icon: 'error',
+                        title: "Oops!",
+                        text: error.response.data.errors.new_password[0]
+                    })
                 }
             })
         },

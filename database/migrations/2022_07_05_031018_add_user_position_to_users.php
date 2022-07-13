@@ -16,10 +16,10 @@ class AddUserPositionToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('position_id')->unsigned();
-            $table->foreign('position_id')
-                ->references('id')->on('positions')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('position_id')->nullable();
+            // $table->foreign('position_id')
+            //     ->references('id')->on('positions')
+            //     ->onDelete('cascade');
         });
     }
 
