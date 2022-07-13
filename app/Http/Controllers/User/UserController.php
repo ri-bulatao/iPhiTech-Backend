@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\RoleEnums as Roles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Mail\UserCreated;
 use App\Models\User as UserModel;
 use App\Models\UserAddress as UserAddressModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Mail\UserCreated;
 use Illuminate\Support\Facades\Mail;
-use App\Enums\RoleEnums as Roles;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
