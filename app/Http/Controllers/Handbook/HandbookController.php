@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Handbook\HandbookRequest;
 use App\Models\Handbook;
 use App\Utilities\Result;
+use File;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use File;
 use Response;
 
 class HandbookController extends Controller
@@ -42,17 +42,18 @@ class HandbookController extends Controller
     }
 
     /**
-     * Download the handbook
+     * Download the handbook.
      */
     public function download($id)
     {
         $handbook = Handbook::find($id);
 
-        if( ! $handbook ) {
+        if (! $handbook) {
             return $this->result->notFound();
         }
 
         $file_path = public_path($handbook->path);
+
         return Response::download($file_path);
     }
 
@@ -104,7 +105,7 @@ class HandbookController extends Controller
             'version_name' => $request->version_name,
             'metadata' => $metadata,
             'pdf' => $file_path,
-            'path' => $path
+            'path' => $path,
         ];
 
         $handbook = Handbook::create($data);
@@ -127,13 +128,13 @@ class HandbookController extends Controller
             return $this->result->notFound();
         }
 
-        if( $request->file('book') ) {
+        if ($request->file('book')) {
             // Upload PDF File
             $file = $request->file('book');
             $file_name = $request->file('book')->hashName();
 
             $file_path = $this->upload($file, $file_name);
-            
+
             $handbook->pdf = $file_path;
         }
 
