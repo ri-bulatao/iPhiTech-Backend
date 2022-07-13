@@ -16,3 +16,4 @@ phpunit.dusk.xml
 /public/build
 /public/mix-manifest.json
 /public/announcement_contents/*
+/public/handbook/*
