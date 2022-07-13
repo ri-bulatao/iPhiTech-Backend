@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Handbook;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Tests\TestCase;
 
 class HandbookTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     public function get_user()
     {
         $user = User::factory()->create()->first();
@@ -28,7 +30,7 @@ class HandbookTest extends TestCase
             'version_name' => 'Test Position',
             'pdf' => 'https://testing.com',
             'path' => '/testing',
-            'book' => $file
+            'book' => $file,
         ];
     }
 
@@ -60,7 +62,6 @@ class HandbookTest extends TestCase
         $this->withHeaders(['Accept' => 'application/json'])
             ->get(route('handbook.show', ['id' => $created->id]))
             ->assertStatus(200);
-
     }
 
     /** @test */
@@ -77,7 +78,7 @@ class HandbookTest extends TestCase
     public function can_not_get_handbook_if_not_found()
     {
         $this->get_user();
-        
+
         $this->withHeaders(['Accept' => 'application/json'])
             ->get(route('handbook.show', ['id' => '12345612321312321']))
             ->assertStatus(404);
@@ -166,5 +167,4 @@ class HandbookTest extends TestCase
             ->delete(route('handbook.delete', ['id' => '12345612321312321']))
             ->assertStatus(404);
     }
-
 }

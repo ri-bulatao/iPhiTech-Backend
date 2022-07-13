@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use App\Enums\RoleEnums as Roles;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use App\Enums\RoleEnums as Roles;
 use Spatie\Permission\Models\Role;
+use Tests\TestCase;
 
 class UserTest extends TestCase
 {
@@ -17,11 +17,11 @@ class UserTest extends TestCase
     public function create_roles()
     {
         Role::create([
-            'name' => Roles::EMPLOYEE
+            'name' => Roles::EMPLOYEE,
         ]);
 
         Role::create([
-            'name' => Roles::ADMINISTRATOR
+            'name' => Roles::ADMINISTRATOR,
         ]);
     }
 
@@ -32,7 +32,6 @@ class UserTest extends TestCase
 
         $user = User::factory()->create()->first();
         $this->be($user);
-
 
         $data = [
             'first_name' => 'John',
