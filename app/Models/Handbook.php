@@ -19,6 +19,8 @@ class Handbook extends Model
     protected $fillable = [
         'version_name',
         'metadata',
+        'pdf',
+        'path',
         'created_at',
         'updated_at',
     ];

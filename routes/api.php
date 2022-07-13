@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         ->group(function () {
             Route::get('/', [HandbookController::class, 'index'])->name('all');
             Route::get('/{id}', [HandbookController::class, 'get'])->name('show');
+            Route::get('/download/{id}', [HandbookController::class, 'download'])->name('download');
             Route::post('/', [HandbookController::class, 'store'])->name('store');
             Route::put('/update/{id}', [HandbookController::class, 'update'])->name('update');
             Route::delete('/{id}', [HandbookController::class, 'destroy'])->name('delete');

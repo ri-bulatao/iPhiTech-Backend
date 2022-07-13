@@ -19,6 +19,8 @@ class CreateHandbooksTable extends Migration
             $table->id();
             $table->string('version_name');
             $table->json('metadata')->nullable();
+            $table->string('pdf');
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }

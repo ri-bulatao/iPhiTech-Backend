@@ -11,6 +11,8 @@ use App\Utilities\Result;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use File;
+use Response;
 
 class HandbookController extends Controller
 {
@@ -29,6 +31,29 @@ class HandbookController extends Controller
     ) {
         $this->user = auth()->user();
         $this->result = $result;
+    }
+
+    public function upload($file, $file_name)
+    {
+        $file->move(public_path('handbook'), $file_name);
+        $file_path = env('APP_URL') . '/handbook' . '/' . $file_name;
+
+        return $file_path;
+    }
+
+    /**
+     * Download the handbook
+     */
+    public function download($id)
+    {
+        $handbook = Handbook::find($id);
+
+        if( ! $handbook ) {
+            return $this->result->notFound();
+        }
+
+        $file_path = public_path($handbook->path);
+        return Response::download($file_path);
     }
 
     /**
@@ -62,6 +87,15 @@ class HandbookController extends Controller
      */
     public function store(HandbookRequest $request): JsonResponse
     {
+
+        // Upload PDF File
+        $file = $request->file('book');
+        $file_name = $request->file('book')->hashName();
+
+        $file_path = $this->upload($file, $file_name);
+
+        $path = 'handbook' . '/' . $file_name;
+
         $metadata = [
             'author' => $this->user,
         ];
@@ -69,6 +103,8 @@ class HandbookController extends Controller
         $data = [
             'version_name' => $request->version_name,
             'metadata' => $metadata,
+            'pdf' => $file_path,
+            'path' => $path
         ];
 
         $handbook = Handbook::create($data);
@@ -89,6 +125,16 @@ class HandbookController extends Controller
 
         if (! $handbook) {
             return $this->result->notFound();
+        }
+
+        if( $request->file('book') ) {
+            // Upload PDF File
+            $file = $request->file('book');
+            $file_name = $request->file('book')->hashName();
+
+            $file_path = $this->upload($file, $file_name);
+            
+            $handbook->pdf = $file_path;
         }
 
         $handbook->version_name = $request->version_name;
