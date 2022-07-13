@@ -13,13 +13,16 @@
                     </select>
                 </div>
                 <div v-if="user.is_admin" class="d-flex col-lg-6 justify-content-end">
-                    <div class="col-lg-2 ml-auto">
+                    <div class="mx-2">
                         <button class="btn btn-primary" @click="setModalType(null)">Add</button>
                     </div>
-                    <div class="col-lg-2">
+                    <div  class="mx-2">
+                        <button class="btn btn-success" @click="downloadHandbook">Download</button>
+                    </div>
+                    <div class="mx-2">
                         <button class="btn btn-warning" @click="setModalType('update')">Edit</button>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="mx-2">
                         <button class="btn btn-danger" @click="deleteHandbook()">Delete</button>
                     </div>
                 </div>
@@ -29,10 +32,15 @@
         
         <!-- Contents -->
         <div class="row mt-3">
-            <div class="col-sm-12 col-lg-7 m-auto content-pages">
+            <div v-if="handbookVersion" class="col-sm-12 col-lg-7 m-auto content-pages">
                 <router-view></router-view>
             </div>
+            <!-- No Data -->
+            <div v-else class="col-sm-12 col-lg-7 m-auto content-pages">
+                <h2>No Data</h2>
+            </div>
         </div>
+        
 
         <button class="visually-hidden" data-bs-toggle="modal" data-bs-target="#newHandbookVersion" ref="handbookModalBtn"></button>
         <!-- Modal -->
@@ -54,6 +62,12 @@
                                 <has-error :form="handbookForm" field="version_name" />
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-form-label text-md-start">PDF</label>
+                            <span class="input-group-text" id="basic-addon2">Handbook</span>
+                            <input type="file" class="form-control" name="book" @change="bookUploadHandler">
+                        </div>
                     </form>
                     <div v-else>
                         {{ type ? 'Saving Handbook...' : 'Creating new Handbook...' }}
@@ -74,7 +88,7 @@
 import { mapGetters } from "vuex";
 import Swal from 'sweetalert2'
 import moment, { now } from 'moment';
-
+import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
     name: 'admin-announcement',
@@ -97,12 +111,33 @@ export default {
     mounted() {
         this.$store.dispatch('handbook/fetchHandbooks').then(() => {
             this.handbookVersion = this.handbooks[this.handbooks.length - 1]?.id;
-
             this.preVersion = (this.handbookVersion ? (this.handbookVersion + 1) : 1) + '-' + moment(new Date()).format('DDMMYY') + '__';
             this.selectHandbook();
         });
     },
     methods: {
+
+        downloadHandbook() {
+            let handbook = this.handbook
+            if( ! handbook ) {
+                ToastError('Empty Handbook', 'Please select handbook first!')
+                return null;
+            }
+
+            let payload = this.handbook.id
+
+            this.$store.dispatch('handbook/downloadHandbook', payload)
+        },
+
+        bookUploadHandler(event) {
+            let payload = {
+                version_name: this.handbookForm.version_name,
+                book: event.target.files[0]
+            }
+
+            this.$store.dispatch('handbook/setHandbook', payload)
+        },
+
         latestHandbook(handbook) {
             const lastHandbook = this.handbooks[this.handbooks.length - 1];
             
@@ -180,23 +215,27 @@ export default {
 
         selectHandbook() {
             this.$store.dispatch('handbook/fetchHandbook', this.handbookVersion)
-            this.$store.dispatch('handbook-page/fetchHandbooksPage', this.handbookVersion).then((response)=>{
-                console.log(response)
-                var id = null;
-                if(this.$route.params.id){
-                    id = this.$route.params.id;
+                .then(res => {
+                    console.log(res)
+                    this.$router.push({ name: 'handbook.single' })
+                })
+            // this.$store.dispatch('handbook-page/fetchHandbooksPage', this.handbookVersion).then((response)=>{
+            //     console.log(response)
+            //     var id = null;
+            //     if(this.$route.params.id){
+            //         id = this.$route.params.id;
 
-                }else{
-                    id = response.data[0].id;
-                }
+            //     }else{
+            //         id = response.data[0].id;
+            //     }
 
-                this.$store.dispatch('handbook-page/selectHandbook', {id})
+            //     this.$store.dispatch('handbook-page/selectHandbook', {id})
 
-                if(response.data.length > 0){
-                    this.$store.dispatch('handbook-page/fetchSingleHandbook', {id})
-                    this.$router.push({ name: 'handbook.pages.view', params: {id} }) 
-                }
-            })
+            //     if(response.data.length > 0){
+            //         this.$store.dispatch('handbook-page/fetchSingleHandbook', {id})
+            //         this.$router.push({ name: 'handbook.pages.view', params: {id} }) 
+            //     }
+            // })
         }
     },
 }

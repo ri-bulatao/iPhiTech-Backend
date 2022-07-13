@@ -24,6 +24,9 @@ export const admin_handbook = 'handbook'
 export const handbook_pages = 'handbook.pages'
 export const handbook_view = 'handbook.pages.view'
 
+// Handbook PDF
+export const handbook_single = 'handbook.single'
+
 // Front user side
 export const user_dashboard = 'user.dashboard'
 

@@ -10,6 +10,7 @@ export const state = {
     handbook: {},
     handbookForm: new Form({
         version_name: '',
+        pdf: null
     })
 }
 
@@ -24,6 +25,11 @@ export const getters = {
 
 // mutations
 export const mutations = {
+
+    [types.SET_HANDBOOK] (state, data) {
+        state.handbookForm.book = data.book
+    },
+
     [types.FETCH_ALL_HANDBOOKS] (state, {data}) {
         state.handbooks = data        
         state.loading = false
@@ -59,6 +65,31 @@ export const mutations = {
 
 // actions
 export const actions = {
+
+    async downloadHandbook({commit}, payload) {
+
+        axios.get(route('handbook.download', { id: payload }), {
+            responseType: 'arraybuffer',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            const type = response.headers['content-type']
+            const blob = new Blob([response.data], { type: type, encoding: 'UTF-8' })
+            const link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = 'Handbook.pdf'
+            link.click()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    },
+
+    setHandbook({commit}, payload) {
+        commit(types.SET_HANDBOOK, payload)
+    },
     
     async fetchHandbooks ({ commit }) {
         try {
