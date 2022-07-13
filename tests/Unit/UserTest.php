@@ -7,16 +7,32 @@ namespace Tests\Unit;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Enums\RoleEnums as Roles;
+use Spatie\Permission\Models\Role;
 
 class UserTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function create_roles()
+    {
+        Role::create([
+            'name' => Roles::EMPLOYEE
+        ]);
+
+        Role::create([
+            'name' => Roles::ADMINISTRATOR
+        ]);
+    }
+
     /** @test */
     public function can_create_user()
     {
+        $this->create_roles();
+
         $user = User::factory()->create()->first();
         $this->be($user);
+
 
         $data = [
             'first_name' => 'John',

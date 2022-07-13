@@ -111,7 +111,7 @@ class HandbookController extends Controller
         $handbook = Handbook::create($data);
 
         if ($handbook) {
-            return $this->result->success($handbook, __('messages.handbook_create_response'));
+            return $this->result->created($handbook, __('messages.handbook_create_response'));
         }
 
         return $this->result->badRequest(__('messages.general_error_response'));
