@@ -59,10 +59,6 @@ export default [
       component: page('handbook/index.vue'),
       children: [
         {
-          path: '',
-          redirect: 'pages'
-        },
-        {
           path: 'pages',
           name: [routeNames.handbook_pages],
           component: page('handbook/pages.vue'),
@@ -74,7 +70,11 @@ export default [
             }
           ]
         },
-        
+        {
+          path: 'single',
+          name: [routeNames.handbook_single],
+          component: page('handbook/single.vue')
+        }
       ]
     },
     {
