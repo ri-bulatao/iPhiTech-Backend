@@ -234,6 +234,9 @@ const Toast = Swal.mixin({
 })
 
 export default {
+
+    middleware: 'admin',
+
     data: () => ({
         form: new Form({
             first_name: '',

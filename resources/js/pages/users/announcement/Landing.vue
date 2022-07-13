@@ -26,7 +26,7 @@ import { mapGetters } from 'vuex'
 export default {
 
     name: 'announcement-landing',
-
+    middleware: 'auth',
     computed: mapGetters({
         announcements: 'announcements/announcements'
     }),

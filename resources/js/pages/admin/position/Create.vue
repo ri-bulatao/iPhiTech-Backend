@@ -40,34 +40,37 @@ import { mapGetters } from 'vuex'
 import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
-  data: () => ({
-    form: new Form({
-      name: ''
-    })
-  }),
 
-  computed: mapGetters({
-    position: 'positions/position'
-  }),
+    middleware: 'admin',
 
-  methods: {
-    async save () {
-        this.$store.dispatch('positions/savePosition', this.form)
-        .then((result) => {
-            console.log
-            if(result.data.success){
-                this.form.reset()
-                this.$store.dispatch('positions/fetchPositions')
-                ToastSuccess('Success!', result.data.message)
-            }else{
-                ToastError('Oops!', 'There\'s something wrong, please try again.')
-            }
-        }).catch((error) => {
-            if(error.response){
-                ToastError('Oops!', error.response.data.errors.name[0])
-            }
+    data: () => ({
+        form: new Form({
+        name: ''
         })
+    }),
+
+    computed: mapGetters({
+        position: 'positions/position'
+    }),
+
+    methods: {
+        async save () {
+            this.$store.dispatch('positions/savePosition', this.form)
+            .then((result) => {
+                console.log
+                if(result.data.success){
+                    this.form.reset()
+                    this.$store.dispatch('positions/fetchPositions')
+                    ToastSuccess('Success!', result.data.message)
+                }else{
+                    ToastError('Oops!', 'There\'s something wrong, please try again.')
+                }
+            }).catch((error) => {
+                if(error.response){
+                    ToastError('Oops!', error.response.data.errors.name[0])
+                }
+            })
+        }
     }
-  }
 }
 </script>

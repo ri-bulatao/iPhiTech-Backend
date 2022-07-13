@@ -25,6 +25,8 @@ import Swal from 'sweetalert2'
 
 export default {
 
+    middleware: 'auth',
+
     data: () => ({
         id: ''
     }),
@@ -32,7 +34,7 @@ export default {
     computed: mapGetters({
         announcement: 'announcements/announcement'
     }),
-
+    
     mounted() {
         this.id = this.$route.params.id
 

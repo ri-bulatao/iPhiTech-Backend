@@ -141,16 +141,23 @@ export default {
     channel.bind('posted-announcements', async (data) => {
       console.log(data)
       let permission = await Notification.requestPermission()
-      const notif = new Notification('New Announcement Posted', {
-        body: 'Checkout the new announcement'
+      const notif = new Notification(data.title, {
+        body: data.message
       })
+      
+      notif.onclick = function(event) {
+        event.preventDefault()
+        window.open(data.url, '_blank')
+      }
       this.$store.dispatch('notifications/fetchUnreadNotifications')
       setTimeout(() => notif.close(), 4*1000);
     })
   },
 
   mounted() {
-    this.$store.dispatch('notifications/fetchUnreadNotifications')
+    if( this.user !== null ) {
+      this.$store.dispatch('notifications/fetchUnreadNotifications')
+    }
   }
 }
 </script>

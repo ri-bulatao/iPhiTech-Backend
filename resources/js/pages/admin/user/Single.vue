@@ -219,6 +219,9 @@ import { mapGetters } from 'vuex'
 import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
+    
+    middleware: 'admin',
+
     data: () => ({
         form: new Form({
             first_name: '',

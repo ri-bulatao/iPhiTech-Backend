@@ -44,7 +44,7 @@ import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
     name: 'admin-user-positions',
-
+    middleware: 'admin',
     computed: mapGetters({
         positions: 'positions/positions'
     }),

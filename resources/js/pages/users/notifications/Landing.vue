@@ -47,6 +47,8 @@ import Swal from 'sweetalert2'
 export default {
     name: 'notifications',
 
+    middleware: 'auth',
+
     computed: mapGetters({
         notifications: 'notifications/notifications'
     }),

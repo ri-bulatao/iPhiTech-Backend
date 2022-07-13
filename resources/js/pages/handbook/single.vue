@@ -27,7 +27,7 @@
         <div v-if="handbook" class="mt-3 overflow-auto">
             <vue-pdf-embed 
             ref="pdfRef"
-            :source="handbook.pdf"
+            :source="handbook.pdf ?? ''"
             :page="page"
             @rendered="handlePdfRender" />
         </div>
@@ -44,7 +44,7 @@ import * as routeNames from '~/config/route-names'
 
 export default {
     name: 'handbook-single',
-
+    middleware: 'auth',
     data: () => ({
         page: 1,
         pageCount: 1,
@@ -68,12 +68,6 @@ export default {
     methods: {
         handlePdfRender() {
             this.pageCount = this.$refs.pdfRef.pageCount
-        }
-    },
-
-    mounted() {
-        if(this.handbook == null) {
-            this.$router.push({name: [routeNames.admin_handbook]})
         }
     }
 }
