@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Notification;
+use App\Models\User;
+use Tests\TestCase;
 
 class NotificationTest extends TestCase
 {
@@ -21,7 +23,7 @@ class NotificationTest extends TestCase
         return [
             'title' => 'Testing Title',
             'read' => true,
-            'url' => 'http://testurl.com'
+            'url' => 'http://testurl.com',
         ];
     }
 
@@ -122,5 +124,4 @@ class NotificationTest extends TestCase
             ->delete(route('notifications.delete', ['id' => $created->id]))
             ->assertStatus(401);
     }
-
 }

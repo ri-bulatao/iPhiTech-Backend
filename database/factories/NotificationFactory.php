@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -16,7 +18,7 @@ class NotificationFactory extends Factory
         return [
             'title' => $this->faker->text,
             'read' => false,
-            'url' => 'http://testurl.com'
+            'url' => 'http://testurl.com',
         ];
     }
 }
