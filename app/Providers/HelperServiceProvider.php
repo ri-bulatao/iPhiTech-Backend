@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +16,7 @@ class HelperServiceProvider extends ServiceProvider
     public function register()
     {
         foreach (glob(app_path() . '/Helpers/*.php') as $file) {
-            require_once($file);  
+            require_once $file;
         }
     }
 
@@ -25,6 +27,6 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // 
+        //
     }
 }
