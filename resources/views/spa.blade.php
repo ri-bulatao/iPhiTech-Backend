@@ -5,8 +5,8 @@ $config = [
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
 ];
-$appJs = mix('dist/js/app.js');
-$appCss = mix('dist/css/app.css');
+$appJs = asset('dist/js/app.js');
+$appCss = asset('dist/css/app.css');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
