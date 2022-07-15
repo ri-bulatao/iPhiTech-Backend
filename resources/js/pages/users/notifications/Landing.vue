@@ -43,6 +43,7 @@
 
 import { mapGetters } from 'vuex'
 import Swal from 'sweetalert2'
+import { ToastSuccess, ToastError, AlertQuestion } from '~/config/alerts'
 
 export default {
     name: 'notifications',
@@ -68,10 +69,7 @@ export default {
                     this.$router.push(url)
                 })
                 .catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Something went wrong!'
-                    })
+                    ToastError()
                 })
 
         },
@@ -85,52 +83,37 @@ export default {
             }
             this.$store.dispatch('notifications/updateNotification', payload)
                 .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: res.message
-                    })
+                    ToastSuccess('Success', res.message)
                     this.$store.dispatch('notifications/fetchNotifications')
                 })
-                .catch(err => console.log(err))
+                .catch(err => TaostError())
         },
 
         deleteReady(notification) {
-            Swal.fire({
-                icon: 'question',
-                title: 'Are you sure to delete ?',
-                text: 'There is no undo for this action',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Delete!'
-            })
-            .then(result => {
-                if(result.isConfirmed) {
-                    this.deleteNotification(notification)
-                }
-            })
+
+            AlertQuestion('Are you sure to delete ?', 'There is no undo for this action', true, 'Yes, Delete!')
+                .then(result => {
+                    if(result.isConfirmed) {
+                        this.deleteNotification(notification)
+                    }
+                })
         },
 
         deleteNotification(notification) {
             this.$store.dispatch('notifications/deleteNotification', notification.id)
                 .then(res => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: res.message
-                    })
+                    ToastSuccess('Success', res.message)
                     this.$store.dispatch('notifications/fetchNotifications')
                 })
                 .catch(err => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Something went wrong!'
-                    })
+                    ToastError()
                 })
         }
     },
 
     mounted() {
         this.$store.dispatch('notifications/fetchNotifications')
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .catch(err => ToastError())
     }
 }
 
