@@ -21,6 +21,8 @@ use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
 use App\Http\Controllers\User\UserController as AdminUserController;
+use App\Http\Controllers\Course\CourseCategoryController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -118,6 +120,19 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/', [HandbookPageController::class, 'store'])->name('store');
             Route::put('/update/{id}', [HandbookPageController::class, 'update'])->name('update');
             Route::delete('/{id}', [HandbookPageController::class, 'destroy'])->name('delete');
+        });
+
+    /**
+     * Course Category Modules.
+     */
+    Route::name('course_category.')
+        ->prefix('course_category')
+        ->group(function () {
+            Route::get('fetch', [CourseCategoryController::class, 'index'])->name('list');
+            Route::get('/{id}', [CourseCategoryController::class, 'get'])->name('single');
+            Route::post('/', [CourseCategoryController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [CourseCategoryController::class, 'update'])->name('update');
+            Route::delete('/{id}', [CourseCategoryController::class, 'destroy'])->name('delete');
         });
 });
 
