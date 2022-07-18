@@ -186,10 +186,10 @@ declare(strict_types=1);
                             'hasChildren' => false,
                             'routeName' => 'attendance.list',
                             'imgIcon' => 'lead-icon.png',
-                            'permissions' => ['view attendance']
-                        ]
-                    ]
-                ]
+                            'permissions' => ['view attendance'],
+                        ],
+                    ],
+                ],
             ],
             'top' => [
                 [
@@ -276,7 +276,7 @@ declare(strict_types=1);
                     'routeName' => 'attendance',
                     'imgIcon' => 'lead-icon.png',
                     'permissions' => ['Attendance'],
-                ]
+                ],
             ],
             'top' => [
                 [

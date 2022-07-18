@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,7 +26,7 @@ class AttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer'
+            'user_id' => 'required|integer',
         ];
     }
 
@@ -35,7 +37,7 @@ class AttendanceRequest extends FormRequest
     {
         return [
             'user_id.required' => 'The user id field is required.',
-            'useR_id.integer' => 'The user id field have incorrect format.'
+            'useR_id.integer' => 'The user id field have incorrect format.',
         ];
     }
 }
