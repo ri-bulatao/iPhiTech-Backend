@@ -140,7 +140,7 @@ declare(strict_types=1);
 
                 /*
                 |--------------------------------------------------------------------------
-                | Handbook modules menu
+                | Handbook module menu
                 |--------------------------------------------------------------------------
                 */
                 [
@@ -154,6 +154,42 @@ declare(strict_types=1);
                     'permissions' => ['Handbook'],
                     'subMenus' => [],
                 ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Attendance module menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Attendance',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'file-contract',
+                    'toggleId' => 'attendance-collapse',
+                    'hasChildren' => true,
+                    'routeName' => 'attendance',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Attendance'],
+                    'subMenus' => [
+                        [
+                            'name' => 'Create Attendance',
+                            'class' => 'nav-link rounded text-white',
+                            'iconClass' => 'plus',
+                            'hasChildren' => false,
+                            'routeName' => 'attendance.create',
+                            'imgIcon' => 'lead-icon.png',
+                            'permissions' => ['create attendance'],
+                        ],
+                        [
+                            'name' => 'View Attendance',
+                            'class' => 'nav-link rounded text-white',
+                            'iconClass' => 'eyes',
+                            'hasChildren' => false,
+                            'routeName' => 'attendance.list',
+                            'imgIcon' => 'lead-icon.png',
+                            'permissions' => ['view attendance']
+                        ]
+                    ]
+                ]
             ],
             'top' => [
                 [
@@ -225,6 +261,22 @@ declare(strict_types=1);
                     'permissions' => ['Handbook'],
                     'subMenus' => [],
                 ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Attendance modules menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Attendance',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'file-contract',
+                    'toggleId' => 'attendance-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'attendance',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Attendance'],
+                ]
             ],
             'top' => [
                 [

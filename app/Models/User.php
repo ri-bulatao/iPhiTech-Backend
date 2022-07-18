@@ -174,4 +174,9 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 
         return Config::get('menu.employee');
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

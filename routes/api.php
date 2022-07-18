@@ -20,6 +20,7 @@ use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
+use App\Http\Controllers\Attendance\AttendancesController;
 use App\Http\Controllers\User\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -118,6 +119,15 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/', [HandbookPageController::class, 'store'])->name('store');
             Route::put('/update/{id}', [HandbookPageController::class, 'update'])->name('update');
             Route::delete('/{id}', [HandbookPageController::class, 'destroy'])->name('delete');
+        });
+
+    Route::name('attendances.')
+        ->prefix('attendance')
+        ->group(function() {
+            Route::get('/today', [AttendancesController::class, 'today'])->name('today');
+            Route::get('/', [AttendancesController::class, 'index'])->name('list');
+            Route::post('/timein', [AttendancesController::class, 'time_in'])->name('time_in');
+            Route::put('/timeout', [AttendancesController::class, 'time_out'])->name('time_out');
         });
 });
 

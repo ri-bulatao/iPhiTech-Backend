@@ -51,11 +51,7 @@ export default {
 
     computed: mapGetters({
         user: 'auth/user'
-    }), 
-
-    mounted() {
-        this.routeNames = routeNames
-    }
+    })
 }
 
 </script>
