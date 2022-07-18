@@ -26,7 +26,7 @@ class CourseCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required|unique:course_categories',
         ];
     }
 
@@ -39,6 +39,7 @@ class CourseCategoryRequest extends FormRequest
     {
         return [
             'title.required'    => 'Title is required',
+            'title.unique'    => 'Title is already exist',
         ];
     }
 }
