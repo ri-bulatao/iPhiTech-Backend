@@ -10,6 +10,7 @@ use App\Enums\AttendanceStatusEnums as AttendanceStatus;
 use App\Enums\RoleEnums as Roles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttendanceRequest;
+use App\Http\Requests\AttendanceUpdateRequest;
 use App\Models\Attendance as AttendanceModel;
 use App\Models\User;
 use App\Utilities\Result;
@@ -17,7 +18,6 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\AttendanceUpdateRequest;
 
 class AttendancesController extends Controller
 {
@@ -52,15 +52,14 @@ class AttendancesController extends Controller
         }
 
         $attendance = AttendanceModel::where('user_id', $user->id)->where('date', $today)->first();
-        
-        if( $attendance ) {
-            if( $attendance->time_in !== null ) {
-                $attendance->time_in_pretty =  Carbon::parse($attendance->time_in)->diffForHumans();
+
+        if ($attendance) {
+            if ($attendance->time_in !== null) {
+                $attendance->time_in_pretty = Carbon::parse($attendance->time_in)->diffForHumans();
             }
-            if( $attendance->time_out !== null ) {
+            if ($attendance->time_out !== null) {
                 $attendance->time_out_pretty = Carbon::parse($attendance->time_out)->diffForHumans();
             }
-            
         }
 
         if (! $attendance) {
@@ -71,25 +70,23 @@ class AttendancesController extends Controller
     }
 
     /**
-     * Get single attendance
-     * 
-     * @param integer $id
-     * 
-     * @return JsonResponse
+     * Get single attendance.
+     *
+     * @param int $id
      */
     public function get($id): JsonResponse
     {
-        $attendance = AttendanceModel::find( $id );
+        $attendance = AttendanceModel::find($id);
 
-        if( ! $attendance ) {
+        if (! $attendance) {
             return $this->result->notFound();
         }
 
-        if( $attendance->time_in !== null ) {
+        if ($attendance->time_in !== null) {
             $attendance->time_in = Carbon::parse($attendance->time_in)->format('g:i A');
         }
 
-        if( $attendance->time_out !== null ) {
+        if ($attendance->time_out !== null) {
             $attendance->time_out = Carbon::parse($attendance->time_out)->format('g:i A');
         }
 
@@ -97,11 +94,7 @@ class AttendancesController extends Controller
     }
 
     /**
-     * Get attendance record of the employee
-     * 
-     * @param Request $request
-     * 
-     * @return JsonResponse
+     * Get attendance record of the employee.
      */
     public function employee(Request $request): JsonResponse
     {
@@ -109,44 +102,39 @@ class AttendancesController extends Controller
 
         $user = User::find($id);
 
-        if( ! $user ) {
+        if (! $user) {
             return $this->result->notFound();
         }
 
         $attendances = AttendanceModel::where('user_id', $user->id)->get();
 
-        foreach( $attendances as $attendance ) {
-            if( $attendance->time_in !== null ) {
-                $attendance->time_in = Carbon::parse( $attendance->time_in )->toTimeString();
-            }
-            else {
+        foreach ($attendances as $attendance) {
+            if ($attendance->time_in !== null) {
+                $attendance->time_in = Carbon::parse($attendance->time_in)->toTimeString();
+            } else {
                 $attendance->time_in = 'N/A';
             }
 
-            if( $attendance->time_out !== null ) {
-                $attendance->time_out = Carbon::parse( $attendance->time_out )->toTimeString();
-            }
-            else {
+            if ($attendance->time_out !== null) {
+                $attendance->time_out = Carbon::parse($attendance->time_out)->toTimeString();
+            } else {
                 $attendance->time_out = 'N/A';
             }
         }
 
-        return $this->result->success( $attendances );
-
+        return $this->result->success($attendances);
     }
 
     /**
-     * Get attendance record by user id
-     * 
-     * @var Request $request
-     * 
-     * @return JsonResponse
+     * Get attendance record by user id.
+     *
+     * @var Request
      */
     public function index(Request $request): JsonResponse
     {
         $user_id = $request->id;
 
-        $user = User::find( $user_id );
+        $user = User::find($user_id);
 
         if (! $user) {
             return $this->result->notFound();
@@ -160,18 +148,16 @@ class AttendancesController extends Controller
             $records = AttendanceModel::where('user_id', $user_id)->get();
         }
 
-        foreach( $records as $record ) {
-            if( $record->time_in !== null ) {
+        foreach ($records as $record) {
+            if ($record->time_in !== null) {
                 $record->time_in = Carbon::parse($record->time_in)->toTimeString();
-            }
-            else {
+            } else {
                 $record->time_in = 'N/A';
             }
 
-            if( $record->time_out !== null ) {
+            if ($record->time_out !== null) {
                 $record->time_out = Carbon::parse($record->time_out)->toTimeString();
-            }
-            else {
+            } else {
                 $record->time_out = 'N/A';
             }
         }
@@ -244,12 +230,9 @@ class AttendancesController extends Controller
     }
 
     /**
-     * Function for updating the attendance record
-     * 
-     * @param AttendanceUpdateRequest $request
-     * @param integer $id
-     * 
-     * @return JsonResponse
+     * Function for updating the attendance record.
+     *
+     * @param int $id
      */
     public function update(AttendanceUpdateRequest $request, $id): JsonResponse
     {
@@ -259,7 +242,7 @@ class AttendancesController extends Controller
 
         $attendance = AttendanceModel::find($id);
 
-        if( ! $attendance ) {
+        if (! $attendance) {
             return $this->result->notFound();
         }
 
@@ -268,32 +251,28 @@ class AttendancesController extends Controller
         $attendance->time_out = $time_out;
         $attendance->save();
 
-        return $this->result->success( $attendance, 'Attendance Updated' );
+        return $this->result->success($attendance, 'Attendance Updated');
     }
 
-
     /**
-     * Endpoint for deleting Attendance
-     * 
-     * @param integer $id
-     * 
-     * @return JsonResponse
+     * Endpoint for deleting Attendance.
+     *
+     * @param int $id
      */
     public function destroy($id): JsonResponse
     {
         $attendance = AttendanceModel::find($id);
 
-        if( ! $attendance ) {
+        if (! $attendance) {
             return $this->result->notFound();
         }
 
         $deleted = $attendance->delete();
 
-        if( ! $deleted ) {
+        if (! $deleted) {
             return $this->result->exception();
         }
 
         return $this->result->success($deleted, 'Attendance Deletted');
-
     }
 }
