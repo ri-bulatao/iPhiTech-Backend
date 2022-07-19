@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\AttendanceUpdateRequest;
 
 class AttendancesController extends Controller
 {
@@ -64,6 +65,32 @@ class AttendancesController extends Controller
 
         if (! $attendance) {
             return $this->result->custom(false, null, 'The Attendance is not found', 404);
+        }
+
+        return $this->result->success($attendance);
+    }
+
+    /**
+     * Get single attendance
+     * 
+     * @param integer $id
+     * 
+     * @return JsonResponse
+     */
+    public function get($id): JsonResponse
+    {
+        $attendance = AttendanceModel::find( $id );
+
+        if( ! $attendance ) {
+            return $this->result->notFound();
+        }
+
+        if( $attendance->time_in !== null ) {
+            $attendance->time_in = Carbon::parse($attendance->time_in)->format('g:i A');
+        }
+
+        if( $attendance->time_out !== null ) {
+            $attendance->time_out = Carbon::parse($attendance->time_out)->format('g:i A');
         }
 
         return $this->result->success($attendance);
@@ -214,5 +241,59 @@ class AttendancesController extends Controller
         $attendance->save();
 
         return $this->result->success($attendance, 'Attendance Updated');
+    }
+
+    /**
+     * Function for updating the attendance record
+     * 
+     * @param AttendanceUpdateRequest $request
+     * @param integer $id
+     * 
+     * @return JsonResponse
+     */
+    public function update(AttendanceUpdateRequest $request, $id): JsonResponse
+    {
+        $date = $request->date;
+        $time_in = $request->time_in;
+        $time_out = $request->time_out;
+
+        $attendance = AttendanceModel::find($id);
+
+        if( ! $attendance ) {
+            return $this->result->notFound();
+        }
+
+        $attendance->date = $date;
+        $attendance->time_in = $time_in;
+        $attendance->time_out = $time_out;
+        $attendance->save();
+
+        return $this->result->success( $attendance, 'Attendance Updated' );
+    }
+
+
+    /**
+     * Endpoint for deleting Attendance
+     * 
+     * @param integer $id
+     * 
+     * @return JsonResponse
+     */
+    public function destroy($id): JsonResponse
+    {
+        $attendance = AttendanceModel::find($id);
+
+        if( ! $attendance ) {
+            return $this->result->notFound();
+        }
+
+        $deleted = $attendance->delete();
+
+        if( ! $deleted ) {
+            return $this->result->exception();
+        }
+
+        return $this->result->success($deleted, 'Attendance Deletted');
+
     }
 }

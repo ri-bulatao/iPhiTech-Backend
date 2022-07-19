@@ -129,6 +129,9 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/timein', [AttendancesController::class, 'time_in'])->name('time_in');
             Route::put('/timeout', [AttendancesController::class, 'time_out'])->name('time_out');
             Route::get('/employee', [AttendancesController::class, 'employee'])->name('employee');
+            Route::get('/get/{id}', [AttendancesController::class, 'get'])->name('show');
+            Route::put('/update/{id}', [AttendancesController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [AttendancesController::class, 'destroy'])->name('delete');
         });
 });
 

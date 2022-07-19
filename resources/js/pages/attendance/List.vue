@@ -42,8 +42,8 @@
                             <td>{{ attendance.first_name }}</td>
                             <td>{{ attendance.last_name }}</td>
                             <td>
-                                <router-link :to="{ name: [routeNames.attendance_employee], params: { id: attendance.id } }" class="btn btn-primary">View</router-link>
-                                <a href="javascript:void(0)" class="btn btn-danger">Clear</a>
+                                <router-link :to="{ name: [routeNames.attendance_employee], params: { id: attendance.id } }" class="btn btn-sm btn-primary">View</router-link>
+                                <!-- <a href="javascript:void(0)" class="btn btn-sm btn-danger">Clear</a> -->
                             </td>
                         </tr>
                     </tbody>
@@ -55,7 +55,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { ToastSuccess, ToastError } from '~/config/alerts'
 import * as routeNames from '~/config/route-names'
 export default {
     name: 'attendance-list',

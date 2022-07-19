@@ -4,17 +4,23 @@ import * as types from '../mutation-types'
 
 export const state = {
     attendances: [],
+    attendance: {},
     attendnaceToday: {}
 }
 
 export const getters = {
     attendances: state => state.attendances,
+    attendance: state => state.attendance,
     attendanceToday: state => state.attendanceToday
 }
 
 export const mutations = {
     [types.SET_ATTENDANCES] (state, {attendances}) {
         state.attendances = attendances
+    },
+
+    [types.SET_ATTENDANCE] (state, {attendance}) {
+        state.attendance = attendance
     },
 
     [types.SET_ATTENDANCE_TODAY] (state, {attendance}) {
@@ -73,6 +79,33 @@ export const actions = {
                     commit(types.SET_ATTENDANCES, { attendances: res.data.data })
                     resolve(res.data)
                 })
+                .catch(err => reject(err))
+        })
+    },
+
+    fetchAttendance({commit, dispatch}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.get(route('attendances.show', {id: payload.id}))
+                .then(res => {
+                    commit(types.SET_ATTENDANCE, { attendance: res.data.data })
+                    resolve(res.data)
+                })
+                .catch(err => reject(err))
+        })
+    },
+
+    updateAttendance({commit, dispatch}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.put(route('attendances.update', { id: payload.id }), payload)
+                .then(res => resolve(res.data))
+                .catch(err => reject(err))
+        })
+    },
+
+    deleteAttendance({commit, dispatch}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.delete(route('attendances.delete', { id: payload.id }))
+                .then(res => resolve(res))
                 .catch(err => reject(err))
         })
     }
