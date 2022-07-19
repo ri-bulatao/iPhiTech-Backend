@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +24,7 @@ class Course extends Model
         'video_url',
         'is_embed',
         'embed_code',
-        'featured_image'
+        'featured_image',
     ];
 
     public function scopeFilter($query, $sortBy, $sortOrder)
