@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
 use App\Http\Controllers\Notification\NotificationsController;
@@ -21,8 +22,6 @@ use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
 use App\Http\Controllers\User\UserController as AdminUserController;
-use App\Http\Controllers\Course\CourseCategoryController;
-
 use Illuminate\Support\Facades\Route;
 
 /*

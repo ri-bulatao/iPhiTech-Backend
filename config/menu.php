@@ -178,7 +178,7 @@ declare(strict_types=1);
                             'routeName' => 'admin.course.category.list',
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Courses'],
-                        ]
+                        ],
                     ],
                 ],
             ],

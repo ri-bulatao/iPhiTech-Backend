@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\CourseCategoryRequest;
 use App\Models\CourseCategory as CourseCategoryModel;
 use App\Utilities\Result;
