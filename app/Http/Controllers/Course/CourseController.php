@@ -6,11 +6,11 @@ namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\Course as CourseModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\ImageRequest;
 
 class CourseController extends Controller
 {
@@ -35,8 +35,8 @@ class CourseController extends Controller
     {
         $file_path = 'https://no-image.jpg';
 
-        if($request->file()){
-            $file_name = time().'_'.$request->file->getClientOriginalName();
+        if ($request->file()) {
+            $file_name = time() . '_' . $request->file->getClientOriginalName();
             $file_path = env('APP_URL') . '/course_featured_image' . '/' . $file_name;
             $file->move(public_path('course_featured_image'), $file_name);
         }
@@ -45,7 +45,7 @@ class CourseController extends Controller
             'url'   => $request->file(),
         ]);
     }
-    
+
     /**
      * For Fetching all Courses.
      */

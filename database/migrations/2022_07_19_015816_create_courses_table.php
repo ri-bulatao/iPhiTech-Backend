@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,12 +23,12 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('course_category_id')->unsigned();
             $table->foreign('course_category_id')
             ->references('id')->on('course_categories');
-            $table->string("title");
-            $table->string("description")->nullable();
-            $table->string("video_url")->nullable();
-            $table->tinyInteger("is_embed")->default(1);
-            $table->string("embed_code")->nullable();
-            $table->string("featured_image")->nullable();
+            $table->string('title');
+            $table->string('description')->nullable();
+            $table->string('video_url')->nullable();
+            $table->tinyInteger('is_embed')->default(1);
+            $table->string('embed_code')->nullable();
+            $table->string('featured_image')->nullable();
             $table->timestamps();
         });
     }
