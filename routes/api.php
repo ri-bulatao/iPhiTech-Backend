@@ -128,6 +128,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/', [AttendancesController::class, 'index'])->name('list');
             Route::post('/timein', [AttendancesController::class, 'time_in'])->name('time_in');
             Route::put('/timeout', [AttendancesController::class, 'time_out'])->name('time_out');
+            Route::get('/employee', [AttendancesController::class, 'employee'])->name('employee');
         });
 });
 

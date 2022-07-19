@@ -29,6 +29,8 @@ export const attendance = 'attendance'
 export const attendance_create = 'attendance.create'
 export const attendance_single = 'attendance.single'
 export const attendance_list = 'attendance.list'
+export const attendance_employee = 'attendance.employee'
+export const attendance_edit = 'attendance.edit'
 
 // Handbook PDF
 export const handbook_single = 'handbook.single'

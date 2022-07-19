@@ -58,8 +58,13 @@ class AttendancesController extends Controller
         $attendance = AttendanceModel::where('user_id', $user->id)->where('date', $today)->first();
         
         if( $attendance ) {
-            $attendance->time_in_pretty =  Carbon::parse($attendance->time_in)->diffForHumans();
-            $attendance->time_out_pretty = Carbon::parse($attendance->time_out)->diffForHumans();
+            if( $attendance->time_in !== null ) {
+                $attendance->time_in_pretty =  Carbon::parse($attendance->time_in)->diffForHumans();
+            }
+            if( $attendance->time_out !== null ) {
+                $attendance->time_out_pretty = Carbon::parse($attendance->time_out)->diffForHumans();
+            }
+            
         }
 
         if( ! $attendance ) {
@@ -67,6 +72,45 @@ class AttendancesController extends Controller
         }
 
         return $this->result->success($attendance);
+
+    }
+
+    /**
+     * Get attendance record of the employee
+     * 
+     * @param Request $request
+     * 
+     * @return JsonResponse
+     */
+    public function employee(Request $request): JsonResponse
+    {
+        $id = $request->user_id;
+
+        $user = User::find($id);
+
+        if( ! $user ) {
+            return $this->result->notFound();
+        }
+
+        $attendances = AttendanceModel::where('user_id', $user->id)->get();
+
+        foreach( $attendances as $attendance ) {
+            if( $attendance->time_in !== null ) {
+                $attendance->time_in = Carbon::parse( $attendance->time_in )->toTimeString();
+            }
+            else {
+                $attendance->time_in = 'N/A';
+            }
+
+            if( $attendance->time_out !== null ) {
+                $attendance->time_out = Carbon::parse( $attendance->time_out )->toTimeString();
+            }
+            else {
+                $attendance->time_out = 'N/A';
+            }
+        }
+
+        return $this->result->success( $attendances );
 
     }
 
@@ -80,7 +124,7 @@ class AttendancesController extends Controller
     public function index(Request $request): JsonResponse
     {
         $user_id = $request->id;
-        \Log::info($user_id);
+
         $user = User::find( $user_id );
 
         if( ! $user ) {
@@ -94,6 +138,22 @@ class AttendancesController extends Controller
         }
         else {
             $records = AttendanceModel::where('user_id', $user_id)->get();
+        }
+
+        foreach( $records as $record ) {
+            if( $record->time_in !== null ) {
+                $record->time_in = Carbon::parse($record->time_in)->toTimeString();
+            }
+            else {
+                $record->time_in = 'N/A';
+            }
+
+            if( $record->time_out !== null ) {
+                $record->time_out = Carbon::parse($record->time_out)->toTimeString();
+            }
+            else {
+                $record->time_out = 'N/A';
+            }
         }
 
         return $this->result->success($records);

@@ -182,7 +182,7 @@ declare(strict_types=1);
                         [
                             'name' => 'View Attendance',
                             'class' => 'nav-link rounded text-white',
-                            'iconClass' => 'eyes',
+                            'iconClass' => 'eye',
                             'hasChildren' => false,
                             'routeName' => 'attendance.list',
                             'imgIcon' => 'lead-icon.png',

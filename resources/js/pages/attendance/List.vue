@@ -4,7 +4,7 @@
             <small>Attendance List</small>
         </div>
         
-        <div class="">
+        <div>
             <div class="d-flex m-auto justify-content-center py-3">
                 <table class="table table-striped" v-if="!user.is_admin">
                     <thead>
@@ -42,9 +42,8 @@
                             <td>{{ attendance.first_name }}</td>
                             <td>{{ attendance.last_name }}</td>
                             <td>
-                                <a href="javascript:void(0)" class="btn btn-primary">View</a>
-                                <a href="javascript:void(0)" class="btn btn-warning">Edit</a>
-                                <a href="javascript:void(0)" class="btn btn-danger">Delete</a>
+                                <router-link :to="{ name: [routeNames.attendance_employee], params: { id: attendance.id } }" class="btn btn-primary">View</router-link>
+                                <a href="javascript:void(0)" class="btn btn-danger">Clear</a>
                             </td>
                         </tr>
                     </tbody>
@@ -57,9 +56,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { ToastSuccess, ToastError } from '~/config/alerts'
-
+import * as routeNames from '~/config/route-names'
 export default {
     name: 'attendance-list',
+    
+    data: () => ({
+        routeNames
+    }),
 
     computed: mapGetters({
         user: 'auth/user',
@@ -72,7 +75,6 @@ export default {
         }
         
         this.$store.dispatch('attendances/fetchAttendances', payload)
-            .then(res => console.log(res))
 
         this.$store.dispatch('attendances/fetchAttendanceToday', payload)
             .then(res => {

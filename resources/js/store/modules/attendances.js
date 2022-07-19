@@ -64,5 +64,16 @@ export const actions = {
                 })
                 .catch(err => reject(err))
         })
+    },
+
+    fetchEmployeeAttendances({commit, dispatch}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.get(route('attendances.employee'), { params: payload })
+                .then(res => {
+                    commit(types.SET_ATTENDANCES, { attendances: res.data.data })
+                    resolve(res.data)
+                })
+                .catch(err => reject(err))
+        })
     }
 }

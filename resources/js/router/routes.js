@@ -26,8 +26,19 @@ export default [
         path: 'create',
         name: [routeNames.attendance_create],
         component: page('attendance/Create.vue')
-      }
+      },
     ]
+  },
+
+  {
+    path: '/employee-attendance/:id',
+    name: [routeNames.attendance_employee],
+    component: page('attendance/EmployeeAttendance.vue')
+  },
+  {
+    path: '/employee-attendance/edit/:id',
+    name: [routeNames.attendance_edit],
+    component: page('attendance/Edit.vue')
   },
 
   // Admin Pages
