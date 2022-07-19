@@ -122,9 +122,8 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('/{id}', [HandbookPageController::class, 'destroy'])->name('delete');
         });
 
-
     /**
-     * Attendance Modules
+     * Attendance Modules.
      */
     Route::name('attendances.')
         ->prefix('attendance')
@@ -137,7 +136,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/get/{id}', [AttendancesController::class, 'get'])->name('show');
             Route::put('/update/{id}', [AttendancesController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [AttendancesController::class, 'destroy'])->name('delete');
-    });
+        });
 
     /**
      * Course Category Modules.
