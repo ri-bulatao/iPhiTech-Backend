@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Course\CourseCategoryController;
+use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
 use App\Http\Controllers\Notification\NotificationsController;
@@ -132,6 +133,20 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/', [CourseCategoryController::class, 'store'])->name('store');
             Route::put('/update/{id}', [CourseCategoryController::class, 'update'])->name('update');
             Route::delete('/{id}', [CourseCategoryController::class, 'destroy'])->name('delete');
+        });
+
+    /**
+     * Course Modules.
+     */
+    Route::name('course.')
+        ->prefix('course')
+        ->group(function () {
+            Route::get('fetch', [CourseController::class, 'index'])->name('list');
+            Route::get('/{id}', [CourseController::class, 'get'])->name('single');
+            Route::post('/', [CourseController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [CourseController::class, 'update'])->name('update');
+            Route::delete('/{id}', [CourseController::class, 'destroy'])->name('delete');
+            Route::post('/upload', [CourseController::class, 'upload'])->name('upload');
         });
 });
 

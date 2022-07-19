@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
     <div class="container">
       <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
-        {{ appName }}
+        iPhiTech Logo
       </router-link>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">

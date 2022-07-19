@@ -55,5 +55,6 @@
   "country": "Country",
   "position": "Position",
 
-  "title": "Title"
+  "title": "Title",
+  "description": "Description"
 }

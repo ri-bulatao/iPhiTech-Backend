@@ -51,7 +51,7 @@ export const mutations = {
         state.loading = false
     },
     [types.DELETE_COURSE_CATEGORY] (state, id) {
-        const index = state.course_categories.findIndex(_handbook => _handbook.id === id)
+        const index = state.course_categories.findIndex(_course_category => _course_category.id === id)
         if (index !== -1) {
             state.course_categories.splice(index, 1)
         }
