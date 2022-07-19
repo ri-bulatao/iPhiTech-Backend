@@ -31,7 +31,7 @@
                                             class="btn btn-primary btn-sm" 
                                             :to="{ name: 'admin.user.single', params: {id: user.id} }"
                                         > View </router-link>
-                                        <button @click="remove(user.id)" class="btn btn-danger btn-sm">Remove</button>
+                                        <button @click="deleteUser(user.id)" class="btn btn-danger btn-sm">Remove</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -44,19 +44,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Swal from 'sweetalert2'
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+import { ToastSuccess, ToastError, AlertQuestion } from '~/config/alerts'
 
 export default {
     name: 'admin-user-users',
@@ -66,24 +54,24 @@ export default {
     }),
 
     methods: {
+        deleteUser(id) {
+
+            AlertQuestion('Are you sure?', 'You won\'t be able to revert this!', true, 'Yes, delete it!')
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.remove(id)
+                }
+            })
+        },
         remove(id) {
             this.$store.dispatch('users/removeUser', { id })
                 .then((result) => {
                     if(result.data.success){
                         this.$store.dispatch('users/fetchUsers')
 
-                        Toast.fire({
-                            icon: 'success',
-                            title: "Success!",
-                            text: result.data.message
-                        })
+                        ToastSuccess('Deleted!', result.data.message)
                     }else{
-
-                        Toast.fire({
-                            icon: 'error',
-                            title: "Oops!",
-                            text: "There's something wrong, please try again."
-                        })
+                        ToastError('Error!', result.data.message)
                     }
                 }).catch((error) => {
                     console.log(error)

@@ -95,7 +95,7 @@ export default {
     },
 
     redirect () {
-      this.$router.push({ name: 'user.dashboard' })
+      this.$router.push({ name: 'dashboard' })
     }
   }
 }
