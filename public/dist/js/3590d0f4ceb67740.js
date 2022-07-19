@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[8522],{8522:(t,s,e)=>{e.r(s),e.d(s,{default:()=>l});const l=(0,e(1900).Z)({},(function(){this._self._c;return this._m(0)}),[function(){var t=this._self._c;return t("div",{staticClass:"row"},[t("div",{staticClass:"m-auto"},[t("small",[this._v("Create Attendance")])])])}],!1,null,null,null).exports}}]);

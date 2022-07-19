@@ -11,8 +11,35 @@ export default [
   // Front Pages
   { path: '/announcements', name: [routeNames.front_announcements], component: page('users/announcement/Landing.vue') },
   { path: '/announcement/:id', name: [routeNames.front_announcement_single], component: page('users/announcement/Single.vue') },
-
   { path: '/notifications', name: 'front.notificaitons', component: page('users/notifications/Landing.vue') },
+  {
+    path: '/attendance', 
+    name: [routeNames.attendance], 
+    component: page('attendance/Index.vue'),
+    children: [
+      {
+        path: 'list',
+        name: [routeNames.attendance_list],
+        component: page('attendance/List.vue')
+      },
+      {
+        path: 'create',
+        name: [routeNames.attendance_create],
+        component: page('attendance/Create.vue')
+      },
+    ]
+  },
+
+  {
+    path: '/employee-attendance/:id',
+    name: [routeNames.attendance_employee],
+    component: page('attendance/EmployeeAttendance.vue')
+  },
+  {
+    path: '/employee-attendance/edit/:id',
+    name: [routeNames.attendance_edit],
+    component: page('attendance/Edit.vue')
+  },
 
   // Admin Pages
   { path: '/admin/login', name: 'admin.login', component: page('admin/login.vue') },
@@ -174,7 +201,6 @@ export default [
     },
   ] },
   
-
   // User Pages
   { path: '/dashboard', name: [routeNames.dashboard], component: page('dashboard.vue') },
 

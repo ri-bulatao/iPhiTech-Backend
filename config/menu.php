@@ -140,7 +140,7 @@ declare(strict_types=1);
 
                 /*
                 |--------------------------------------------------------------------------
-                | Handbook modules menu
+                | Handbook module menu
                 |--------------------------------------------------------------------------
                 */
                 [
@@ -152,6 +152,23 @@ declare(strict_types=1);
                     'routeName' => 'handbook',
                     'imgIcon' => 'lead-icon.png',
                     'permissions' => ['Handbook'],
+                    'subMenus' => [],
+                ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Attendance module menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Attendance',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'file-contract',
+                    'toggleId' => 'attendance-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'attendance',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Attendance'],
                     'subMenus' => [],
                 ],
 
@@ -260,6 +277,22 @@ declare(strict_types=1);
                     'imgIcon' => 'lead-icon.png',
                     'permissions' => ['Handbook'],
                     'subMenus' => [],
+                ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Attendance modules menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Attendance',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'file-contract',
+                    'toggleId' => 'attendance-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'attendance',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Attendance'],
                 ],
             ],
             'top' => [

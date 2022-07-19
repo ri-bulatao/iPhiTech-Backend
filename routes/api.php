@@ -6,6 +6,7 @@ declare(strict_types=1);
  * Custom Controllers.
  */
 use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Attendance\AttendancesController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -120,6 +121,22 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/', [HandbookPageController::class, 'store'])->name('store');
             Route::put('/update/{id}', [HandbookPageController::class, 'update'])->name('update');
             Route::delete('/{id}', [HandbookPageController::class, 'destroy'])->name('delete');
+        });
+
+    /**
+     * Attendance Modules.
+     */
+    Route::name('attendances.')
+        ->prefix('attendance')
+        ->group(function () {
+            Route::get('/today', [AttendancesController::class, 'today'])->name('today');
+            Route::get('/', [AttendancesController::class, 'index'])->name('list');
+            Route::post('/timein', [AttendancesController::class, 'time_in'])->name('time_in');
+            Route::put('/timeout', [AttendancesController::class, 'time_out'])->name('time_out');
+            Route::get('/employee', [AttendancesController::class, 'employee'])->name('employee');
+            Route::get('/get/{id}', [AttendancesController::class, 'get'])->name('show');
+            Route::put('/update/{id}', [AttendancesController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [AttendancesController::class, 'destroy'])->name('delete');
         });
 
     /**
