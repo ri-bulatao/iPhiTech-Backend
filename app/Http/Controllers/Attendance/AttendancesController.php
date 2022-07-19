@@ -6,21 +6,20 @@ namespace App\Http\Controllers;
 
 namespace App\Http\Controllers\Attendance;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Utilities\Result;
-use Illuminate\Http\JsonResponse;
-use App\Models\Attendance as AttendanceModel;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Http\Requests\AttendanceRequest;
 use App\Enums\AttendanceStatusEnums as AttendanceStatus;
-use Carbon\Carbon;
-use App\Models\User;
 use App\Enums\RoleEnums as Roles;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AttendanceRequest;
+use App\Models\Attendance as AttendanceModel;
+use App\Models\User;
+use App\Utilities\Result;
+use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AttendancesController extends Controller
 {
-
     /**
      * @var Authenticatable
      */
@@ -38,20 +37,16 @@ class AttendancesController extends Controller
     }
 
     /**
-     * Get attendance of the user for today
-     * 
-     * @param AttendanceRequest $request
-     * 
-     * @return JsonResponse
+     * Get attendance of the user for today.
      */
     public function today(AttendanceRequest $request): JsonResponse
     {
         $id = $request->user_id;
         $today = Carbon::today()->toDateString();
 
-        $user = User::find( $id );
+        $user = User::find($id);
 
-        if( ! $user ) {
+        if (! $user) {
             return $this->result->custom(false, null, 'The user is not found', 404);
         }
 
@@ -67,12 +62,11 @@ class AttendancesController extends Controller
             
         }
 
-        if( ! $attendance ) {
+        if (! $attendance) {
             return $this->result->custom(false, null, 'The Attendance is not found', 404);
         }
 
         return $this->result->success($attendance);
-
     }
 
     /**
@@ -127,16 +121,15 @@ class AttendancesController extends Controller
 
         $user = User::find( $user_id );
 
-        if( ! $user ) {
+        if (! $user) {
             return $this->result->notFound();
         }
 
         $records = [];
 
-        if($user->hasRole(Roles::ADMINISTRATOR)) {
+        if ($user->hasRole(Roles::ADMINISTRATOR)) {
             $records = User::with('attendances')->get();
-        }
-        else {
+        } else {
             $records = AttendanceModel::where('user_id', $user_id)->get();
         }
 
@@ -157,17 +150,12 @@ class AttendancesController extends Controller
         }
 
         return $this->result->success($records);
-
     }
 
     /**
-     * Signin for the today attendance
-     * 
-     * @param AttendanceRequest $request
-     * 
-     * @return JsonResponse
+     * Signin for the today attendance.
      */
-    public function time_in( AttendanceRequest $request ): JsonResponse
+    public function time_in(AttendanceRequest $request): JsonResponse
     {
         $user_id = $request->user_id;
         $status = AttendanceStatus::PRESENT;
@@ -177,7 +165,7 @@ class AttendancesController extends Controller
 
         $user = User::find($request->user_id);
 
-        if( ! $user ) {
+        if (! $user) {
             return $this->result->notFound();
         }
 
@@ -185,7 +173,7 @@ class AttendancesController extends Controller
 
         \Log::info($today);
 
-        if( $exists ) {
+        if ($exists) {
             return $this->result->validationError($exists, 'This user already time in for today');
         }
 
@@ -194,10 +182,10 @@ class AttendancesController extends Controller
             'status' => $status,
             'time_in' => $time_in,
             'time_out' => $time_out,
-            'date' => $today
+            'date' => $today,
         ]);
 
-        if( ! $attendance ) {
+        if (! $attendance) {
             return $this->result->exception();
         }
 
@@ -205,24 +193,20 @@ class AttendancesController extends Controller
     }
 
     /**
-     * For time out functionality of the employee
-     * 
-     * @param AttendanceRequest $request
-     * 
-     * @return JsonResponse
+     * For time out functionality of the employee.
      */
-    public function time_out( AttendanceRequest $request ): JsonResponse
+    public function time_out(AttendanceRequest $request): JsonResponse
     {
         $user_id = $request->user_id;
         $today = Carbon::today()->toDateString();
 
         $attendance = AttendanceModel::where('user_id', $user_id)->where('date', $today)->first();
 
-        if( ! $attendance ) {
+        if (! $attendance) {
             return $this->result->notFound();
         }
 
-        if( $attendance->time_out !== null ) {
+        if ($attendance->time_out !== null) {
             return $this->result->validationError($attendance, 'This user already time out for today');
         }
 
@@ -230,7 +214,5 @@ class AttendancesController extends Controller
         $attendance->save();
 
         return $this->result->success($attendance, 'Attendance Updated');
-
     }
-
 }

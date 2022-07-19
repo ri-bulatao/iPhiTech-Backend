@@ -6,6 +6,7 @@ declare(strict_types=1);
  * Custom Controllers.
  */
 use App\Http\Controllers\Announcement\AnnouncementController;
+use App\Http\Controllers\Attendance\AttendancesController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -20,7 +21,6 @@ use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\User\PositionController;
-use App\Http\Controllers\Attendance\AttendancesController;
 use App\Http\Controllers\User\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -123,7 +123,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::name('attendances.')
         ->prefix('attendance')
-        ->group(function() {
+        ->group(function () {
             Route::get('/today', [AttendancesController::class, 'today'])->name('today');
             Route::get('/', [AttendancesController::class, 'index'])->name('list');
             Route::post('/timein', [AttendancesController::class, 'time_in'])->name('time_in');
