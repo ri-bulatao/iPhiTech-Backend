@@ -171,6 +171,33 @@ declare(strict_types=1);
                     'permissions' => ['Attendance'],
                     'subMenus' => [],
                 ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Course module menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Course',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'headphones',
+                    'toggleId' => 'course-collapse',
+                    'hasChildren' => true,
+                    'routeName' => 'admin.courses',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Courses'],
+                    'subMenus' => [
+                        [
+                            'name' => 'Category',
+                            'class' => 'nav-link rounded text-white',
+                            'iconClass' => 'clipboard-list',
+                            'hasChildren' => true,
+                            'routeName' => 'admin.course.category.list',
+                            'imgIcon' => 'lead-icon.png',
+                            'permissions' => ['Courses'],
+                        ],
+                    ],
+                ],
             ],
             'top' => [
                 [

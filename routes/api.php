@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
 use App\Http\Controllers\Notification\NotificationsController;
@@ -121,6 +122,10 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('/{id}', [HandbookPageController::class, 'destroy'])->name('delete');
         });
 
+
+    /**
+     * Attendance Modules
+     */
     Route::name('attendances.')
         ->prefix('attendance')
         ->group(function () {
@@ -132,6 +137,19 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/get/{id}', [AttendancesController::class, 'get'])->name('show');
             Route::put('/update/{id}', [AttendancesController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [AttendancesController::class, 'destroy'])->name('delete');
+    });
+
+    /**
+     * Course Category Modules.
+     */
+    Route::name('course_category.')
+        ->prefix('course_category')
+        ->group(function () {
+            Route::get('fetch', [CourseCategoryController::class, 'index'])->name('list');
+            Route::get('/{id}', [CourseCategoryController::class, 'get'])->name('single');
+            Route::post('/', [CourseCategoryController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [CourseCategoryController::class, 'update'])->name('update');
+            Route::delete('/{id}', [CourseCategoryController::class, 'destroy'])->name('delete');
         });
 });
 
