@@ -28,7 +28,7 @@
             </a>
             <div class="dropdown-menu">
               <a href="javascript:void(0)" @click="() => updateRedirect(notification)" class="dropdown-item ps-3" v-for="notification in notifications" :key="notification.id">{{ notification.title }}</a>
-              <div class="dropdown-divider"></div>
+              <div class="dropdown-divider">asd</div>
               <router-link :to="{ name: 'front.notificaitons' }" class="dropdown-item ps-3">See all Notifications</router-link>
             </div>
           </li>

@@ -48,7 +48,7 @@ export const course_category_single = 'admin.course.category.single'
 export const course_category_create = 'admin.course.category.create'
 export const course_category_edit = 'admin.course.category.edit'
 
-// Course Categories
+// Courses
 export const course = 'admin.course'
 export const course_list = 'admin.course.list'
 export const course_single = 'admin.course.single'
