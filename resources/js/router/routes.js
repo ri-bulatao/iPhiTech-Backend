@@ -168,6 +168,37 @@ export default [
         }
       ]
     },
+    {
+      path: 'course',
+      name: [routeNames.course],
+      component: page('admin/course/AdminCourse.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'list'
+        },
+        {
+          path: 'list',
+          name: [routeNames.course_list],
+          component: page('admin/course/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: [routeNames.course_single],
+          component: page('admin/course/Single.vue')
+        },
+        {
+          path: 'create',
+          name: [routeNames.course_create],
+          component: page('admin/course/Create.vue')
+        },
+        {
+          path: 'edit/:id',
+          name: [routeNames.course_edit],
+          component: page('admin/course/Edit.vue')
+        }
+      ]
+    },
   ] },
   
   // User Pages

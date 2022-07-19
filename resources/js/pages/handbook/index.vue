@@ -1,7 +1,7 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid custom-container">
         <!-- Header -->
-        <div class="row col-sm-12 col-lg-7 m-auto">
+        <div class="row col-sm-12 col-lg-12">
             <div class=" d-flex justify-content-between align-items-center">
                 <h1>Handbook</h1>
             </div>
@@ -32,7 +32,7 @@
         
         <!-- Contents -->
         <div class="row mt-3">
-            <div v-if="handbook !== null" class="col-sm-12 col-lg-7 m-auto content-pages">
+            <div v-if="handbook !== null" class="col-sm-12 col-lg-12 content-pages">
                 <single-handbook />
             </div>
             <!-- No Data -->

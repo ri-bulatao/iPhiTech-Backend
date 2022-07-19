@@ -16,9 +16,7 @@ $appCss = mix('dist/css/app.css');
 
   <title>{{ config('app.name') }}</title>
 
-  {{-- <link rel="stylesheet" href="{{ (str_starts_with($appCss, '//') ? 'http:' : '').$appCss }}"> --}}
-  <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
-  
+  <link rel="stylesheet" href="{{ (str_starts_with($appCss, '//') ? 'http:' : '').$appCss }}">
 </head>
 <body>
   <div id="app"></div>
@@ -28,8 +26,6 @@ $appCss = mix('dist/css/app.css');
     window.config = @json($config);
   </script>
 
-  {{-- <script src="{{ (str_starts_with($appJs, '//') ? 'http:' : '').$appJs }}"></script> --}}
-  <script src="{{ asset('dist/js/app.js') }}"></script>
-
+  <script src="{{ (str_starts_with($appJs, '//') ? 'http:' : '').$appJs }}"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
     <div class="container">
       <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
-        {{ appName }}
+        iPhiTech Logo
       </router-link>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -11,7 +11,7 @@
 
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <locale-dropdown />
+          <!-- <locale-dropdown /> -->
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
@@ -28,7 +28,7 @@
             </a>
             <div class="dropdown-menu">
               <a href="javascript:void(0)" @click="() => updateRedirect(notification)" class="dropdown-item ps-3" v-for="notification in notifications" :key="notification.id">{{ notification.title }}</a>
-              <div class="dropdown-divider"></div>
+              <div class="dropdown-divider">asd</div>
               <router-link :to="{ name: 'front.notificaitons' }" class="dropdown-item ps-3">See all Notifications</router-link>
             </div>
           </li>

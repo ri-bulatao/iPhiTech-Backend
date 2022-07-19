@@ -7,7 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CourseCategory extends Model
+class Course extends Model
 {
     use HasFactory;
 
@@ -17,10 +17,14 @@ class CourseCategory extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
+        'user_id',
+        'course_category_id',
         'title',
-        'created_at',
-        'updated_at',
+        'description',
+        'video_url',
+        'is_embed',
+        'embed_code',
+        'featured_image',
     ];
 
     public function scopeFilter($query, $sortBy, $sortOrder)
@@ -28,8 +32,8 @@ class CourseCategory extends Model
         return $query->orderBy($sortBy, $sortOrder)->get();
     }
 
-    public function course()
+    public function courseCategory()
     {
-        return $this->hasMany('App\Models\Course', 'id');
+        return $this->belongsTo('App\Models\CourseCategory', 'course_category_id');
     }
 }

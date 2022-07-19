@@ -41,8 +41,16 @@ export const dashboard = 'dashboard'
 export const front_announcements = 'front.announcements'
 export const front_announcement_single = 'front.announcement.single'
 
+// Course Categories
 export const course_category = 'admin.course.category'
 export const course_category_list = 'admin.course.category.list'
 export const course_category_single = 'admin.course.category.single'
 export const course_category_create = 'admin.course.category.create'
 export const course_category_edit = 'admin.course.category.edit'
+
+// Courses
+export const course = 'admin.course'
+export const course_list = 'admin.course.list'
+export const course_single = 'admin.course.single'
+export const course_create = 'admin.course.create'
+export const course_edit = 'admin.course.edit'

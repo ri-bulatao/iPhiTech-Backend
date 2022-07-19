@@ -3,7 +3,7 @@
         <!-- Header -->
         <div class="row">
             <div class="col-sm-12 col-lg-12 d-flex justify-content-between align-items-center">
-                <h1>Users</h1>
+                <h1>Courses</h1>
             </div>
         </div>
         
@@ -18,12 +18,11 @@
 
 <script>
 export default {
-    name: 'admin-users',
+    name: 'admin-courses',
     
     created(){
-        this.$store.dispatch('users/fetchUsers')
-        this.$store.dispatch('users/fetchCountries')
-        this.$store.dispatch('positions/fetchPositions')
+        this.$store.dispatch('courses/fetchCourses')
+        this.$store.dispatch('course-categories/fetchCourseCategories')
     },
 }
 

@@ -2,7 +2,7 @@
   <div class="main-layout">
     <navbar />
     <sidebar />
-    <div class="container-fluid custom-container">
+    <div class="container-fluid main-container">
       <child />
     </div>
   </div>
@@ -22,7 +22,13 @@ export default {
 }
 </script>
 <style>
-  .custom-container {
+  .main-container {
     margin-top: 3.5rem !important;
+  }
+
+  .custom-container {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    padding: 2rem;
   }
 </style>
