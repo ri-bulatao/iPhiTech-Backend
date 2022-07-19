@@ -26,7 +26,7 @@
                 <router-link :to="{ name: menu.routeName }" :class="menu.class">{{ menu.name }}</router-link>
             </li>
         </ul>
-        <hr>
+        <!-- <hr>
         <div class="dropdown">
             <a href="javascript:void(0)" id="dropdownUser" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
@@ -34,7 +34,7 @@
                 <li><a href="javascript:void(0)">Settings</a></li>
                 <li><a href="javascript:void(0)">Logout</a></li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </template>
 

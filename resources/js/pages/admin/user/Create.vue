@@ -205,7 +205,7 @@
                             
                             <router-link 
                                 class="btn btn-secondary btn-sm" 
-                                :to="{ name: 'admin.users.list' }"
+                                :to="{ name: 'admin.user.list' }"
                             > Back to List </router-link>
                         </form>
                     </div>

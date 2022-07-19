@@ -32,3 +32,9 @@ export const dashboard = 'dashboard'
 
 export const front_announcements = 'front.announcements'
 export const front_announcement_single = 'front.announcement.single'
+
+export const course_category = 'admin.course.category'
+export const course_category_list = 'admin.course.category.list'
+export const course_category_single = 'admin.course.category.single'
+export const course_category_create = 'admin.course.category.create'
+export const course_category_edit = 'admin.course.category.edit'

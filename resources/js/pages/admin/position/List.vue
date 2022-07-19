@@ -27,7 +27,7 @@
                                             class="btn btn-primary btn-sm" 
                                             :to="{ name: 'admin.positions.single', params: {id: position.id} }"
                                         > View </router-link>
-                                        <button @click="remove(position.id)" class="btn btn-danger btn-sm">Remove</button>
+                                        <button @click="deletePosition(position.id)" class="btn btn-danger btn-sm">Remove</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -40,7 +40,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { ToastSuccess, ToastError } from '~/config/alerts'
+import { ToastSuccess, ToastError, AlertQuestion } from '~/config/alerts'
 
 export default {
     name: 'admin-user-positions',
@@ -50,6 +50,15 @@ export default {
     }),
 
     methods: {
+        deletePosition(id) {
+
+            AlertQuestion('Are you sure?', 'You won\'t be able to revert this!', true, 'Yes, delete it!')
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.remove(id)
+                }
+            })
+        },
         remove(id) {
             this.$store.dispatch('positions/removePosition', { id })
                 .then((result) => {

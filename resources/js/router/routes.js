@@ -109,7 +109,38 @@ export default [
           component: page('admin/user/Create.vue')
         }
       ]
-    }
+    },
+    {
+      path: 'course-category',
+      name: [routeNames.course_category],
+      component: page('admin/course-category/AdminCourseCategory.vue'),
+      children: [
+        {
+          path: '',
+          redirect: 'list'
+        },
+        {
+          path: 'list',
+          name: [routeNames.course_category_list],
+          component: page('admin/course-category/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: [routeNames.course_category_single],
+          component: page('admin/course-category/Single.vue')
+        },
+        {
+          path: 'create',
+          name: [routeNames.course_category_create],
+          component: page('admin/course-category/Create.vue')
+        },
+        {
+          path: 'edit/:id',
+          name: [routeNames.course_category_edit],
+          component: page('admin/course-category/Edit.vue')
+        }
+      ]
+    },
   ] },
   
 

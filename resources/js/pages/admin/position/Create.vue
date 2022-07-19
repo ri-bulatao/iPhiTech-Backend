@@ -62,6 +62,7 @@ export default {
                     this.form.reset()
                     this.$store.dispatch('positions/fetchPositions')
                     ToastSuccess('Success!', result.data.message)
+                    this.$router.push({ name: 'admin.positions.list' })
                 }else{
                     ToastError('Oops!', 'There\'s something wrong, please try again.')
                 }
