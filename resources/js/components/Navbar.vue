@@ -11,7 +11,7 @@
 
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <locale-dropdown />
+          <!-- <locale-dropdown /> -->
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
