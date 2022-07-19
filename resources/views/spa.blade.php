@@ -18,6 +18,7 @@ $appCss = mix('dist/css/app.css');
 
   {{-- <link rel="stylesheet" href="{{ (str_starts_with($appCss, '//') ? 'http:' : '').$appCss }}"> --}}
   <link rel="stylesheet" href="{{ asset('dist/css/app.388a70.css') }}">
+  
 </head>
 <body>
   <div id="app"></div>
@@ -29,5 +30,6 @@ $appCss = mix('dist/css/app.css');
 
   {{-- <script src="{{ (str_starts_with($appJs, '//') ? 'http:' : '').$appJs }}"></script> --}}
   <script src="{{ asset('dist/js/app.31982f.js') }}"></script>
+
 </body>
 </html>
