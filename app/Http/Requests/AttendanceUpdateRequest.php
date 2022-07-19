@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,7 +36,7 @@ class AttendanceUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'date.required' => 'The date field is required.'
+            'date.required' => 'The date field is required.',
         ];
     }
 }
