@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[6228],{6228:(s,t,l)=>{l.r(t),l.d(t,{default:()=>e});const e=(0,l(1900).Z)({},(function(){this._self._c;return this._m(0)}),[function(){var s=this._self._c;return s("div",{staticClass:"row"},[s("div",{staticClass:"col-sm-12"},[s("h1",[this._v("Single leave application")])])])}],!1,null,null,null).exports}}]);

@@ -199,6 +199,34 @@ export default [
         }
       ]
     },
+    {
+      path: 'leave',
+      name: [routeNames.leave],
+      component: page('admin/leave-application/Index.vue'),
+      redirect: { name: [routeNames.leave_list] },
+      children: [
+        {
+          path: 'create',
+          name: [routeNames.leave_create],
+          component: page('admin/leave-application/Create.vue')
+        },
+        {
+          path: 'list',
+          name: [routeNames.leave_list],
+          component: page('admin/leave-application/List.vue')
+        },
+        {
+          path: 'single/:id',
+          name: [routeNames.leave_single],
+          component: page('admin/leave-application/Single.vue')
+        },
+        {
+          path: 'edit/:id',
+          name: [routeNames.leave_edit],
+          component: page('admin/leave-application/Edit.vue')
+        }
+      ]
+    }
   ] },
   
   // User Pages

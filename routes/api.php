@@ -19,6 +19,7 @@ use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
+use App\Http\Controllers\LeaveApplication\LeaveApplicationsController;
 use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
@@ -164,6 +165,16 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::put('/update/{id}', [CourseController::class, 'update'])->name('update');
             Route::delete('/{id}', [CourseController::class, 'destroy'])->name('delete');
             Route::post('/upload', [CourseController::class, 'upload'])->name('upload');
+        });
+
+    Route::name('leaves.')
+        ->prefix('leave')
+        ->group(function () {
+            Route::get('/', [LeaveApplicationsController::class, 'index'])->name('list');
+            Route::get('/{id}', [LeaveApplicationsController::class, 'get'])->name('single');
+            Route::post('/', [LeaveApplicationsController::class, 'store'])->name('store');
+            Route::put('/{id}', [LeaveApplicationsController::class, 'update'])->name('update');
+            Route::delete('/{id}', [LeaveApplicationsController::class, 'destroy'])->name('delete');
         });
 });
 

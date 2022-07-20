@@ -207,6 +207,42 @@ declare(strict_types=1);
                         ],
                     ],
                 ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Leave Application module menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Leave Application',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'headphones',
+                    'toggleId' => 'leave-collapse',
+                    'hasChildren' => true,
+                    'routeName' => 'admin.leave',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Leave Applications'],
+                    'subMenus' => [
+                        [
+                            'name' => 'Create Leave Application',
+                            'class' => 'nav-link rounded text-white',
+                            'iconClass' => 'clipboard-list',
+                            'hasChildren' => true,
+                            'routeName' => 'admin.leave.create',
+                            'imgIcon' => 'lead-icon.png',
+                            'permissions' => ['Leave Applications'],
+                        ],
+                        [
+                            'name' => 'Leave Application List',
+                            'class' => 'nav-link rounded text-white',
+                            'iconClass' => 'clipboard-list',
+                            'hasChildren' => true,
+                            'routeName' => 'admin.leave.list',
+                            'imgIcon' => 'lead-icon.png',
+                            'permissions' => ['Leave Applications'],
+                        ],
+                    ],
+                ],
             ],
             'top' => [
                 [

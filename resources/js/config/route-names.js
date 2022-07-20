@@ -54,3 +54,10 @@ export const course_list = 'admin.course.list'
 export const course_single = 'admin.course.single'
 export const course_create = 'admin.course.create'
 export const course_edit = 'admin.course.edit'
+
+// Leave Application
+export const leave = 'admin.leave'
+export const leave_create = 'admin.leave.create'
+export const leave_list = 'admin.leave.list'
+export const leave_single = 'admin.leave.single'
+export const leave_edit = 'admin.leave.edit'
