@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserCourse as UserCourseModel;
-use App\Models\User as UserModel;
-use App\Models\Course as CourseModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -49,7 +49,7 @@ class UserCourseController extends Controller
         if (! $course) {
             return $this->result->notFound();
         }
-        
+
         $course = UserCourseModel::with(['user', 'course', 'course.courseCategory'])->find($id);
 
         return $this->result->success($course);
@@ -65,7 +65,7 @@ class UserCourseController extends Controller
             'user_id'      => $user_id,
             'course_id'    => $request->input('course_id'),
             'status'       => $request->input('status'),
-            'grade_status' => $request->input('grade_status')
+            'grade_status' => $request->input('grade_status'),
         ]);
 
         $course->save();

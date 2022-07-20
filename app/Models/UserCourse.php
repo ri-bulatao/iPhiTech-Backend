@@ -21,7 +21,7 @@ class UserCourse extends Model
         'user_id',
         'course_id',
         'status',
-        'grade_status'
+        'grade_status',
     ];
 
     public function scopeFilter($query, $sortBy, $sortOrder)
