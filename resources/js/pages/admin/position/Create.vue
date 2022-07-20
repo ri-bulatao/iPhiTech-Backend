@@ -57,7 +57,6 @@ export default {
         async save () {
             this.$store.dispatch('positions/savePosition', this.form)
             .then((result) => {
-                console.log
                 if(result.data.success){
                     this.form.reset()
                     this.$store.dispatch('positions/fetchPositions')
