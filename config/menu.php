@@ -241,8 +241,8 @@ declare(strict_types=1);
                             'imgIcon' => 'lead-icon.png',
                             'permissions' => ['Leave Applications'],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
             'top' => [
                 [

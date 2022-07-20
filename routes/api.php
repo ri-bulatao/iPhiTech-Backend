@@ -5,7 +5,6 @@ declare(strict_types=1);
 /**
  * Custom Controllers.
  */
-use App\Http\Controllers\LeaveApplication\LeaveApplicationsController;
 use App\Http\Controllers\Announcement\AnnouncementController;
 use App\Http\Controllers\Attendance\AttendancesController;
 use App\Http\Controllers\Auth\AdminLoginController;
@@ -20,6 +19,7 @@ use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
+use App\Http\Controllers\LeaveApplication\LeaveApplicationsController;
 use App\Http\Controllers\Notification\NotificationsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
@@ -169,7 +169,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::name('leaves.')
         ->prefix('leave')
-        ->group(function() {
+        ->group(function () {
             Route::get('/', [LeaveApplicationsController::class, 'index'])->name('list');
             Route::get('/{id}', [LeaveApplicationsController::class, 'get'])->name('single');
             Route::post('/', [LeaveApplicationsController::class, 'store'])->name('store');

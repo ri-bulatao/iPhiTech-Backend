@@ -2,30 +2,27 @@
 
 declare(strict_types=1);
 
-
 namespace App\Http\Controllers\LeaveApplication;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Utilities\Result;
-use App\Models\LeaveApplication;
-use Carbon\Carbon;
-use App\Http\Requests\LeaveApplicationSaveRequest;
 use App\Enums\LeaveApplicationStatusEnums as LeaveStatus;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\LeaveApplicationSaveRequest;
+use App\Models\LeaveApplication;
 use App\Models\User;
+use App\Utilities\Result;
+use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\JsonResponse;
 
 class LeaveApplicationsController extends Controller
 {
-
     /**
-     * @var Authenticatable $user
+     * @var Authenticatable
      */
     private $user;
 
     /**
-     * @var Result $result
+     * @var Result
      */
     private $result;
 
@@ -36,9 +33,7 @@ class LeaveApplicationsController extends Controller
     }
 
     /**
-     * For fetching the leave application list
-     * 
-     * @return JsonResponse
+     * For fetching the leave application list.
      */
     public function index(): JsonResponse
     {
@@ -48,17 +43,15 @@ class LeaveApplicationsController extends Controller
     }
 
     /**
-     * For getting single Leave application form
-     * 
-     * @param integer $id
-     * 
-     * @return JsonResponse
+     * For getting single Leave application form.
+     *
+     * @param int $id
      */
     public function get($id): JsonResponse
     {
         $leave_application = LeaveApplication::find($id);
 
-        if( ! $leave_application ) {
+        if (! $leave_application) {
             return $this->result->notFound();
         }
 
@@ -66,11 +59,7 @@ class LeaveApplicationsController extends Controller
     }
 
     /**
-     * For saving the leave application
-     * 
-     * @param LeaveApplicationSaveRequest $request
-     * 
-     * @return JsonResponse
+     * For saving the leave application.
      */
     public function store(LeaveApplicationSaveRequest $request): JsonResponse
     {
@@ -83,10 +72,10 @@ class LeaveApplicationsController extends Controller
         $status = LeaveStatus::PENDING;
         $offset_date = $request->offset_date ?? '';
         $offset_time = $request->offset_time ?? '';
-        
+
         $user = User::find($user_id);
 
-        if( ! $user ) {
+        if (! $user) {
             return $this->result->notFound();
         }
 
@@ -99,23 +88,21 @@ class LeaveApplicationsController extends Controller
             'reason' => $reason,
             'status' => $status,
             'offset_date' => $offset_date,
-            'offset_time' => $offset_time
+            'offset_time' => $offset_time,
         ]);
 
-        if( ! $leave_application ) {
+        if (! $leave_application) {
             return $this->result->exception();
         }
 
         return $this->result->created($leave_application, 'Leave Application created');
-
     }
 
     /**
-     * For updating the leave application
-     * 
-     * @param LeaveApplicationSaveRequest $request
-     * @param integer $id
-     * 
+     * For updating the leave application.
+     *
+     * @param int $id
+     *
      * @return JosnResponse
      */
     public function update(LeaveApplicationSaveRequest $request, $id): JsonResponse
@@ -133,13 +120,13 @@ class LeaveApplicationsController extends Controller
 
         $leave_application = LeaveApplication::find($id);
 
-        if( ! $leave_application ) {
+        if (! $leave_application) {
             return $this->result->notFound();
         }
 
         $user = User::find($user_id);
 
-        if( ! $user ) {
+        if (! $user) {
             return $this->result->notFound();
         }
 
@@ -156,33 +143,27 @@ class LeaveApplicationsController extends Controller
         $leave_application->save();
 
         return $this->result->success($leave_application, 'Leave application updated');
-
     }
 
     /**
-     * For deleting a leave application record
-     * 
-     * @param integer $id
-     * 
-     * @return JsonResponse
+     * For deleting a leave application record.
+     *
+     * @param int $id
      */
     public function destroy($id): JsonResponse
     {
-        $leave_application = LeaveApplication::find( $id );
+        $leave_application = LeaveApplication::find($id);
 
-        if( ! $leave_application ) {
+        if (! $leave_application) {
             return $this->result->notFound();
         }
 
         $deleted = $leave_application->delete();
 
-        if( ! $deleted ) {
+        if (! $deleted) {
             return $this->result->exception();
         }
 
         return $this->result->success($deleted, 'Leave application deleted');
-
     }
-
-
 }

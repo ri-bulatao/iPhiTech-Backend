@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,7 +30,7 @@ class LeaveApplicationSaveRequest extends FormRequest
             'type' => 'required|string',
             'from' => 'required',
             'to' => 'required',
-            'reason' => 'required'
+            'reason' => 'required',
         ];
     }
 
@@ -44,7 +46,7 @@ class LeaveApplicationSaveRequest extends FormRequest
             'type.string' => 'Invalid format of the leave type.',
             'from.required' => 'The request date from is required.',
             'to.required' => 'The request date to is required.',
-            'reason.required' => 'The reason is required.'
+            'reason.required' => 'The reason is required.',
         ];
     }
 }
