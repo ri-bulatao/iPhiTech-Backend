@@ -9,6 +9,7 @@ use App\Http\Requests\CourseCategoryRequest;
 use App\Models\CourseCategory as CourseCategoryModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CourseCategoryController extends Controller
 {
@@ -56,7 +57,7 @@ class CourseCategoryController extends Controller
     /**
      * For Updating single courseCategory.
      */
-    public function update(CourseCategoryRequest $request, $id): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
         $courseCategory = CourseCategoryModel::find($id);
 
