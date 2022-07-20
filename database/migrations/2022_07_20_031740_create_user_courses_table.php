@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +23,7 @@ class CreateUserCoursesTable extends Migration
             $table->unsignedBigInteger('course_id')->unsigned();
             $table->foreign('course_id')
             ->references('id')->on('courses');
-            $table->string('status')->default("Ready"); // Ready, Inprogress, Completed
+            $table->string('status')->default('Ready'); // Ready, Inprogress, Completed
             $table->string('grade_status')->nullable(); // Passed or Failed
             $table->timestamps();
         });

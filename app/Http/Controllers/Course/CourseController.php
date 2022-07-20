@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
-use App\Http\Requests\ImageRequest;
 use App\Models\Course as CourseModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
@@ -74,7 +73,7 @@ class CourseController extends Controller
 
             $path = 'course_featured_image' . '/' . $file_name;
         }
-        
+
         $course = new CourseModel([
             'user_id'               => $this->user->id,
             'course_category_id'    => $request->input('course_category_id'),
@@ -87,7 +86,7 @@ class CourseController extends Controller
         ]);
 
         $course->save();
-        
+
         $course = CourseModel::with(['courseCategory'])->find($course->id);
 
         return $this->result->created($course, 'Course created!');
@@ -105,11 +104,11 @@ class CourseController extends Controller
         }
 
         $course->course_category_id = $request->course_category_id;
-        $course->title              = $request->title;
-        $course->description        = $request->description;
-        $course->video_url          = $request->video_url;
-        $course->is_embed           = $request->is_embed;
-        $course->embed_code         = $request->embed_code;
+        $course->title = $request->title;
+        $course->description = $request->description;
+        $course->video_url = $request->video_url;
+        $course->is_embed = $request->is_embed;
+        $course->embed_code = $request->embed_code;
 
         if ($request->file('featured_image')) {
             // Upload Featured Image File
