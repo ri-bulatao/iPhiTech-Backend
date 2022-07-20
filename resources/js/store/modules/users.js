@@ -99,6 +99,7 @@ export const actions = {
   async fetchUsers ({ commit }) {
     try {
       const { data } = await axios.get(route('admin_user.list'))
+      console.log(data)
       commit(types.FETCH_USERS, { data: data.data })
     } catch (e) {
       commit(types.FETCH_USER_FAILURE)

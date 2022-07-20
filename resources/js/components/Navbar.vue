@@ -140,7 +140,6 @@ export default {
     let channel = pusher.subscribe('posted-announcements');
 
     channel.bind('posted-announcements', async (data) => {
-      console.log(data)
       let permission = await Notification.requestPermission()
       const notif = new Notification(data.title, {
         body: data.message

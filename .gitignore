@@ -17,3 +17,4 @@ phpunit.dusk.xml
 /public/announcement_contents/*
 /public/handbook/*
 /public/course_featured_image/*
+/public/resources/views/spa.blade.php

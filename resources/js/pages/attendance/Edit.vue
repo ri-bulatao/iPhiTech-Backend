@@ -84,7 +84,6 @@ export default {
 
         this.$store.dispatch('attendances/fetchAttendance', payload)
             .then(res => {
-                console.log(res)
                 this.form.date =  this.attendance.date
                 this.form.time_in = '0' + this.attendance.time_in
                 this.form.time_out = this.attendance.time_out
