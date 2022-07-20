@@ -180,7 +180,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Course',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'headphones',
+                    'iconClass' => 'chalkboard',
                     'toggleId' => 'course-collapse',
                     'hasChildren' => true,
                     'routeName' => 'admin.courses',
@@ -339,7 +339,7 @@ declare(strict_types=1);
                 [
                     'name' => 'Courses',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'file-contract',
+                    'iconClass' => 'chalkboard',
                     'toggleId' => 'courses-collapse',
                     'hasChildren' => false,
                     'routeName' => 'courses',
@@ -355,7 +355,7 @@ declare(strict_types=1);
                 [
                     'name' => 'My Courses',
                     'class' => 'nav-link rounded text-white',
-                    'iconClass' => 'file-contract',
+                    'iconClass' => 'chalkboard-teacher',
                     'toggleId' => 'my-courses-collapse',
                     'hasChildren' => false,
                     'routeName' => 'my-courses',

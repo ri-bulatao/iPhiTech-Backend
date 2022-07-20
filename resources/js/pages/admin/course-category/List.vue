@@ -60,8 +60,13 @@ export default {
         delete(id) {
             this.$store.dispatch('course-categories/deleteCourseCategory', id)
                 .then(res => {
-                    ToastSuccess('Deleted!', res.message)
-                    this.$store.dispatch('course-categories/fetchCourseCategories')
+                    if(res.success){
+                        ToastSuccess('Deleted!', res.message)
+                        this.$store.dispatch('course-categories/fetchCourseCategories')
+                    }else{
+                        ToastError("Warning!", "This category attached one of the courses.")
+                    }
+                    
                 })
                 .catch(err => {
                     ToastError()

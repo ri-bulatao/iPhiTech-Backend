@@ -63,7 +63,8 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request): JsonResponse
     {
-        $path = 'https://dummyimage.com/600x400/595959/ffffff&text=No+Image';
+        
+        $file_path = 'https://dummyimage.com/600x400/595959/ffffff&text=No+Image';
         if ($request->file('featured_image')) {
             // Upload Featured Image File
             $file = $request->file('featured_image');
