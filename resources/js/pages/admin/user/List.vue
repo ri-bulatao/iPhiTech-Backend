@@ -74,7 +74,7 @@ export default {
                         ToastError('Error!', result.data.message)
                     }
                 }).catch((error) => {
-                    console.log(error)
+                    ToastError()
                 })
         }
     }

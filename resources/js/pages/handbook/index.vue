@@ -208,7 +208,6 @@ export default {
         selectHandbook() {
             this.$store.dispatch('handbook/fetchHandbook', this.handbookVersion)
                 .then(res => {
-                    console.log(res)
                     // this.$router.push({ name: 'handbook.single' })
                 })
         }

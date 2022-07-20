@@ -16,3 +16,4 @@ phpunit.dusk.xml
 /public/mix-manifest.json
 /public/announcement_contents/*
 /public/handbook/*
+/public/resources/views/spa.blade.php

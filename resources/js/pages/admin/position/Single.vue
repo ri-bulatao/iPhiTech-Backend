@@ -64,7 +64,6 @@ export default {
         async update () {
             this.$store.dispatch('positions/updatePosition', { id: this.$route.params.id, form: this.form })
             .then((result) => {
-                console.log(result)
                 if(result.data.success){
                     this.form.reset()
                     this.$store.dispatch('positions/fetchPositions')

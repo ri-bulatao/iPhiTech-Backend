@@ -70,7 +70,6 @@ export default {
                     }
                 }).catch((error) => {
                     ToastError('Oops!', 'There\'s something wrong, please try again.')
-                    console.log(error)
                 })
         }
     }
