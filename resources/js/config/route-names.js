@@ -61,3 +61,9 @@ export const leave_create = 'admin.leave.create'
 export const leave_list = 'admin.leave.list'
 export const leave_single = 'admin.leave.single'
 export const leave_edit = 'admin.leave.edit'
+
+// User Side Courses
+export const user_courses = 'courses'
+export const user_course_single = 'courses.single'
+export const my_courses = 'my-courses'
+export const my_single_course = 'my-course.single'

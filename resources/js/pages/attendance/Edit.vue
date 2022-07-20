@@ -1,8 +1,8 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid custom-container">
         <!-- Header-->
         <div class="row">
-            <div class="col-sm-12 col-lg-7 m-auto border-bottom mb-3">
+            <div class="col-sm-12 col-lg-12 border-bottom mb-3">
                 <h1>Attendance</h1>
                 <small>Attendance</small>
             </div>
@@ -10,7 +10,7 @@
 
         <!-- Contents -->
         <div class="row">
-            <div class="col-sm-12 col-lg-7 m-auto border-bottom mb-3">
+            <div class="col-sm-12 col-lg-12 border-bottom mb-3">
                 <div class="user-info">
                     <p>First Name</p>
                     <p>Last Name</p>

@@ -330,6 +330,38 @@ declare(strict_types=1);
                     'imgIcon' => 'lead-icon.png',
                     'permissions' => ['Attendance'],
                 ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | Courses modules menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'Courses',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'file-contract',
+                    'toggleId' => 'courses-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'courses',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Courses'],
+                ],
+
+                /*
+                |--------------------------------------------------------------------------
+                | My Courses modules menu
+                |--------------------------------------------------------------------------
+                */
+                [
+                    'name' => 'My Courses',
+                    'class' => 'nav-link rounded text-white',
+                    'iconClass' => 'file-contract',
+                    'toggleId' => 'my-courses-collapse',
+                    'hasChildren' => false,
+                    'routeName' => 'my-courses',
+                    'imgIcon' => 'lead-icon.png',
+                    'permissions' => ['Courses'],
+                ],
             ],
             'top' => [
                 [

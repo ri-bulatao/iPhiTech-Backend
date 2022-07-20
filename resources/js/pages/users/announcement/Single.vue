@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid row">
+    <div class="container-fluid row custom-container">
         <div class="col-lg-7 m-auto">
             <div class="mb-3 border-bottom">
                 <h1>Announcement</h1>

@@ -17,6 +17,7 @@ class Course extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'user_id',
         'course_category_id',
         'title',
@@ -27,6 +28,21 @@ class Course extends Model
         'featured_image',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'embed_video_url',
+    ];
+
+    // ADDITIONAL
+    public function getEmbedVideoUrlAttribute() // notice that the attribute name is in CamelCase.
+    {
+        return 'https://www.youtube.com/embed/' . $this->embed_code;
+    }
+
     public function scopeFilter($query, $sortBy, $sortOrder)
     {
         return $query->orderBy($sortBy, $sortOrder)->get();
@@ -35,5 +51,15 @@ class Course extends Model
     public function courseCategory()
     {
         return $this->belongsTo('App\Models\CourseCategory', 'course_category_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function userCourse()
+    {
+        return $this->hasOne('App\Models\UserCourse', 'course_id', 'id');
     }
 }

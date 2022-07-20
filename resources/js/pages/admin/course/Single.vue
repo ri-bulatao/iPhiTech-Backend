@@ -10,19 +10,16 @@
 
                 <dt class="col-sm-3">Description</dt>
                 <dd class="col-sm-9">{{ course.description }}</dd>
-
-                <dt class="col-sm-3">Video URL</dt>
-                <dd class="col-sm-9">{{ course.video_url }}</dd>
-
-                <dt class="col-sm-3">Is Embed</dt>
+                
+                <dt class="col-sm-3">Embeded youtube video</dt>
                 <dd class="col-sm-9">{{ course.is_embed ? "Yes" : "No" }}</dd>
-
-                <dt class="col-sm-3">Embed Code</dt>
-                <dd class="col-sm-9">{{ course.embed_code }}</dd>
-
-                <dt class="col-sm-3">Featured Image</dt>
-                <dd class="col-sm-9">{{ course.featured_image }}</dd>
             </dl>
+        </div>
+        <div class="col-md-12" v-if="!course.is_embed">
+            <iframe id="course-video" :src="course.video_url" frameborder="0"></iframe>
+        </div>
+        <div class="col-md-12" v-else>
+            <iframe id="course-video" :src="course.embed_video_url" frameborder="0"></iframe>
         </div>
     </div>
 </template>
@@ -36,7 +33,8 @@ export default {
     middleware: 'admin',
 
     data: () => ({
-        id: null
+        id: null,
+        embededVideoUrl: ""
     }),
 
     computed: mapGetters({
@@ -49,3 +47,9 @@ export default {
     },
 }
 </script>
+<style scoped>
+    #course-video {
+        width: 100%;
+        height: calc(100vh - 50%);
+    }
+</style>

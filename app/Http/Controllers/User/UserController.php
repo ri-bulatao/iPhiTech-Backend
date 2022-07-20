@@ -200,4 +200,18 @@ class UserController extends Controller
 
         return $this->result->badRequest(__('messages.general_error_response'));
     }
+
+    /**
+     * For Fetching courses of user.
+     */
+    public function courses($id): JsonResponse
+    {
+        $user = UserModel::with(['position', 'courses'])->find($id);
+
+        if (! $user) {
+            return $this->result->notFound();
+        }
+
+        return $this->result->success($user);
+    }
 }

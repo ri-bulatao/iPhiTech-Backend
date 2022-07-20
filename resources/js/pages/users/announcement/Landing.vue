@@ -1,6 +1,6 @@
 <template>
-    <div class="container-fluid row">
-        <div class="col-lg-7 m-auto">
+    <div class="container-fluid row custom-container">
+        <div class="col-lg-12">
             <div class="pb-3 mb-3 border-bottom">
                 <h1>Announcements</h1>
             </div>

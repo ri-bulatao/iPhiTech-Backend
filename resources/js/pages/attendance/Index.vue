@@ -1,8 +1,8 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid custom-container">
         <!-- Header -->
         <div class="row">
-            <div class="col-sm-12 col-lg-7 m-auto border-bottom mb-3">
+            <div class="col-sm-12 col-lg-12 border-bottom mb-3">
                 <h1>Attendance</h1>
                 <small>Attendance</small>
             </div>
@@ -10,13 +10,13 @@
         
         <!-- Contents -->
         <div class="row">
-            <div class="col-sm-12 col-lg-7 m-auto mb-3">
+            <div class="col-sm-12 col-lg-12 mb-3">
                 <div class="d-flex m-auto justify-content-center py-3">
                     <a href="javascript:void(0)" @click="timein" class="btn btn-lg btn-success mx-3">{{ timeinPretty }}</a>
                     <a href="javascript:void(0)" @click="timeout" class="btn btn-lg btn-danger mx-3">{{ timeoutPretty }}</a>
                 </div>
             </div>
-            <div class="col-sm-12 col-lg-7 m-auto">
+            <div class="col-sm-12 col-lg-12 ">
                 <AttendanceList />
             </div>
         </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Course\CourseController;
+use App\Http\Controllers\Course\UserCourseController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
 use App\Http\Controllers\LeaveApplication\LeaveApplicationsController;
@@ -167,6 +168,9 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/upload', [CourseController::class, 'upload'])->name('upload');
         });
 
+    /**
+     * Leaves.
+     */
     Route::name('leaves.')
         ->prefix('leave')
         ->group(function () {
@@ -175,6 +179,18 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('/', [LeaveApplicationsController::class, 'store'])->name('store');
             Route::put('/{id}', [LeaveApplicationsController::class, 'update'])->name('update');
             Route::delete('/{id}', [LeaveApplicationsController::class, 'destroy'])->name('delete');
+        });
+
+    /**
+     * User Courses.
+     */
+    Route::name('user_course.')
+        ->prefix('user_course')
+        ->group(function () {
+            Route::get('/', [UserCourseController::class, 'index'])->name('list');
+            Route::get('/{id}', [UserCourseController::class, 'get'])->name('single');
+            Route::post('/subscribe', [UserCourseController::class, 'subscribe'])->name('subscribe');
+            Route::put('/process', [UserCourseController::class, 'process'])->name('process');
         });
 });
 

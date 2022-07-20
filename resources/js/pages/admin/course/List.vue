@@ -67,7 +67,7 @@ export default {
             this.$store.dispatch('courses/deleteCourse', id)
                 .then(res => {
                     ToastSuccess('Deleted!', res.message)
-                    this.$store.dispatch('course/fetchCourses')
+                    this.$store.dispatch('courses/fetchCourses')
                 })
                 .catch(err => {
                     ToastError()
