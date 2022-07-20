@@ -29,7 +29,26 @@ export default [
       },
     ]
   },
-
+  {
+    path: '/courses', 
+    name: [routeNames.user_courses], 
+    component: page('users/course/Landing.vue')
+  },
+  {
+    path: '/courses/:id', 
+    name: [routeNames.user_course_single], 
+    component: page('users/course/Single.vue')
+  },
+  {
+    path: '/my-courses', 
+    name: [routeNames.my_courses], 
+    component: page('users/course/MyCourses.vue')
+  },
+  {
+    path: '/my-course/:id', 
+    name: [routeNames.my_single_course], 
+    component: page('users/course/MySingleCourse.vue')
+  },
   {
     path: '/employee-attendance/:id',
     name: [routeNames.attendance_employee],

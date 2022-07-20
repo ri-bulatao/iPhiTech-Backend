@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\Course\UserCourseController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Course\CourseController;
@@ -164,6 +165,18 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::put('/update/{id}', [CourseController::class, 'update'])->name('update');
             Route::delete('/{id}', [CourseController::class, 'destroy'])->name('delete');
             Route::post('/upload', [CourseController::class, 'upload'])->name('upload');
+        });
+
+    /**
+     * User Courses.
+     */
+    Route::name('user_course.')
+        ->prefix('user_course')
+        ->group(function () {
+            Route::get('/', [UserCourseController::class, 'index'])->name('list');
+            Route::get('/{id}', [UserCourseController::class, 'get'])->name('single');
+            Route::post('/subscribe', [UserCourseController::class, 'subscribe'])->name('subscribe');
+            Route::put('/process', [UserCourseController::class, 'process'])->name('process');
         });
 });
 

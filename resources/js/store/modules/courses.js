@@ -15,7 +15,8 @@ export const state = {
         is_embed: '',
         embed_code: '',
         featured_image: ''
-    })
+    }),
+    file: ''
 }
 
 // getters
@@ -28,13 +29,11 @@ export const getters = {
 
 // mutations
 export const mutations = {
-
-    [types.SET_COURSE] (state, data) {
-        state.courseForm.book = data.book
+    [types.SET_COURSE_FEATURED_IMAGE] (state, data) {
+        state.file = data.featured_image;
     },
 
     [types.FETCH_ALL_COURSES] (state, {data}) {
-        console.log(data)
         state.courses = data        
         state.loading = false
     },
@@ -100,6 +99,11 @@ export const actions = {
         try {
             state.loading = true
 
+            // convert is_embed into 1 : 0
+            let is_embed = state.courseForm.is_embed;
+            state.courseForm.is_embed = is_embed ? 1 : 0;
+            state.courseForm.featured_image = state.file
+
             const saveURL = route('course.store')
             const { data } = await (state.courseForm.post(saveURL))
             commit(types.SAVE_COURSE, { course: data.data })
@@ -118,6 +122,11 @@ export const actions = {
                 state.courseForm.id = id;
             }
 
+            // convert is_embed into 1 : 0
+            let is_embed = state.courseForm.is_embed;
+            state.courseForm.is_embed = is_embed ? 1 : 0;
+            state.courseForm.featured_image = state.file
+            
             const saveURL = route('course.update', id)
             const { data } = await (state.courseForm.put(saveURL))
             return data
@@ -139,15 +148,7 @@ export const actions = {
         }
     },
 
-    async uploadImage({commit}, payload) {
-        try {
-            const { data } = await axios.post(route('course.upload', payload))
-            console.log(data)
-            return data
-        } catch (error) {
-            state.loading = false
-            const { response } = error
-            return response.data
-        }
+    async setFeaturedImage({commit}, payload) {
+        commit(types.SET_COURSE_FEATURED_IMAGE, payload)
     }
 }

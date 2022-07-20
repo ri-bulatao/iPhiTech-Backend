@@ -27,8 +27,9 @@
               <span class="position-absolute top-1 start-10 translate-middle badge rounded-pill badge-notification bg-danger">{{ notifications.length }}</span>
             </a>
             <div class="dropdown-menu">
-              <a href="javascript:void(0)" @click="() => updateRedirect(notification)" class="dropdown-item ps-3" v-for="notification in notifications" :key="notification.id">{{ notification.title }}</a>
-              <div class="dropdown-divider">asd</div>
+              <p href="" class="text-center" v-if="notifications.length <= 0">No Notification</p>
+              <a href="javascript:void(0)" @click="() => updateRedirect(notification)" class="dropdown-item ps-3" v-else v-for="notification in notifications" :key="notification.id">{{ notification.title }}</a>
+              <div class="dropdown-divider"></div>
               <router-link :to="{ name: 'front.notificaitons' }" class="dropdown-item ps-3">See all Notifications</router-link>
             </div>
           </li>
@@ -174,6 +175,18 @@ export default {
 }
 
 .nav-item .dropdown-menu.show{
-  left: -6rem;
+  left: -9rem;
+}
+
+.translate-middle {
+    transform: translate(-83%, -24%) !important;
+}
+
+.badge-notification {
+    font-size: 10px;
+}
+
+.nav-item .dropdown-menu {
+    margin-top: -0.5rem;
 }
 </style>

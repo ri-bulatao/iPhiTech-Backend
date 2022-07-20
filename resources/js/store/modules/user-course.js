@@ -5,6 +5,8 @@ import Form from 'vform'
 // state
 export const state = {
     loading: false,
+    courses: [],
+    course: {},
     courseForm: new Form({
         course_id: '',
         status: '',
@@ -22,53 +24,34 @@ export const getters = {
 
 // mutations
 export const mutations = {
-    [types.SET_COURSE_FEATURED_IMAGE] (state, data) {
+    [types.SET_LOADING] (state, status) {
+        state.loading = status
+    },
+
+    [types.SUBSCRIBE_COURSE] (state, data) {
         state.file = data.featured_image;
     },
 
-    [types.FETCH_ALL_COURSES] (state, {data}) {
+    [types.FETCH_USER_COURSES] (state, {data}) {
         state.courses = data        
         state.loading = false
     },
-
-    [types.FETCH_COURSE] (state, {data}) {
+    
+    [types.FETCH_MY_COURSE] (state, {data}) {
         state.course = data
         state.loading = false
     },
-
-    [types.SAVE_COURSE] (state, {course}) {
-        const index = state.courses.findIndex(hb => hb.id === course.id)
-        state.courseForm.reset()
-
-        if (index !== -1) {
-            state.courses.splice(index, 1, course)
-            state.course = course;
-        } else {
-            state.courses.unshift(course)
-        }
-
-        state.loading = false
-    },
-    [types.DELETE_COURSE] (state, id) {
-        const index = state.courses.findIndex(_course => _course.id === id)
-        if (index !== -1) {
-            state.courses.splice(index, 1)
-        }
-
-        state.course = {}
-    }
 }
 
 // actions
 export const actions = {
-
     async fetchCourses ({ commit }) {
         try {
             state.loading = true
             
-            const { data } = await axios.get(route('course.list'))
+            const { data } = await axios.get(route('user_course.list'))
 
-            commit(types.FETCH_ALL_COURSES, data)
+            commit(types.FETCH_USER_COURSES, data)
             
         } catch (error) {
             state.loading = false
@@ -76,30 +59,30 @@ export const actions = {
         }
     },
 
-    async fetchCourse ({ commit }, id) {
+    async fetchCourse ({ commit }, { id }) {
         try {
             state.loading = true
             
-            const { data } = await axios.get(route('course.single', id))
+            const { data } = await axios.get(route('user_course.single', id))
+            
+            commit(types.FETCH_MY_COURSE, data)
 
-            commit(types.FETCH_COURSE, data)
+            return data;
         } catch (error) {
             state.loading = false
         }
     },
-        
-    async saveCourse ({ commit }) {
+
+    async subscribeCourse ({ commit }, payload) {
         try {
             state.loading = true
 
-            // convert is_embed into 1 : 0
-            let is_embed = state.courseForm.is_embed;
-            state.courseForm.is_embed = is_embed ? 1 : 0;
-            state.courseForm.featured_image = state.file
+            state.courseForm.course_id      = payload.course_id;
+            state.courseForm.status         = "Ready";
 
-            const saveURL = route('course.store')
+            const saveURL = route('user_course.subscribe')
             const { data } = await (state.courseForm.post(saveURL))
-            commit(types.SAVE_COURSE, { course: data.data })
+            commit(types.SUBSCRIBE_COURSE, { course: data.data })
             return data
         } catch (error) {
             state.loading = false
@@ -107,21 +90,16 @@ export const actions = {
         }
     },
 
-    async updateCourse ({ commit }, id) {
+    async processCourse ({ commit }, payload) {
         try {
             state.loading = true
-                
-            if (id) {
-                state.courseForm.id = id;
-            }
 
-            // convert is_embed into 1 : 0
-            let is_embed = state.courseForm.is_embed;
-            state.courseForm.is_embed = is_embed ? 1 : 0;
-            state.courseForm.featured_image = state.file
-            
-            const saveURL = route('course.update', id)
-            const { data } = await (state.courseForm.put(saveURL))
+            state.courseForm.course_id      = payload.course_id;
+            state.courseForm.status         = payload.status;
+
+            const { data } = await (state.courseForm.put(route('user_course.process')))
+
+            commit(types.FETCH_MY_COURSE, data)
             return data
         } catch (error) {
             state.loading = false
@@ -129,19 +107,7 @@ export const actions = {
         }
     },
 
-    async deleteCourse ({ commit }, id) {
-        try {
-            const { data } = await axios.delete(route('course.delete', id))
-            commit(types.DELETE_COURSE, id)
-            return data
-        } catch (error) {
-            state.loading = false
-            const { response } = error
-            return response.data
-        }
-    },
-
-    async setFeaturedImage({commit}, payload) {
-        commit(types.SET_COURSE_FEATURED_IMAGE, payload)
+    async setLoading ({ commit }, status) {
+        commit(types.SET_LOADING, status)
     }
 }

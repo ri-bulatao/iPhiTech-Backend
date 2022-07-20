@@ -47,12 +47,12 @@
                                         v-model="courseForm.is_embed"
                                         @change="videoChange"
                                     />
-                                    <label for="">Embed Video</label>
+                                    <label for="checkbox">Embed Youtube Video</label>
                                 </div>
                             </div>
 
                             <!-- Video URL -->
-                            <div class="mb-3 row" v-if = "isVideoEmbed">
+                            <div class="mb-3 row" v-if = "!isVideoEmbed">
                                 <label class="col-md-12">{{ $t('Video URL') }}</label>
                                 <div class="col-md-12">
                                     <input v-model="courseForm.video_url" :class="{ 'is-invalid': courseForm.errors.has('video_url') }" class="form-control" type="text" name="video_url">
@@ -60,11 +60,11 @@
                                 </div>
                             </div>
 
-                            <!-- Embed Code -->
+                            <!-- Youtube Video ID -->
                             <div class="mb-3 row" v-else>
-                                <label class="col-md-12">{{ $t('Embed Code') }}</label>
+                                <label class="col-md-12">{{ $t('Youtube Video ID') }}</label>
                                 <div class="col-md-12">
-                                    <textarea v-model="courseForm.embed_code" name="embed_code" id="embed_code" rows="3" class="form-control" :class="{ 'is-invalid': courseForm.errors.has('embed_code') }" placeholder=""></textarea>
+                                    <input v-model="courseForm.embed_code" :class="{ 'is-invalid': courseForm.errors.has('embed_code') }" class="form-control" type="text" name="embed_code">
                                     <has-error :form="courseForm" field="embed_code" />
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="mb-3 row">
                                 <label class="col-md-12">{{ $t('Featured Image') }}</label>
                                 <div class="col-md-12">
-                                    <input type="file" class="form-control" name="featured-image" @change="courseFeatureImageUpload">
+                                    <input type="file" class="form-control" name="book" @change="courseFeatureImageUpload">
                                     <has-error :form="courseForm" field="featured_image" />
                                 </div>
                             </div>
@@ -105,7 +105,7 @@ export default {
     middleware: 'admin',
 
     data: () => ({
-        isVideoEmbed: true,
+        isVideoEmbed: false,
         file: ''
     }),
 
@@ -133,14 +133,13 @@ export default {
         },
         videoChange() {
             this.isVideoEmbed = !this.isVideoEmbed
-            console.log(this.isVideoEmbed)
         },
         courseFeatureImageUpload(event) {
-            this.file = event.target.files[0];
-            let formData = new FormData()
-            formData.append('file', this.file)
+            let payload = {
+                featured_image: event.target.files[0]
+            }
 
-            this.$store.dispatch('courses/uploadImage', formData)
+            this.$store.dispatch('courses/setFeaturedImage', payload)
         },
     }
 }

@@ -6,6 +6,8 @@ export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
 export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
 export const UPDATE_USER = 'UPDATE_USER'
 
+export const SET_LOADING = 'SET_LOADING'
+
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
 
@@ -68,3 +70,9 @@ export const FETCH_ALL_COURSES = 'FETCH_ALL_COURSES'
 export const FETCH_COURSE = 'FETCH_COURSE'
 export const SAVE_COURSE = 'SAVE_COURSE'
 export const DELETE_COURSE = 'DELETE_COURSE'
+export const SET_COURSE_FEATURED_IMAGE = 'SET_COURSE_FEATURED_IMAGE'
+
+// user-course.js
+export const SUBSCRIBE_COURSE = 'SUBSCRIBE_COURSE'
+export const FETCH_USER_COURSES = 'FETCH_USER_COURSES'
+export const FETCH_MY_COURSE = 'FETCH_MY_COURSE'

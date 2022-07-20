@@ -54,3 +54,9 @@ export const course_list = 'admin.course.list'
 export const course_single = 'admin.course.single'
 export const course_create = 'admin.course.create'
 export const course_edit = 'admin.course.edit'
+
+// User Side Courses
+export const user_courses = 'courses'
+export const user_course_single = 'courses.single'
+export const my_courses = 'my-courses'
+export const my_single_course = 'my-course.single'

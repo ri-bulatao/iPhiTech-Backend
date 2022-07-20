@@ -22,7 +22,7 @@ class CreateUserCoursesTable extends Migration
             $table->foreign('course_id')
             ->references('id')->on('courses');
             $table->string('status')->default("Ready"); // Ready, Inprogress, Completed
-            $table->string('grade_status'); // Passed or Failed
+            $table->string('grade_status')->nullable(); // Passed or Failed
             $table->timestamps();
         });
     }

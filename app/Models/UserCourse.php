@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +17,25 @@ class UserCourse extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'user_id',
         'course_id',
         'status',
         'grade_status'
     ];
+
+    public function scopeFilter($query, $sortBy, $sortOrder)
+    {
+        return $query->orderBy($sortBy, $sortOrder)->get();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo('App\Models\Course', 'course_id');
+    }
 }
