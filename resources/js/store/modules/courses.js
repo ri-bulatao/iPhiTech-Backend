@@ -6,6 +6,7 @@ import Form from 'vform'
 export const state = {
     loading: false,
     courses: [],
+    comments: [],
     course: {},
     courseForm: new Form({
         course_category_id: '',
@@ -16,6 +17,10 @@ export const state = {
         embed_code: '',
         featured_image: ''
     }),
+    commentForm: new Form({
+        course_id: '',
+        comment: '',
+    }),
     file: ''
 }
 
@@ -23,8 +28,10 @@ export const state = {
 export const getters = {
     loading: state => state.loading,
     courses: state => state.courses,
+    comments: state => state.comments,
     course: state => state.course,
     courseForm: state => state.courseForm,
+    commentForm: state => state.commentForm,
 }
 
 // mutations
@@ -40,9 +47,9 @@ export const mutations = {
 
     [types.FETCH_COURSE] (state, {data}) {
         state.course = data
+        state.comments = data.comments
         state.loading = false
     },
-
     [types.SAVE_COURSE] (state, {course}) {
         const index = state.courses.findIndex(hb => hb.id === course.id)
         state.courseForm.reset()
@@ -56,6 +63,19 @@ export const mutations = {
 
         state.loading = false
     },
+    [types.POST_COMMENT] (state, {comment}) {
+        const index = state.comments.findIndex(hb => hb.id === comment.id)
+        state.commentForm.reset()
+
+        if (index !== -1) {
+            state.comments.splice(index, 1, comment)
+            state.comment = comment;
+        } else {
+            state.comments.unshift(comment)
+        }
+
+        state.loading = false
+    },
     [types.DELETE_COURSE] (state, id) {
         const index = state.courses.findIndex(_course => _course.id === id)
         if (index !== -1) {
@@ -63,6 +83,15 @@ export const mutations = {
         }
 
         state.course = {}
+    },
+
+    [types.DELETE_MY_COMMENT] (state, id) {
+        const index = state.comments.findIndex(_course => _course.id === id)
+        if (index !== -1) {
+            state.comments.splice(index, 1)
+        }
+
+        state.comment = {}
     }
 }
 
@@ -71,6 +100,7 @@ export const actions = {
 
     async fetchCourses ({ commit }) {
         try {
+            state.course = {}
             state.loading = true
             
             const { data } = await axios.get(route('course.list'))
@@ -114,6 +144,22 @@ export const actions = {
         }
     },
 
+    async postComment ({ commit }, payload) {
+        try {
+            state.loading = true
+
+            state.commentForm.course_id = payload.course_id;
+
+            const saveURL = route('course_comment.store')
+            const { data } = await (state.commentForm.post(saveURL))
+            commit(types.POST_COMMENT, { comment: data.data })
+            return data
+        } catch (error) {
+            state.loading = false
+            return state.commentForm.errors
+        }
+    },
+
     async updateCourse ({ commit }, id) {
         try {
             state.loading = true
@@ -145,6 +191,19 @@ export const actions = {
             state.loading = false
             const { response } = error
             return response.data
+        }
+    },
+
+    async removeComment ({ commit }, id) {
+        try {
+            state.loading = true
+
+            const { data } = await axios.delete(route('course_comment.delete', id))
+            commit(types.DELETE_MY_COMMENT, id)
+            return data
+        } catch (error) {
+            state.loading = false
+            console.log(error)
         }
     },
 

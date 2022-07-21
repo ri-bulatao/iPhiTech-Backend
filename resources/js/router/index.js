@@ -48,6 +48,36 @@ function createRouter () {
  * @param {Function} next
  */
 async function beforeEach (to, from, next) {
+  
+  // Authenticate Route
+  if( to.meta.requiresAuth ) {
+    const authUser = JSON.parse(window.localStorage.getItem('lbUser'))
+
+    if (!authUser || !authUser.token) {
+      next( {name: 'login'} )
+
+    } else if (to.meta.adminAuth) {
+      const authUser = JSON.parse(window.localStorage.getItem('lbUser'))
+
+      if (authUser.data.role_id === 'ADMIN') {
+        next()
+      }else{
+        next('/user')
+      }
+    } else if (to.meta.employeeAuth) {
+      const authUser = JSON.parse(window.localStorage.getItem('lbUser'))
+
+      if (authUser.data.role_id === 'EMPLOYEE') {
+        next()
+      }else{
+        next('/admin')
+      }
+    }
+  }else{
+    next()
+  }
+
+  // Default Middleware
   let components = []
 
   try {
@@ -87,7 +117,6 @@ async function beforeEach (to, from, next) {
     next(...args)
   })
 }
-
 /**
  * @param  {Array} components
  * @return {Promise<void>

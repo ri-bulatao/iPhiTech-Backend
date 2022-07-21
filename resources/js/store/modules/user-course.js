@@ -41,6 +41,15 @@ export const mutations = {
         state.course = data
         state.loading = false
     },
+
+    [types.DELETE_MY_COURSE] (state, id) {
+        const index = state.courses.findIndex(_course => _course.id === id)
+        if (index !== -1) {
+            state.courses.splice(index, 1)
+        }
+
+        state.course = {}
+    },
 }
 
 // actions
@@ -90,6 +99,19 @@ export const actions = {
         }
     },
 
+    async unSubscribeCourse ({ commit }, id) {
+        try {
+            state.loading = true
+
+            const { data } = await axios.delete(route('user_course.unsubscribe', id))
+            commit(types.DELETE_MY_COURSE, id)
+            return data
+        } catch (error) {
+            state.loading = false
+            return state.courseForm.errors
+        }
+    },
+
     async processCourse ({ commit }, payload) {
         try {
             state.loading = true
@@ -106,7 +128,7 @@ export const actions = {
             return state.courseForm.errors
         }
     },
-
+    
     async setLoading ({ commit }, status) {
         commit(types.SET_LOADING, status)
     }

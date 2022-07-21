@@ -53,7 +53,7 @@ class CourseController extends Controller
      */
     public function get($id): JsonResponse
     {
-        $course = CourseModel::with(['courseCategory', 'user', 'userCourse'])->find($id);
+        $course = CourseModel::with(['courseCategory', 'user', 'userCourse', 'comments', 'comments.user'])->find($id);
 
         return $this->result->success($course);
     }
@@ -63,7 +63,7 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request): JsonResponse
     {
-        $path = 'https://dummyimage.com/600x400/595959/ffffff&text=No+Image';
+        $file_path = 'https://dummyimage.com/600x400/595959/ffffff&text=No+Image';
         if ($request->file('featured_image')) {
             // Upload Featured Image File
             $file = $request->file('featured_image');

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-4 col-lg-4" v-for="course in courses" :key="course.id">
                     <router-link :to="{ name: 'courses.single', params: { id: course.id } }" class="card-link text-dark">
-                        <div class="card shadow-sm rounded">
+                        <div class="card shadow rounded">
                             <img :src="course.featured_image" class="card-img-top course-img" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ course.title }}</h5>

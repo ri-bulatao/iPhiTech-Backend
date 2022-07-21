@@ -30,6 +30,9 @@
                                         <button @click="deletePosition(position.id)" class="btn btn-danger btn-sm">Remove</button>
                                     </td>
                                 </tr>
+                                <tr class="no-data">
+                                    <td colspan="3" class="text-center">No data available in table</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

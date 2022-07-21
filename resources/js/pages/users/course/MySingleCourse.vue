@@ -9,8 +9,10 @@
                     <span class="badge bg-warning" v-else-if="status == 'Inprogress'">{{ status }}</span>
                     <span class="badge bg-success" v-else-if="status == 'Completed'">{{ status }}</span>
                 </p>
-                <p class="mt-4">{{ course.course.description }}</p>
+                <!-- <p class="mt-4">{{ course.course.description }}</p> -->
+                <div class="py-2" v-html="course.course.description"></div>
                 <button class="btn btn-primary" @click="startNow" v-if="status == 'Ready'">Start Now</button>
+                <button class="btn btn-danger" @click="unSubscribedConfirmation">Unsubscribed</button>
             </div>
         </div>
         <div class="row" v-if="status == 'Inprogress' || status == 'Completed'">
@@ -23,7 +25,7 @@
             <!-- <div class="quick-exam">
                 <h4>Quick Test</h4>
             </div> -->
-            <div class="col-md-12" v-if="status == 'Inprogress'">
+            <div class="col-md-6" v-if="status == 'Inprogress'">
                 <button class="btn btn-primary" @click="markAsComplete" v-if="status == 'Inprogress'">Mark as Complete</button>
             </div>
         </div>
@@ -32,6 +34,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { ToastSuccess, AlertQuestion  } from '~/config/alerts'
 
 export default {
 
@@ -82,6 +85,23 @@ export default {
             this.$store.dispatch('user-course/processCourse', payload).then(({data}) => {
                 this.status = "Completed"
             });
+        },
+        unSubscribedConfirmation(){
+            AlertQuestion('Are you sure?', 'You won\'t be able to revert this!', true, 'Yes, delete it!')
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.unSubscribed();
+                }
+            })
+        },
+        unSubscribed() {
+            this.$store.dispatch('user-course/unSubscribeCourse', this.id).then(({message}) => {
+                ToastSuccess("Successfull!", message);
+                this.redirect();
+            });
+        },
+        redirect() {
+            this.$router.push({ name: 'my-courses' })
         }
     }
 }
