@@ -21,7 +21,10 @@
                             <div class="mb-3 row">
                                 <label class="col-md-12">{{ $t('description') }}</label>
                                 <div class="col-md-12">
-                                    <textarea v-model="courseForm.description" name="description" id="description" rows="3" class="form-control" :class="{ 'is-invalid': courseForm.errors.has('description') }" placeholder=""></textarea>
+                                    <!-- <textarea v-model="courseForm.description" name="description" id="description" rows="3" class="form-control" :class="{ 'is-invalid': courseForm.errors.has('description') }" placeholder=""></textarea> -->
+                                    <vue-editor id="editor"
+                                    useCustomImageHandler
+                                    v-model="courseForm.description"></vue-editor>
                                     <has-error :form="courseForm" field="description" />
                                 </div>
                             </div>
@@ -98,11 +101,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { VueEditor } from 'vue2-editor'
 import { ToastSuccess, ToastError } from '~/config/alerts'
 
 export default {
 
     middleware: 'admin',
+
+    components: { VueEditor },
 
     data: () => ({
         isVideoEmbed: true,

@@ -53,7 +53,7 @@ class CourseController extends Controller
      */
     public function get($id): JsonResponse
     {
-        $course = CourseModel::with(['courseCategory', 'user', 'userCourse'])->find($id);
+        $course = CourseModel::with(['courseCategory', 'user', 'userCourse', 'comments', 'comments.user'])->find($id);
 
         return $this->result->success($course);
     }

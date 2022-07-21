@@ -26,10 +26,13 @@
                                         <router-link 
                                             class="btn btn-primary btn-sm" 
                                             :to="{ name: 'admin.course.category.single', params: {id: course_category.id} }"
-                                        > View </router-link>
-                                        <router-link :to="{ name: 'admin.course.category.edit', params: { id: course_category.id } }" class="btn btn-warning btn-sm">Edit</router-link>
-                                        <a @click="() => deleteReady(course_category.id)" href="javascript:void(0)" class="btn btn-danger btn-sm">Delete</a>
+                                        > <fa icon="eye" /></router-link>
+                                        <router-link :to="{ name: 'admin.course.category.edit', params: { id: course_category.id } }" class="btn btn-warning btn-sm"><fa icon="pencil-alt" /></router-link>
+                                        <a @click="() => deleteReady(course_category.id)" href="javascript:void(0)" class="btn btn-danger btn-sm"><fa icon="trash" /></a>
                                     </td>
+                                </tr>
+                                <tr class="no-data">
+                                    <td colspan="3" class="text-center">No data available in table</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -64,7 +67,7 @@ export default {
                         ToastSuccess('Deleted!', res.message)
                         this.$store.dispatch('course-categories/fetchCourseCategories')
                     }else{
-                        ToastError("Warning!", "This category attached one of the courses.")
+                        ToastError("Can't Delete", "This category is attached one of the courses.")
                     }
                     
                 })

@@ -24,7 +24,7 @@ class CreateCoursesTable extends Migration
             $table->foreign('course_category_id')
             ->references('id')->on('course_categories');
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('video_url')->nullable();
             $table->tinyInteger('is_embed')->default(1);
             $table->string('embed_code')->nullable();

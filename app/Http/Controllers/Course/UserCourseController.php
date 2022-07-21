@@ -34,7 +34,7 @@ class UserCourseController extends Controller
      */
     public function index(): JsonResponse
     {
-        $courses = UserCourseModel::with(['user', 'course', 'course.courseCategory'])->filter('id', 'DESC');
+        $courses = UserCourseModel::with(['user', 'course', 'course.courseCategory'])->where("user_id", $this->user->id)->filter('id', 'DESC');
 
         return $this->result->success($courses);
     }
@@ -71,6 +71,22 @@ class UserCourseController extends Controller
         $course->save();
 
         return $this->result->created($course, 'Successfully subscribed!');
+    }
+
+    /**
+     * For unsubscribing Course of user, usually removing them to the user_course table.
+     */
+    public function unsubscribe($id): JsonResponse
+    {
+        $user_course = UserCourseModel::find($id);
+
+        if (! $user_course) {
+            return $this->result->notFound();
+        }
+
+        $user_course->delete();
+
+        return $this->result->success($user_course, 'Course has been removed to your subscription!');
     }
 
     /**

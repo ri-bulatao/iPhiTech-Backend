@@ -28,6 +28,9 @@
                                 <a @click="() => deleteReady(announcement.id)" href="javascript:void(0)" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
+                        <tr class="no-data">
+                            <td colspan="5" class="text-center">No data available in table</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

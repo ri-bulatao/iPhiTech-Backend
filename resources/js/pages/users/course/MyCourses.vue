@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-4 col-lg-4" v-for="item in courses" :key="item.id">
                     <router-link :to="{ name: 'my-course.single', params: { id: item.id } }" class="card-link text-dark">
-                        <div class="card shadow-sm rounded">
+                        <div class="card shadow rounded">
                             <img :src="item.course.featured_image" class="card-img-top course-img" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.course.title }}</h5>
@@ -20,6 +20,10 @@
                             </div>
                         </div>
                     </router-link>
+                </div>
+                <div class="col-md-12" v-if="courses.length <= 0">
+                    <p>You don't have subscription yet.</p>
+                    <router-link :to="{ name: 'courses' }" class="btn btn-success">Choose your Course</router-link>
                 </div>
             </div>
         </div>

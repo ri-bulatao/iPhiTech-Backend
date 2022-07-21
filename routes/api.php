@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Course\CourseCategoryController;
 use App\Http\Controllers\Course\CourseController;
 use App\Http\Controllers\Course\UserCourseController;
+use App\Http\Controllers\Course\CourseCommentController;
 use App\Http\Controllers\Handbook\HandbookController;
 use App\Http\Controllers\Handbook\HandbookPageController;
 use App\Http\Controllers\LeaveApplication\LeaveApplicationsController;
@@ -190,7 +191,18 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/', [UserCourseController::class, 'index'])->name('list');
             Route::get('/{id}', [UserCourseController::class, 'get'])->name('single');
             Route::post('/subscribe', [UserCourseController::class, 'subscribe'])->name('subscribe');
+            Route::delete('/unsubscribe/{id}', [UserCourseController::class, 'unsubscribe'])->name('unsubscribe');
             Route::put('/process', [UserCourseController::class, 'process'])->name('process');
+        });
+
+    /**
+     * User Courses.
+     */
+    Route::name('course_comment.')
+        ->prefix('course_comment')
+        ->group(function () {
+            Route::post('/post', [CourseCommentController::class, 'store'])->name('store');
+            Route::delete('/{id}', [CourseCommentController::class, 'destroy'])->name('delete');
         });
 });
 
