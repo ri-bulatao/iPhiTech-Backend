@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CourseCommentRequest;
 use App\Models\CourseComment as CourseCommentModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Http\Requests\CourseCommentRequest;
 
 class CourseCommentController extends Controller
 {
@@ -35,11 +34,10 @@ class CourseCommentController extends Controller
      */
     public function store(CourseCommentRequest $request): JsonResponse
     {
-
         $course_comment = new CourseCommentModel([
             'user_id'           => $this->user->id,
             'course_id'         => $request->input('course_id'),
-            'comment'           => $request->input('comment') 
+            'comment'           => $request->input('comment'),
         ]);
 
         $course_comment->save();
