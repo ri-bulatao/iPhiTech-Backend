@@ -24,6 +24,14 @@ export const mutations = {
 
   [types.FETCH_USER_SUCCESS] (state, { user }) {
     state.user = user
+    // store user to localstorage
+    const authUser = {
+      token: state.token,
+      data: {
+        role_id: user.is_admin ? 'ADMIN' : 'EMPLOYEE'
+      }
+    }
+    window.localStorage.setItem('lbUser', JSON.stringify(authUser))
   },
 
   [types.FETCH_USER_FAILURE] (state) {
@@ -35,6 +43,7 @@ export const mutations = {
     state.user = null
     state.token = null
 
+    window.localStorage.removeItem('lbUser')
     Cookies.remove('token')
   },
 
