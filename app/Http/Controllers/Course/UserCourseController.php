@@ -34,7 +34,7 @@ class UserCourseController extends Controller
      */
     public function index(): JsonResponse
     {
-        $courses = UserCourseModel::with(['user', 'course', 'course.courseCategory'])->where("user_id", $this->user->id)->filter('id', 'DESC');
+        $courses = UserCourseModel::with(['user', 'course', 'course.courseCategory'])->where('user_id', $this->user->id)->filter('id', 'DESC');
 
         return $this->result->success($courses);
     }

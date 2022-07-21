@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +23,7 @@ class CreateCourseCommentsTable extends Migration
             $table->unsignedBigInteger('course_id')->unsigned();
             $table->foreign('course_id')
             ->references('id')->on('courses');
-            $table->longText("comment");
+            $table->longText('comment');
             $table->timestamps();
         });
     }

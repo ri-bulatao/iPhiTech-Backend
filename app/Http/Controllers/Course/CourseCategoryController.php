@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseCategoryRequest;
-use App\Models\CourseCategory as CourseCategoryModel;
 use App\Models\Course as CourseModel;
+use App\Models\CourseCategory as CourseCategoryModel;
 use App\Utilities\Result;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -83,7 +83,7 @@ class CourseCategoryController extends Controller
         }
 
         // Check if the category to delete have been used to courses
-        $course = CourseModel::where("course_category_id", $id)->firstOrFail();
+        $course = CourseModel::where('course_category_id', $id)->firstOrFail();
         if ($course) {
             return $this->result->validationError();
         }
